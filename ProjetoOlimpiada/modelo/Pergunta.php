@@ -49,11 +49,11 @@ class Pergunta {
     }
     
      public function addAlternativas($alternativa,$eh_certa){
-        $alternativa = new Alternativa($alternativa, $eh_certa);
+        $alt = new Alternativa($alternativa, $eh_certa);
         if(strcasecmp($eh_certa, "true")){
             $alternativas[] = array('true' => $alternativa);
         }else{
-            $alternativas[] = $alternativa;
+            $alternativas[] = $alt;
         }   
     }
     

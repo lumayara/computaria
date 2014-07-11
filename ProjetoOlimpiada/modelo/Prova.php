@@ -38,17 +38,12 @@ class Prova {
         $this->nivel = $nivel;
     }
     
-     public function addPerguntas($perguntas){
-        $alternativa = new Alternativa($alternativa, $eh_certa);
-        if(strcasecmp($eh_certa, "true")){
-            $alternativas[] = array('true' => $alternativa);
-        }else{
-            $alternativas[] = $alternativa;
-        }   
+     public function addPerguntas($pergunta, $topico){
+         $this->perguntas[] = new Pergunta($pergunta, $topico);
     }
     
-    public function getAlternativas() {
-        return $this->alternativas;
+    public function getPerguntas() {
+        return $this->perguntas;
         
     }
 }
