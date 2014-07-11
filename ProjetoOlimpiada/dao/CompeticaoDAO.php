@@ -7,28 +7,26 @@
  */
 
 /**
- * Description of AdministradorDAO
+ * Description of CompeticaoDAO
  *
  * @author Luana
  */
-require_once '../conexao/ConnectionFactory.php';
-require_once '../modelo/Administrador.php';
-class AdministradorDAO {
-     private $conexao;
+class CompeticaoDAO {
+    private $conexao;
     
     public function __construct() {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addAdministrador(Administrador $admin) {
+    public function addCompeticao(Competicao $comp) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO ADMINISTRATOR (email, senha)"
-                    . "VALUES (:email, :senha)");
-            $vetorUser = array($admin->getEmail(), $admin->getSenha());
+            $stmt = $this->conexao->prepare("INSERT INTO COMPETITION (nome, data_realizacao)"
+                    . "VALUES (:nome, :data_realizacao)");
+            $vetorUser = array($comp->getNome(), $comp->getData());
             
-            $stmt->bindParam(":email", $vetorUser[0]);
-            $stmt->bindParam(":senha", $vetorUser[1]);
+            $stmt->bindParam(":nome", $vetorUser[0]);
+            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -40,16 +38,16 @@ class AdministradorDAO {
         return $adicionado;
         }
         
-   public function updateAdm(Administrador $admin){
+   public function updateComp(Competicao $comp){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE ADMINISTRATOR SET email = :email, "
-                    . "senha = :senha WHERE id = :id");
+            $stmt = $this->conexao->prepare("UPDATE COMPETITION SET nome = :nome, "
+                    . "data_realizacao = :data_realizacao WHERE id = :id");
             
-            $vetorUser = array($admin->getEmail(), $admin->getSenha());
+            $vetorUser = array($comp->getNome(), $comp->getData());
             
-            $stmt->bindParam(":email", $vetorUser[0]);
-            $stmt->bindParam(":senha", $vetorUser[1]);
+            $stmt->bindParam(":nome", $vetorUser[0]);
+            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
            
             $resultado = $stmt->execute();
             if($resultado){
@@ -61,10 +59,10 @@ class AdministradorDAO {
         return $atualizado;
     }
     
-    public function removeAdm($id){
+    public function removeCompeticao($id){
         $removido = false;
         try {
-            $stmt = $this->conexao->prepare("DELETE FROM ADMINISTRATOR WHERE id = :id");
+            $stmt = $this->conexao->prepare("DELETE FROM COMPETITION WHERE id = :id");
             $stmt->bindParam(":id", $id);
             $resultado = $stmt->execute();
             if($resultado){
@@ -74,5 +72,5 @@ class AdministradorDAO {
             echo $e->getMessage();
         }
         return $removido;
-    }     
+    } 
 }

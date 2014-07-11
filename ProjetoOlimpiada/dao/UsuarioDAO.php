@@ -57,7 +57,7 @@ class UsuarioDAO {
     
     public function getUsuario($id){
         try {
-            $stmt = $this->conexao->prepare("SELECT id, nome, email FROM PARTICIPANT WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT nome, email, turma FROM PARTICIPANT WHERE id = :id");
             $stmt->bindParam(":id", $id);
             
             $stmt->execute();
@@ -110,7 +110,7 @@ class UsuarioDAO {
      public function validaUsuario($email, $senha) {
         $valido = FALSE;
         try{
-            $stmt = $this->conexao->prepare("SELECT nome, turma FROM USUARIO WHERE email =:email and senha =:senha");
+            $stmt = $this->conexao->prepare("SELECT nome, turma,email FROM USUARIO WHERE email =:email and senha =:senha");
             $stmt->bindParam(":email", $email);
             $stmt->bindParam(":senha", $senha);
             

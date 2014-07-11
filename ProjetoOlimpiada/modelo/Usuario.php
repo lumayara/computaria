@@ -19,7 +19,7 @@ class Usuario {
     private $turma;
     private $competicao;
             
-    function __construct($id, $nome, $email, $senha, $turma, $competicao) {
+    function __construct($id, $nome, $email, $senha, $turma) {
         $this->id = $id;
         $this->nome = $nome;
         $this->email = $email;
@@ -72,4 +72,9 @@ class Usuario {
     public function getCompeticao() {
         return $this->competicao->getId();    
     }
+    
+    public function setCompeticao($id_competicao) {
+        $this->competicao->$id_competicao;    
+    }
 }
+
