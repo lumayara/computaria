@@ -23,14 +23,15 @@ class UsuarioDAO {
     public function addUsuario(Usuario $usuario) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT (nome, email, senha, turma)"
-                    . "VALUES (:nome, :email, :senha, :turma)");
-            $vetorUser = array($usuario->getNome(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getNickname());
+            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT (nome, email, senha, turma, id_competicao)"
+                    . "VALUES (:nome, :email, :senha, :turma, :id_competicao)");
+            $vetorUser = array($usuario->getNome(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getNickname(), $usuario->getCompeticao());
             
             $stmt->bindParam(":nome", $vetorUser[0]);
             $stmt->bindParam(":email", $vetorUser[1]);
             $stmt->bindParam(":senha", $vetorUser[2]);
             $stmt->bindParam(":turma", $vetorUser[3]);
+            $stmt->bindParam(":id_competicao", $vetorUser[4]);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -45,7 +46,7 @@ class UsuarioDAO {
 
     public function listarParticipantes() {
             try{
-        $stmt = $this->conexao->prepare("SELECT nome, turma FROM PARTICIPANT");
+        $stmt = $this->conexao->prepare("SELECT nome, turma, id_competicao FROM PARTICIPANT");
         
         $stmt->execute();
         }catch (PDOException $e){
@@ -57,7 +58,7 @@ class UsuarioDAO {
     
     public function getUsuario($id){
         try {
-            $stmt = $this->conexao->prepare("SELECT nome, email, turma FROM PARTICIPANT WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT nome, email, turma, id_competicao FROM PARTICIPANT WHERE id = :id");
             $stmt->bindParam(":id", $id);
             
             $stmt->execute();
@@ -72,15 +73,17 @@ class UsuarioDAO {
         $atualizado=FALSE;
         try{
             $stmt = $this->conexao->prepare("UPDATE PARTICIPANT SET nome = :nome, email = :email, "
-                    . "senha = :senha, turma = :turma  WHERE id= :id");
+                    . "senha = :senha, turma = :turma, id_competicao = :id_competicao  WHERE id= :id");
             
             $vetorUser = array($usuario->getNome(),$usuario->getEmail(), $usuario->getSenha,
-                 $usuario->getTurma());
+                 $usuario->getTurma(), $usuario->getCompeticao(), $usuario->getID());
             
             $stmt->bindParam(":nome", $vetorUser[0]);
             $stmt->bindParam(":email", $vetorUser[1]);
             $stmt->bindParam(":senha", $vetorUser[2]);
             $stmt->bindParam(":turma", $vetorUser[3]);
+            $stmt->bindParam(":id_competicao", $vetorUser[4]);
+            $stmt->bindParam(":id", $vetorUser[5]);
            
             $resultado = $stmt->execute();
             if($resultado){
@@ -125,4 +128,6 @@ class UsuarioDAO {
         }
         return $valido;    
     }
+    
+    
 }

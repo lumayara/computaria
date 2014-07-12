@@ -7,28 +7,29 @@
  */
 
 /**
- * Description of CompeticaoDAO
+ * Description of Alternativa
  *
  * @author Luana
  */
 include_once '../conexao/ConnectionFactory.php';
-include_once '../modelo/Competicao.php';
-class CompeticaoDAO {
+include_once '../modelo/Alternativa.php';
+class AlternativaDAO {
     private $conexao;
     
     public function __construct() {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addCompeticao(Competicao $comp) {
+    public function addAlternativa(Alternativa $alternativa, $id_pergunta) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO COMPETITION (nome, data_realizacao)"
-                    . "VALUES (:nome, :data_realizacao)");
-            $vetorUser = array($comp->getNome(), $comp->getData());
+            $stmt = $this->conexao->prepare("INSERT INTO CHOICES (alternativa, eh_resposta, id_question)"
+                    . "VALUES (:alternativa, :eh_resposta, :id_question)");
+            $vetorUser = array($alternativa->getAlternativa(), $alternativa->getEh_certa());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
-            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
+            $stmt->bindParam(":alternativa", $vetorUser[0]);
+            $stmt->bindParam(":eh_resposta", $vetorUser[1]);
+            $stmt->bindParam(":id_question", $id_pergunta);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -40,16 +41,16 @@ class CompeticaoDAO {
         return $adicionado;
         }
         
-   public function updateComp(Competicao $comp){
+   public function updateAlternativa(Alternativa $alternativa){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE COMPETITION SET nome = :nome, "
-                    . "data_realizacao = :data_realizacao WHERE id = :id");
+            $stmt = $this->conexao->prepare("UPDATE CHOICES SET alternativa = :alternativa, "
+                    . "eh_resposta = :eh_resposta WHERE id = :id");
             
-            $vetorUser = array($comp->getNome(), $comp->getData(), $comp->getId());
+            $vetorUser = array($alternativa->getAlternativa(), $alternativa->getEh_certa(), $alternativa->getID());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
-            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
+            $stmt->bindParam(":alternativa", $vetorUser[0]);
+            $stmt->bindParam(":eh_resposta", $vetorUser[1]);
             $stmt->bindParam(":id", $vetorUser[2]);
             
             $resultado = $stmt->execute();
@@ -62,10 +63,10 @@ class CompeticaoDAO {
         return $atualizado;
     }
     
-    public function removeCompeticao($id){
+    public function removeAlternativa($id){
         $removido = false;
         try {
-            $stmt = $this->conexao->prepare("DELETE FROM COMPETITION WHERE id = :id");
+            $stmt = $this->conexao->prepare("DELETE FROM CHOICES WHERE id = :id");
             $stmt->bindParam(":id", $id);
             $resultado = $stmt->execute();
             if($resultado){
@@ -75,5 +76,5 @@ class CompeticaoDAO {
             echo $e->getMessage();
         }
         return $removido;
-    } 
+    }
 }

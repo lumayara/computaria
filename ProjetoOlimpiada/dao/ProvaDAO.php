@@ -7,28 +7,28 @@
  */
 
 /**
- * Description of CompeticaoDAO
+ * Description of ProvaDAO
  *
  * @author Luana
  */
 include_once '../conexao/ConnectionFactory.php';
-include_once '../modelo/Competicao.php';
-class CompeticaoDAO {
+include_once '../modelo/Prova.php';
+class ProvaDAO {
     private $conexao;
     
     public function __construct() {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addCompeticao(Competicao $comp) {
+    public function addProva(Prova $prova) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO COMPETITION (nome, data_realizacao)"
-                    . "VALUES (:nome, :data_realizacao)");
-            $vetorUser = array($comp->getNome(), $comp->getData());
+            $stmt = $this->conexao->prepare("INSERT INTO TEST (nivel, id_competicao)"
+                    . "VALUES (:nivel, :id_competicao)");
+            $vetorUser = array($prova->getNivel(), $prova->getCompeticao());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
-            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
+            $stmt->bindParam(":nivel", $vetorUser[0]);
+            $stmt->bindParam(":id_competicao", $vetorUser[1]);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -40,18 +40,17 @@ class CompeticaoDAO {
         return $adicionado;
         }
         
-   public function updateComp(Competicao $comp){
+   public function updateProva(Prova $prova){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE COMPETITION SET nome = :nome, "
-                    . "data_realizacao = :data_realizacao WHERE id = :id");
+            $stmt = $this->conexao->prepare("UPDATE TEST SET nivel = :nivel, "
+                    . "id_competicao = :id_competicao WHERE nivel = :nivel");
             
-            $vetorUser = array($comp->getNome(), $comp->getData(), $comp->getId());
+            $vetorUser = array($prova->getNivel(), $prova->getCompeticao());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
-            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
-            $stmt->bindParam(":id", $vetorUser[2]);
-            
+            $stmt->bindParam(":nivel", $vetorUser[0]);
+            $stmt->bindParam(":id_competicao", $vetorUser[1]);
+           
             $resultado = $stmt->execute();
             if($resultado){
                 $atualizado = TRUE;
@@ -62,11 +61,11 @@ class CompeticaoDAO {
         return $atualizado;
     }
     
-    public function removeCompeticao($id){
+    public function removeProva($nivel){
         $removido = false;
         try {
-            $stmt = $this->conexao->prepare("DELETE FROM COMPETITION WHERE id = :id");
-            $stmt->bindParam(":id", $id);
+            $stmt = $this->conexao->prepare("DELETE FROM TEST WHERE nivel = :nivel");
+            $stmt->bindParam(":nivel", $nivel);
             $resultado = $stmt->execute();
             if($resultado){
                 $removido = true;

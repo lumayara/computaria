@@ -15,14 +15,12 @@ class Alternativa {
     private $id;
     private $alternativa;
     private $eh_certa;
-    private $pergunta;
 
 
-    public function __construct($id, $alternativa, $eh_certa, $pergunta) {
+    public function __construct($id, $alternativa, $eh_certa) {
         $this->id = $id;
         $this->alternativa = $alternativa;
         $this->eh_certa = $eh_certa;
-        $this->pergunta = new Pergunta();
     }
     public function getID() {
         return $this->alternativa;
@@ -47,9 +45,6 @@ class Alternativa {
      public function setID($id) {
         $this->id = $id;
     }
-    
-     public function getPergunta() {
-        return $this->pergunta->getId();
-    }
+  
 }
  

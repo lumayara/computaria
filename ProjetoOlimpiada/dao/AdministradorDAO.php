@@ -46,10 +46,11 @@ class AdministradorDAO {
             $stmt = $this->conexao->prepare("UPDATE ADMINISTRATOR SET email = :email, "
                     . "senha = :senha WHERE id = :id");
             
-            $vetorUser = array($admin->getEmail(), $admin->getSenha());
+            $vetorUser = array($admin->getEmail(), $admin->getSenha(), $admin->getID());
             
             $stmt->bindParam(":email", $vetorUser[0]);
             $stmt->bindParam(":senha", $vetorUser[1]);
+            $stmt->bindParam(":id", $vetorUser[2]);
            
             $resultado = $stmt->execute();
             if($resultado){

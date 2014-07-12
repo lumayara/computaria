@@ -7,28 +7,29 @@
  */
 
 /**
- * Description of CompeticaoDAO
+ * Description of PerguntaDAO
  *
  * @author Luana
  */
 include_once '../conexao/ConnectionFactory.php';
-include_once '../modelo/Competicao.php';
-class CompeticaoDAO {
+include_once '../modelo/Pergunta.php';
+class PerguntaDAO {
     private $conexao;
     
     public function __construct() {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addCompeticao(Competicao $comp) {
+    public function addPergunta(Pergunta $pergunta, $nivel) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO COMPETITION (nome, data_realizacao)"
-                    . "VALUES (:nome, :data_realizacao)");
-            $vetorUser = array($comp->getNome(), $comp->getData());
+            $stmt = $this->conexao->prepare("INSERT INTO QUESTIONS (pergunta, topico, nivel_prova)"
+                    . "VALUES (:pergunta, :topico, :nivel_prova)");
+            $vetorUser = array($pergunta->getPergunta(), $pergunta->getTopico());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
-            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
+            $stmt->bindParam(":pergunta", $vetorUser[0]);
+            $stmt->bindParam(":topico", $vetorUser[1]);
+            $stmt->bindParam(":nivel_prova", $nivel);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -40,18 +41,18 @@ class CompeticaoDAO {
         return $adicionado;
         }
         
-   public function updateComp(Competicao $comp){
+   public function updatePergunta(Pergunta $pergunta){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE COMPETITION SET nome = :nome, "
-                    . "data_realizacao = :data_realizacao WHERE id = :id");
+            $stmt = $this->conexao->prepare("UPDATE QUESTIONS SET pergunta = :pergunta, "
+                    . "topico = :topico WHERE id = :id");
             
-            $vetorUser = array($comp->getNome(), $comp->getData(), $comp->getId());
+            $vetorUser = array($pergunta->getPergunta(), $pergunta->getTopico(), $pergunta->getId());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
-            $stmt->bindParam(":data_realizacao", $vetorUser[1]);
-            $stmt->bindParam(":id", $vetorUser[2]);
-            
+            $stmt->bindParam(":pergunta", $vetorUser[0]);
+            $stmt->bindParam(":topico", $vetorUser[1]);
+            $stmt->bindParam(":id", $vetorUser[1]);
+           
             $resultado = $stmt->execute();
             if($resultado){
                 $atualizado = TRUE;
@@ -62,10 +63,10 @@ class CompeticaoDAO {
         return $atualizado;
     }
     
-    public function removeCompeticao($id){
+    public function removePergunta($id){
         $removido = false;
         try {
-            $stmt = $this->conexao->prepare("DELETE FROM COMPETITION WHERE id = :id");
+            $stmt = $this->conexao->prepare("DELETE FROM QUESTIONS WHERE id = :id");
             $stmt->bindParam(":id", $id);
             $resultado = $stmt->execute();
             if($resultado){
@@ -77,3 +78,4 @@ class CompeticaoDAO {
         return $removido;
     } 
 }
+

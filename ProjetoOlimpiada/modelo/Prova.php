@@ -12,26 +12,27 @@
  * @author Luana
  */
 class Prova {
-    private $id;
+    private $competicao;
     private $nivel;
     private $perguntas;
+    
             
-    function __construct($id, $nivel) {
+    function __construct($nivel, $competicao) {
         $this->nivel = $nivel;
-        $this->id = $id;
+        $this->competicao = $competicao;
         $this->perguntas = array();
     }
     
-    public function getId() {
-        return $this->id;
+    public function getCompeticao() {
+        return $this->competicao;
     }
 
     public function getNivel() {
         return $this->nivel;
     }
     
-     public function setId($id) {
-        $this->id = $id;
+     public function setCompeticao($competicao) {
+        $this->competicao = $competicao;
     }
     
     public function setNivel($nivel) {
