@@ -13,14 +13,12 @@
  */
 class Administrador{
     private $id;
-    private $nome;
     private $email;
     private $senha;
 
     
-    function __construct($id, $nome, $email, $senha) {
+    function __construct($id, $email, $senha) {
         $this->id = $id;
-        $this->nome = $nome;
         $this->email = $email;
         $this->senha = $senha;              
     }
@@ -28,11 +26,7 @@ class Administrador{
     public function getID() {
         return $this->id;
     }
-    
-    public function getNome() {
-        return $this->nome;
-    }
-    
+ 
     public function getEmail() {
         return $this->email;
     }
@@ -44,11 +38,7 @@ class Administrador{
     public function setID($id) {
         $this->id = $id;
     }
-    
-    public function setNome($nome) {
-        $this->nome = $nome;
-    }
-    
+ 
     public function setEmail($email) {
         $this->email = $email;
     }

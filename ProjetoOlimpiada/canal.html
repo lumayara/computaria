@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Olimpif</a>
+                <a class="navbar-brand" href="index.html">WidIF</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -55,67 +55,118 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-           
+            <div class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">                        
+                        <li>
+                            <a href="index.html"><i class="fa fa-home fa-fw"></i> Início</a>
+                        </li>
+                        <li>
+                            <a href="canais.html"><i class="fa fa-comments-o fa-fw"></i> Canais</a>
+                        </li>
+                        <li>
+                            <a href="configuracoes.html"><i class="fa fa-cog fa-fw"></i> Configurações</a>
+                        </li>                        
+                    </ul>
+                    <!-- /#side-menu -->
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
         </nav>
 
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa  fa-pencil-square-o fa-fw"></i>Questionário</h1>
+                    <h1 class="page-header"><i class="fa fa-comments-o fa-fw"></i>Canal X</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-           <div class="row">
+            <div class="row">
                 <div class="col-lg-8">
                     <div class="chat-panel panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa  fa-file-text-o fa-fw"></i>
-                            Questao 1                   
+                            <i class="fa fa-comments-o fa-fw"></i>
+                            Chat                    
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <ul id="chat" class="chat">
-                                <!-- Bloco da mensagem-->
+                            <ul class="chat">
+                            <!-- Bloco da mensagem-->
                                 <li class="left clearfix">
-                                    
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Para este algoritmo o que está faltando?</strong> 
-                                 
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                            </small>
                                         </div>
-                                        <p>algoritmo...</p>
-                                    </div>
-                                </li>
-                                <!-- Fim Bloco da mensagem-->    
-                                <li class="right clearfix">
-                                   
-                                    <div class="chat-body clearfix">
-                                        
                                         <p>
-                                            Respostas:</p>
-                                        <p>a)</p>
-                                        <p>b)</p>
-                                        <p>c)</p>
-                                        <p>d)</p>
-                                        <p>e)</p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
                                     </div>
                                 </li>
-                                
+                            <!-- Fim Bloco da mensagem-->    
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong> 
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
-                                <form role="form" method="post" id="form" action="javascript:void(0)">
-                                    <input type="hidden" value="<?=$idcanal?>" id="canal" />
-                                    <input type="hidden" value="<?=$usuario?>" id="usuario" />
-
-                                    <span class="input-group-btn">
-                                        <input type="submit" class="btn btn-warning btn-sm" id="btn-chat" value="Submeter"/>
-                                    </span>
-                                   
-                                </form>
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Digite sua mensagem aqui..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Enviar
+                                    </button>
+                                </span>
                             </div>
                         </div>
                         <!-- /.panel-footer -->
@@ -126,54 +177,54 @@
                 <div class="col-lg-4">
                     <div class="scroll-panel panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-users fa-fw"></i> Ranking
+                            <i class="fa fa-users fa-fw"></i> Usuários
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 1
-                                    <span class="pull-right text-muted small"><em>58 pontos</em>
+                                    <span class="pull-right text-muted small"><em>online</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 2
-                                    <span class="pull-right text-muted small"><em>57 pontos</em>
+                                    <span class="pull-right text-muted small"><em>online</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 3
-                                    <span class="pull-right text-muted small"><em>48 pontos</em>
+                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 4
-                                    <span class="pull-right text-muted small"><em>45 pontos</em>
+                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 5
-                                    <span class="pull-right text-muted small"><em>40 pontos</em>
+                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 6
-                                    <span class="pull-right text-muted small"><em>40 pontos</em>
+                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 7
-                                    <span class="pull-right text-muted small"><em>38 pontos</em>
+                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 8
-                                    <span class="pull-right text-muted small"><em>37 pontos</em>
+                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
                                     </span>
                                 </a>
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-child fa-fw"></i> Usuário 9
-                                    <span class="pull-right text-muted small"><em>36 pontos</em>
+                                    <span class="pull-right text-muted small"><em>Yesterday</em>
                                     </span>
                                 </a>
                             </div>

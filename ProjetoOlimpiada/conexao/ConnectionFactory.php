@@ -19,7 +19,7 @@ class ConnectionFactory {
     
     public static function getInstance(){
         if(self::$pdo == null){
-            self::$pdo = new PDO('mysql:host=localhost;dbname=widif', self::$user, self::$password);
+            self::$pdo = new PDO('mysql:host=localhost;dbname=olimpiada', self::$user, self::$password);
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         return self::$pdo;
