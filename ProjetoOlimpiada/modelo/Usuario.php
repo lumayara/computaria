@@ -19,7 +19,7 @@ class Usuario {
     private $turma;
     private $competicao;
             
-    function __construct($id, $nome, $email, $senha, $competicao) {
+    function __construct($id, $nome, $email, $senha,$turma, $competicao) {
         $this->id = $id;
         $this->nome = $nome;
         $this->email = $email;

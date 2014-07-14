@@ -25,7 +25,7 @@ class UsuarioDAO {
         try {
             $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT (nome, email, senha, turma, id_competicao)"
                     . "VALUES (:nome, :email, :senha, :turma, :id_competicao)");
-            $vetorUser = array($usuario->getNome(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getNickname(), $usuario->getCompeticao());
+            $vetorUser = array($usuario->getNome(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getTurma(), $usuario->getCompeticao());
             
             $stmt->bindParam(":nome", $vetorUser[0]);
             $stmt->bindParam(":email", $vetorUser[1]);
@@ -98,7 +98,7 @@ class UsuarioDAO {
     public function removeUsuario($id){
         $removido = false;
         try {
-            $stmt = $this->conexao->prepare("DELETE FROM USUARIO WHERE id = :id");
+            $stmt = $this->conexao->prepare("DELETE FROM PARTICIPANT WHERE id = :id");
             $stmt->bindParam(":id", $id);
             $resultado = $stmt->execute();
             if($resultado){
@@ -111,23 +111,19 @@ class UsuarioDAO {
     }  
     
      public function validaUsuario($email, $senha) {
-        $valido = FALSE;
         try{
-            $stmt = $this->conexao->prepare("SELECT nome, turma,email FROM USUARIO WHERE email =:email and senha =:senha");
+            $stmt = $this->conexao->prepare("SELECT id FROM PARTICIPANT WHERE email =:email and senha =:senha");
             $stmt->bindParam(":email", $email);
             $stmt->bindParam(":senha", $senha);
             
-            $resultado = $stmt->execute();
-            
-            if ($resultado) {
-                $valido = TRUE;
-            }
-            
+            $stmt->execute();
+                       
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        return $valido;    
+        return $stmt->fetch(PDO::FETCH_COLUMN);    
     }
+    
     
     
 }

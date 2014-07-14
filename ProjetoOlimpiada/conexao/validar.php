@@ -1,5 +1,5 @@
 <?php
-include_once './dao/UsuarioDAO.php';;
+include_once '../dao/UsuarioDAO.php';
 
 
 $dao = new UsuarioDAO();
@@ -12,17 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $email = (isset($_POST['email'])) ? $_POST['email'] : '';
 
-    $senha = (isset($_POST['senha'])) ? $_POST['senha'] : '';
+    $senha = (isset($_POST['password'])) ? $_POST['password'] : '';
 
     $remember = isset($_POST['senha']);
 
 // Utiliza uma função pra validar os dados digitados
 
-    if ($dao->validaUsuario($email, $senha) == true) {
-
+    echo var_dump($dao->validaUsuario($email, $senha));
+    
+    if ($dao->validaUsuario($email, $senha)) {
+        
     // O usuário e a senha digitados foram validados, manda pra página interna
-
-        header("Location: questionario.html");
+       header("Location: ../questionario.html");
 
     } else {
 
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Para alterar o endereço da página de login, verifique o arquivo seguranca.php
 
-        header("Location: login.html");
+        header("Location: ../login.html");
 
     }
 }
