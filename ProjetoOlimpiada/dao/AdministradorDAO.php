@@ -76,4 +76,18 @@ class AdministradorDAO {
         }
         return $removido;
     }     
+    
+    public function validaUsuario($email, $senha) {
+        try{
+            $stmt = $this->conexao->prepare("SELECT id FROM ADMINISTRATOR WHERE email =:email and senha =:senha");
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":senha", $senha);
+            
+            $stmt->execute();
+                       
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $stmt->fetch(PDO::FETCH_COLUMN);    
+    }
 }

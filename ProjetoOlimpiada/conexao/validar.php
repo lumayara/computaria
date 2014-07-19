@@ -1,5 +1,6 @@
 <?php
 include_once '../dao/UsuarioDAO.php';
+include_once '../dao/AdministradorDAO.php';
 
 
 $dao = new UsuarioDAO();
@@ -15,12 +16,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $senha = (isset($_POST['password'])) ? $_POST['password'] : '';
 
     $remember = isset($_POST['senha']);
+    
+    if (isset($_POST['administrador'])) {
+        $dao = new AdministradorDAO();
+         if ($dao->validaUsuario($email, $senha)) {
+        
+    // O usuário e a senha digitados foram validados, manda pra página interna
+       header("Location: ../painelControle.html");
+
+    } else {
+
+    // O usuário e/ou a senha são inválidos, manda de volta pro form de login
+
+    // Para alterar o endereço da página de login, verifique o arquivo seguranca.php
+
+        header("Location: ../loginAdmin.html");
+
+        }
+    }
 
 // Utiliza uma função pra validar os dados digitados
-
-    echo var_dump($dao->validaUsuario($email, $senha));
     
-    if ($dao->validaUsuario($email, $senha)) {
+    else if ($dao->validaUsuario($email, $senha)) {
         
     // O usuário e a senha digitados foram validados, manda pra página interna
        header("Location: ../questionario.html");
