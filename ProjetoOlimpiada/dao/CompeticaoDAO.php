@@ -76,4 +76,16 @@ class CompeticaoDAO {
         }
         return $removido;
     } 
+    
+    public function listarCompeticoes() {
+            try{
+        $stmt = $this->conexao->prepare("SELECT nome FROM COMPETITION");
+        
+        $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+            
+    }
 }
