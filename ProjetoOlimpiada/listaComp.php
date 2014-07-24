@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
-
+    <?php 
+    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    include_once "$url_path/dao/CompeticaoDAO.php";
+    include_once "$url_path/conexao/ConnectionFactory.php";
+    $compDAO = new CompeticaoDAO();
+    ?>
 <head>
 
     <meta charset="utf-8">
@@ -22,11 +27,6 @@
 </head>
 
 <body>
-    <?php 
-    include_once './dao/CompeticaoDAO.php';
- 
-    $compDAO = new CompeticaoDAO();
-    ?>
 
     <div id="wrapper">
 
@@ -67,87 +67,47 @@
             <div class="row">
                 
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Painel de Controle</h1>
+                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Competição</h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 
             </div>
             <!-- /.row -->
-            
            <div class="row">
                 <div class="col-lg-4">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                           <i class="fa fa-trophy fa-fw"></i> Manter Competicao
-                        </div>
-                        <div class="panel-body">
-                            <p><h4><i class="fa fa-list fa-fw"></i><a href="listaComp.php"> Ver Competições</a></h4></p>
-                        </div>
-                        
-                    </div>
-                </div>
-               <!-- /.col-lg-4 -->
-               <div class="col-lg-4">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <i class="fa fa-users fa-fw"></i>Manter Usuário
-                        </div>
-                        <div class="panel-body">
-                             <p><h4><i class="fa fa-list fa-fw"></i><a href="#"> Ver Participantes</a></h4></p>
-                        </div>
-                        
-                    </div>
-                </div>
-               <!-- /.col-lg-4 -->
-               <div class="col-lg-4">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                            <i class="fa fa-user fa-fw"></i>Manter Administrador
-                        </div>
-                        <div class="panel-body">
-                            <p><h4><i class="fa fa-list fa-fw"></i><a href="#"> Ver Administradores</a></h4></p>
-                        </div>
-                        
-                    </div>
+                           <button type="button" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Competição</button>   
+                
                 </div>
                <!-- /.col-lg-4 --> 
-     <div class="col-lg-6">
+     <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Striped Rows
+                            Lista de Competições
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
+                                         <tr>
+                                            <th>Nome</th>
+                                            <th>Editar</th>
+                                            <th>Add Provas</th>
+                                            <th>Remover</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?while($) ?>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                        <?php $list = $compDAO->listarCompeticoes();
+ foreach ($list as $row) {
+     
+     print "<tr><td>".$row['nome']."</td> <td><a href='#'>Editar</a></td><td><a href='#'>Add Provas</a></td><td><a href='#'>Remover</a></td></tr>";
+}
+                                                
+                                        
+                                        
+                                        ?>
+                                       
+                                      
                                     </tbody>
                                 </table>
                             </div>
@@ -157,7 +117,7 @@
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-6 -->
+                <!-- /.col-lg-12 -->
            </div> 
           <!-- /#row-->
         

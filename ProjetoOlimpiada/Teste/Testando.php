@@ -48,8 +48,9 @@ class Testando {
       //  $this->administradorDAO->removeAdm(1);
      // $competicao = new Competicao(0, "Computaria", "");
      // $this->competicaoDAO->addCompeticao($competicao);
-        $participant = new Usuario(0, "Lulu", "lua@eu.com", "123","ADS", 1);
-        $this->usuarioDAO->addUsuario($participant);
+      //  $participant = new Usuario(0, "Lulu", "lua@eu.com", "123","ADS", 1);
+        //$this->usuarioDAO->addUsuario($participant);
+        print_r($this->competicaoDAO->listarCompeticoes());
 }
     
    

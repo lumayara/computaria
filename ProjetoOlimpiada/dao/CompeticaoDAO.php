@@ -11,8 +11,9 @@
  *
  * @author Luana
  */
-include_once '../conexao/ConnectionFactory.php';
-include_once '../modelo/Competicao.php';
+$url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+include_once "$url_path/conexao/ConnectionFactory.php";
+include_once "$url_path/modelo/Competicao.php";
 class CompeticaoDAO {
     private $conexao;
     
@@ -85,7 +86,7 @@ class CompeticaoDAO {
         }catch (PDOException $e){
             echo $e->getMessage();
         }
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
             
     }
 }
