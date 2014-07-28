@@ -11,8 +11,9 @@
  *
  * @author Luana
  */
-require_once '../conexao/ConnectionFactory.php';
-require_once '../modelo/Usuario.php';
+$url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+include_once "$url_path/conexao/ConnectionFactory.php";
+include_once "$url_path/modelo/Usuario.php";
 class UsuarioDAO {
     private $conexao;
     
@@ -46,13 +47,13 @@ class UsuarioDAO {
 
     public function listarParticipantes() {
             try{
-        $stmt = $this->conexao->prepare("SELECT nome, turma, id_competicao FROM PARTICIPANT");
+        $stmt = $this->conexao->prepare("SELECT P.nome, P.turma, P.email, C.nome AS competicao, P.id FROM PARTICIPANT P, COMPETITION C WHERE C.id=P.id_competicao");
         
         $stmt->execute();
         }catch (PDOException $e){
             echo $e->getMessage();
         }
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
             
     }
     

@@ -2,9 +2,9 @@
 <html>
     <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/CompeticaoDAO.php";
+    include_once "$url_path/dao/UsuarioDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $compDAO = new CompeticaoDAO();
+    $userDAO = new UsuarioDAO();
     ?>
 <head>
 
@@ -67,7 +67,7 @@
             <div class="row">
                 
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Competição</h1>
+                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Usuário</h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 
@@ -75,14 +75,14 @@
             <!-- /.row -->
            <div class="row">
                 <div class="col-lg-4">
-                    <a href="addComp.html" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Competição</a> 
+                    <a href="addUser.html" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Usuário</a> 
                 
                 </div>
                <!-- /.col-lg-4 --> 
      <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Lista de Competições
+                            Lista de Usuários
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -91,17 +91,17 @@
                                     <thead>
                                          <tr>
                                             <th>Nome</th>
-                                            <th>Data Realizacao</th>
-                                            <th>Editar</th>
-                                            <th>Add Provas</th>
-                                            <th>Remover</th>
+                                            <th>Email</th>
+                                            <th>Turma</th>
+                                            <th>Competicao</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $list = $compDAO->listarCompeticoes();
+                                        <?php $list = $userDAO->listarParticipantes();
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['nome']."</td><td>".date('d/m/Y', strtotime($row['data_realizacao']))."</td><td><a href='editCompeticao.php?id=".$row['id']."'>Editar</a></td><td><a href='#'>"
-                                                        ."Add Provas</a></td><td><a href='#'>Remover</a></td></tr>";
+                                                print "<tr><td>".$row['nome']."</td><td>".$row['email']."</td><td>".$row['turma']."</td><td>".$row['competicao']
+                                                        ."</td><td><a href='editUser.php?id=".$row['id']."'>Editar</a></td><td><a href='#'>"
+                                                        ."<td><a href='#'>Remover</a></td></tr>";
                                             }
                                         ?> 
                                     </tbody>

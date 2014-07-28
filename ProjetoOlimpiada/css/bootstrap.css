@@ -48,6 +48,7 @@ a {
 a:active,
 a:hover {
   outline: 0;
+  text-decoration: underline;
 }
 abbr[title] {
   border-bottom: 1px dotted;
@@ -2004,6 +2005,10 @@ select[multiple].input-lg {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
+  color: #fff;
+}
+.btn a {
+    color: #fff;
 }
 .btn:focus {
   outline: thin dotted;

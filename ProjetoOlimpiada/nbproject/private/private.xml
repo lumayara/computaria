@@ -5,12 +5,16 @@
         <group>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Competicao.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/CompeticaoDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/listaComp.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/addComp.html</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/bootstrap.min.css</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/painelControle.html</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/questionario.html</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/conexao/ConnectionFactory.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/listaComp.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/bootstrap.css</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/addComp.html</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/conexao/edit.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/login.html</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/sb-admin.css</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/editCompeticao.html</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/conexao/addComp.php</file>
         </group>
     </open-files>

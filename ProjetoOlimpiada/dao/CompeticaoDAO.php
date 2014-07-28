@@ -80,7 +80,7 @@ class CompeticaoDAO {
     
     public function listarCompeticoes() {
             try{
-        $stmt = $this->conexao->prepare("SELECT nome FROM COMPETITION");
+        $stmt = $this->conexao->prepare("SELECT nome, data_realizacao, id FROM COMPETITION ORDER BY id DESC");
         
         $stmt->execute();
         }catch (PDOException $e){
@@ -88,5 +88,17 @@ class CompeticaoDAO {
         }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
             
+    }
+    
+    public function getCompeticao($id){
+        try {
+            $stmt = $this->conexao->prepare("SELECT nome, data_realizacao FROM COMPETITION WHERE id = :id");
+            $stmt->bindParam(":id", $id);
+            
+            $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
