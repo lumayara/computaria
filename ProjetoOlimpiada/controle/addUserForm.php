@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-
+<?php 
+    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    include_once "$url_path/dao/CompeticaoDAO.php";
+    $compDAO = new CompeticaoDAO();
+    ?>
 <head>
 
     <meta charset="utf-8">
@@ -9,11 +13,11 @@
     <title>Olimpif - Perguntas e Respostas com resultados em tempo real</title>
 
     <!-- Core CSS - Include with every page -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- SB Admin CSS - Include with every page -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="../css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -55,22 +59,48 @@
        <div class="col-md-4 col-md-offset-4">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Editar Competição
+                  <i class="fa fa-trophy fa-fw"></i> Adicionar Usuário
               </div>
     <div class="panel-body">
                 
-    <form class="form-horizontal" method="POST" action="controle/edit.php">
+    <form class="form-horizontal" method="POST" action="controle/addUser.php">
     <div class="form-group">
-        <input type="hidden" value="" />
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Digite o nome da competição">
-        </div>
-         <label for="inputData" class="control-label col-xs-2">Data da realização</label>
-        <div class="col-xs-10">
-            <input type="date" class="form-control" id="inputData" name="inputData">
+            <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Digite o Nome do Usuário">
         </div>
     </div>
+        <div class="form-group">
+        <label for="inputEmail" class="control-label col-xs-2">Email</label>
+        <div class="col-xs-10">
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Digite o Email do Usuário">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputTurma" class="control-label col-xs-2">Turma</label>
+        <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputTurma" name="inputNome" placeholder="Digite a Turma do Usuário">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputSenha" class="control-label col-xs-2">Senha</label>
+        <div class="col-xs-10">
+            <input type="password" class="form-control" id="inputSenha" name="inputSenha">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputCompeticao" class="control-label col-xs-3">Competicao</label>
+        <div class="col-xs-9">
+            <select class="form-control" id="inputCompeticao" name="inputCompeticao">
+                <?php $list = $compDAO->listarCompeticoes();
+                    foreach ($list as $row) {
+                          print "<option value=".$row['id'].">".$row['nome']."</option>";
+                    }
+                ?>    
+            </select>
+        </div>
+    </div>
+   
    
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
@@ -87,12 +117,12 @@
  
 
     <!-- Core Scripts - Include with every page -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/jquery-1.10.2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
-    <script src="js/sb-admin.js"></script>
+    <script src="../js/sb-admin.js"></script>
 
 </body>
 

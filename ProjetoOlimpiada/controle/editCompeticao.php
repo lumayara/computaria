@@ -9,11 +9,11 @@
     <title>Olimpif - Perguntas e Respostas com resultados em tempo real</title>
 
     <!-- Core CSS - Include with every page -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- SB Admin CSS - Include with every page -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="../css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -59,9 +59,9 @@
               </div>
     <div class="panel-body">
                 
-    <form class="form-horizontal" method="POST" action="controle/edit.php">
+    <form class="form-horizontal" method="POST" action="edit.php">
     <div class="form-group">
-        <input type="hidden" value="" />
+        <input type="hidden" value="<?php echo $_GET["id"] ?>" name="id" />
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
             <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Digite o nome da competição">
@@ -87,12 +87,12 @@
  
 
     <!-- Core Scripts - Include with every page -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/jquery-1.10.2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
-    <script src="js/sb-admin.js"></script>
+    <script src="../js/sb-admin.js"></script>
 
 </body>
 
