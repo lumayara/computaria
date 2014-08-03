@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html>
-
+<?php 
+    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    include_once "$url_path/dao/CompeticaoDAO.php";
+    include_once "$url_path/dao/UsuarioDAO.php";
+    $compDAO = new CompeticaoDAO();
+    $userDAO = new UsuarioDAO();
+    $id = $_GET["id"];
+    
+    $user = $userDAO->getUsuario($id);
+    
+    
+    ?>
 <head>
 
     <meta charset="utf-8">
@@ -55,20 +66,37 @@
        <div class="col-md-4 col-md-offset-4">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Editar Competição
+                  <i class="fa fa-trophy fa-fw"></i> Editar Participante
               </div>
     <div class="panel-body">
                 
     <form class="form-horizontal" method="POST" action="edit.php">
     <div class="form-group">
-        <input type="hidden" value="<?php echo $_GET["id"] ?>" name="id" />
+        <input type="hidden" value="<?php echo $id ?>" name="id" />
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" autofocus name="inputNome" placeholder="Digite o nome da competição" required>
+            <input type="text" class="form-control" id="inputNome" autofocus name="inputNome" value="<?php echo $user["nome"]?>" required>
         </div>
-         <label for="inputData" class="control-label col-xs-2">Data da realização</label>
+        
+        <label for="inputEmail" class="control-label col-xs-2">Email</label>
         <div class="col-xs-10">
-            <input type="date" class="form-control" id="inputData" name="inputData" required>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="<?php echo $user['email']?>" required>
+        </div>
+        
+         <label for="inputTurma" class="control-label col-xs-2">Turma</label>
+        <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputTurma" name="inputTurma" value="<?php echo $user['turma']?>" required>
+        </div>
+         
+         <label for="inputCompeticao" class="control-label col-xs-3">Competicao</label>
+        <div class="col-xs-9">
+            <select class="form-control" id="inputCompeticao" name="inputCompeticao..">
+                <?php $list = $compDAO->listarCompeticoes();
+                    foreach ($list as $row) {
+                          print "<option value=".$row['id'].">".$row['nome']."</option>";
+                    }
+                ?>    
+            </select>
         </div>
     </div>
    
