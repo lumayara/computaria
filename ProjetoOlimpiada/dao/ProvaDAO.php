@@ -74,5 +74,17 @@ class ProvaDAO {
             echo $e->getMessage();
         }
         return $removido;
-    } 
+    }
+    
+    public function getProvasDaCompeticao($idComp){
+         try {
+            $stmt = $this->conexao->prepare("SELECT id FROM TEST WHERE id_competicao = :idComp");
+            $stmt->bindParam(":idComp", $idComp);
+            
+            $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -41,18 +41,17 @@ class CompeticaoDAO {
         return $adicionado;
         }
         
-   public function updateComp(Competicao $comp){
+  public function updateComp(Competicao $comp){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE COMPETITION SET nome = :nome, "
-                    . "data_realizacao = :data_realizacao WHERE id = :id");
+            $stmt = $this->conexao->prepare("UPDATE COMPETITION SET nome = :nome, data_realizacao = :data_realizacao WHERE id= :id");
             
-            $vetorUser = array($comp->getNome(), $comp->getData(), $comp->getId());
-            
+            $vetorUser = array($comp->getNome(),$comp->getData(), $comp->getId());
+           
             $stmt->bindParam(":nome", $vetorUser[0]);
             $stmt->bindParam(":data_realizacao", $vetorUser[1]);
             $stmt->bindParam(":id", $vetorUser[2]);
-            
+           
             $resultado = $stmt->execute();
             if($resultado){
                 $atualizado = TRUE;
@@ -62,6 +61,7 @@ class CompeticaoDAO {
         }
         return $atualizado;
     }
+    
     
     public function removeCompeticao($id){
         $removido = false;

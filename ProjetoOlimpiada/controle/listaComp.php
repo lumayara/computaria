@@ -29,7 +29,9 @@
 <body>
 
     <div id="wrapper">
-
+        <div class="row">
+                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Ver Competições</div>
+        </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -64,6 +66,7 @@
         </nav>
 
         <div id="page-wrapper">
+            
             <div class="row">
                 
                 <div class="col-lg-12">
@@ -100,8 +103,8 @@
                                     <tbody>
                                         <?php $list = $compDAO->listarCompeticoes();
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['nome']."</td><td>".date('d/m/Y', strtotime($row['data_realizacao']))."</td><td><a href='editCompeticao.php?id=".$row['id']."'>Editar</a></td><td><a href='#'>"
-                                                        ."Add Provas</a></td><td><a href='#'>Remover</a></td></tr>";
+                                                print "<tr><td>".$row['nome']."</td><td>".date('d/m/Y H:i', strtotime($row['data_realizacao']))."</td><td><a href='editCompForm.php?id=".$row['id']."'>Editar</a></td><td><a href='#'>"
+                                                        ."Add Provas</a></td><td><a href='removeComp.php?id=".$row['id']."'></td></tr>";
                                             }
                                         ?> 
                                     </tbody>

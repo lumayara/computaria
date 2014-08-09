@@ -2,9 +2,9 @@
 <html>
     <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/UsuarioDAO.php";
+    include_once "$url_path/dao/AdministradorDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $userDAO = new UsuarioDAO();
+    $adminDAO = new AdministradorDAO();
     ?>
 <head>
 
@@ -23,13 +23,14 @@
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="../css/sb-admin.css" rel="stylesheet">
+
 </head>
 
 <body>
 
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Ver Usuários</div>
+                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Ver Administradores</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -65,10 +66,11 @@
         </nav>
 
         <div id="page-wrapper">
+            
             <div class="row">
                 
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Usuário</h1>
+                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Administrador</h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 
@@ -76,14 +78,14 @@
             <!-- /.row -->
            <div class="row">
                 <div class="col-lg-4">
-                    <a href="addUserForm.php" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Usuário</a> 
+                    <a href="../addAdmin.html" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Administrador</a> 
                 
                 </div>
                <!-- /.col-lg-4 --> 
      <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Lista de Usuários
+                            Lista de Administradores
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -91,20 +93,16 @@
                                 <table class="table table-striped">
                                     <thead>
                                          <tr>
-                                            <th>Nome</th>
                                             <th>Email</th>
-                                            <th>Turma</th>
-                                            <th>Competicao</th>
                                             <th>Editar</th>
                                             <th>Remover</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $list = $userDAO->listarParticipantes();
+                                        <?php $list = $adminDAO->listarAdmins();
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['nome']."</td><td>".$row['email']."</td><td>".$row['turma']."</td><td>".$row['competicao']
-                                                        ."</td><td><a href='editUserForm.php?id=".$row['id']."'>Editar</a></td>"
-                                                        ."<td><a href='removeUser.php?id=".$row['id']."'>Remover</a></td></tr>";
+                                                print "<tr><td>".$row['email']."</td>"."<td><a href='editAdminForm.php?id=".$row['id']."'>Editar</a></td>"
+                                                        ."<td><a href='removeAdmin.php?id=".$row['id']."'>Remover</a></td></tr>";
                                             }
                                         ?> 
                                     </tbody>

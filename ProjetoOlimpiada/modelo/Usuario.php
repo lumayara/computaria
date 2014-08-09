@@ -18,21 +18,18 @@ class Usuario {
     private $senha;
     private $turma;
     private $competicao;
-    private $prova;
             
-    function __construct($id, $nome, $email, $senha,$turma, $competicao, $prova) {
+    function __construct($id, $nome, $email, $senha,$turma, $competicao) {
         $this->id = $id;
         $this->nome = $nome;
         $this->email = $email;
         $this->senha = $senha;
         $this->turma = $turma;
         $this->competicao = $competicao;
-        $this->prova = prova;
-                
     }
     
     public function getID() {
-        return $this->nome;
+        return $this->id;
     }
     
     public function getNome() {
@@ -49,10 +46,6 @@ class Usuario {
     
     public function getTurma() {
         return $this->turma;
-    }
-    
-     public function getProva() {
-        return $this->prova;
     }
     
     public function setID($id) {
@@ -81,10 +74,6 @@ class Usuario {
     
     public function setCompeticao($competicao) {
         $this->competicao->$competicao;    
-    }
-    
-    public function setProva($prova) {
-        $this->prova->$prova;    
     }
 }
 

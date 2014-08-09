@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
-
+<?php 
+    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    include_once "$url_path/dao/CompeticaoDAO.php";
+    include_once "$url_path/dao/UsuarioDAO.php";
+    include_once "$url_path/dao/ProvaDAO.php";
+    $compDAO = new CompeticaoDAO();
+    $userDAO = new UsuarioDAO();
+    $provaDAO = new ProvaDAO();
+    $id = $_GET["id"];
+    
+    $user = $userDAO->getUsuario($id);
+    
+    
+    ?>
 <head>
 
     <meta charset="utf-8">
@@ -9,19 +22,19 @@
     <title>Olimpif - Perguntas e Respostas com resultados em tempo real</title>
 
     <!-- Core CSS - Include with every page -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- SB Admin CSS - Include with every page -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="../css/sb-admin.css" rel="stylesheet">
 
 </head>
 
 <body>
     <div id="wrapper">
-        <div class="row">
-                <div class="col-lg-12"><a href="painelControle.html">Painel de Controle</a>->
-                    <a href="controle/listaComp.php">Manter Competição</a>->Adicionar Competição</div>
+         <div class="row">
+                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
+                    <a href="listaUser.php">Manter Usuário</a>->Editar Usuário</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -58,23 +71,43 @@
        <div class="col-md-4 col-md-offset-4">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Criar Nova Competição
+                  <i class="fa fa-trophy fa-fw"></i> Editar Participante
               </div>
     <div class="panel-body">
                 
-    <form class="form-horizontal" method="POST" action="controle/addComp.php">
+        <form class="form-horizontal" method="POST" action="editUser.php">
     <div class="form-group">
+        <input type="hidden" value="<?php echo $id ?>" name="id" />
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" name="inputNome" autofocus placeholder="Digite o nome da competição" required>
+            <input type="text" class="form-control" id="inputNome" autofocus name="inputNome" value="<?php echo $user["nome"]?>" required>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="inputData" class="control-label col-xs-2">Data</label>
+        
+        <label for="inputEmail" class="control-label col-xs-2">Email</label>
         <div class="col-xs-10">
-            <input type="date" class="form-control" id="inputData" name="inputData" required>
-            <input type="time" class="form-control" id="inputTime" name="inputTime" required>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="<?php echo $user['email']?>" required>
         </div>
+        
+        <label for="inputTurma" class="control-label col-xs-2">Turma</label>
+        <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputTurma" name="inputTurma" value="<?php echo $user['turma']?>" required>
+        </div>
+         
+         <label for="inputCompeticao" class="control-label col-xs-3">Competicao</label>
+        <div class="col-xs-9">
+            <select class="form-control" id="inputCompeticao" name="inputCompeticao">
+                <?php $list = $compDAO->listarCompeticoes();
+                    foreach ($list as $row) {
+                        if ($user['id_competicao']==$row['id']){
+                            print "<option value=".$row['id']." SELECTED>".$row['nome']."</option>";
+                        }else{
+                            print "<option value=".$row['id'].">".$row['nome']."</option>";
+                        }
+                    }
+                ?>    
+            </select>
+        </div>
+         
     </div>
    
     <div class="form-group">
@@ -92,12 +125,12 @@
  
 
     <!-- Core Scripts - Include with every page -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/jquery-1.10.2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
-    <script src="js/sb-admin.js"></script>
+    <script src="../js/sb-admin.js"></script>
 
 </body>
 

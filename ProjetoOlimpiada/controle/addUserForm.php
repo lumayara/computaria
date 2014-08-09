@@ -23,7 +23,10 @@
 
 <body>
     <div id="wrapper">
-
+        <div class="row">
+                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
+                    <a href="listaUser.php">Manter Usuário</a>->Adicionar Usuário</div>
+        </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -63,29 +66,29 @@
               </div>
     <div class="panel-body">
                 
-    <form class="form-horizontal" method="POST" action="controle/addUser.php">
+    <form class="form-horizontal" method="POST" action="addUser.php">
     <div class="form-group">
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Digite o Nome do Usuário">
+            <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Digite o Nome do Usuário" required>
         </div>
     </div>
-        <div class="form-group">
+    <div class="form-group">
         <label for="inputEmail" class="control-label col-xs-2">Email</label>
         <div class="col-xs-10">
-            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Digite o Email do Usuário">
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Digite o Email do Usuário" required>
         </div>
     </div>
     <div class="form-group">
         <label for="inputTurma" class="control-label col-xs-2">Turma</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputTurma" name="inputNome" placeholder="Digite a Turma do Usuário">
+            <input type="text" class="form-control" id="inputTurma" name="inputTurma" placeholder="Digite a Turma do Usuário" required>
         </div>
     </div>
     <div class="form-group">
         <label for="inputSenha" class="control-label col-xs-2">Senha</label>
         <div class="col-xs-10">
-            <input type="password" class="form-control" id="inputSenha" name="inputSenha">
+            <input type="password" class="form-control" id="inputSenha" name="inputSenha" required>
         </div>
     </div>
     <div class="form-group">
@@ -100,8 +103,7 @@
             </select>
         </div>
     </div>
-   
-   
+        
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Salvar</button>
