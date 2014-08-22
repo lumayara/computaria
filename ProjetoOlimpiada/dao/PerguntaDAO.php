@@ -20,16 +20,20 @@ class PerguntaDAO {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addPergunta(Pergunta $pergunta, $nivel) {
+    public function addPergunta(Pergunta $pergunta) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO QUESTIONS (pergunta, topico, nivel_prova)"
-                    . "VALUES (:pergunta, :topico, :nivel_prova)");
-            $vetorUser = array($pergunta->getPergunta(), $pergunta->getTopico());
+            $stmt = $this->conexao->prepare("INSERT INTO QUESTIONS (id, data_cadastro, pergunta,"
+                    . "topico, id_competicao) VALUES (:id, :data_cadastro, :pergunta, :topico, :id_competicao)");
+
+            $vetorUser = array($pergunta->getId(), $pergunta->getDataCadastro(), $pergunta->getPergunta(),
+                $pergunta->getTopico(), $pergunta->getCompeticao());
             
-            $stmt->bindParam(":pergunta", $vetorUser[0]);
-            $stmt->bindParam(":topico", $vetorUser[1]);
-            $stmt->bindParam(":nivel_prova", $nivel);
+            $stmt->bindParam(":id", $vetorUser[0]);
+            $stmt->bindParam(":data_cadastro", $vetorUser[1]);
+            $stmt->bindParam(":pergunta", $vetorUser[2]);
+            $stmt->bindParam(":topico", $vetorUser[3]);
+            $stmt->bindParam(":id_competicao", $vetorUser[4]);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -41,6 +45,18 @@ class PerguntaDAO {
         return $adicionado;
         }
         
+    public function getPergunta($id){
+        try {
+            $stmt = $this->conexao->prepare("SELECT pergunta, topico, id_competicao FROM QUESTIONS WHERE id = :id");
+            $stmt->bindParam(":id", $id);
+            
+            $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+        
    public function updatePergunta(Pergunta $pergunta){
         $atualizado=FALSE;
         try{
@@ -51,7 +67,7 @@ class PerguntaDAO {
             
             $stmt->bindParam(":pergunta", $vetorUser[0]);
             $stmt->bindParam(":topico", $vetorUser[1]);
-            $stmt->bindParam(":id", $vetorUser[1]);
+            $stmt->bindParam(":id", $vetorUser[2]);
            
             $resultado = $stmt->execute();
             if($resultado){
@@ -77,5 +93,29 @@ class PerguntaDAO {
         }
         return $removido;
     } 
+    
+    public function listarQuestoes() {
+            try{
+        $stmt = $this->conexao->prepare("SELECT id, topico, pergunta, data_cadastro FROM QUESTIONS ORDER BY id DESC");
+        
+        $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+    }
+    
+    public function listarQuestoesByCompeticao($id_competicao) {
+            try{
+        $stmt = $this->conexao->prepare("SELECT id, topico, pergunta, data_cadastro FROM QUESTIONS WHERE id_competicao= :id_competicao ORDER BY id DESC");
+        $stmt->bindParam(":id_competicao", $id_competicao);
+        $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+    }
 }
 

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <?php 
-    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/CompeticaoDAO.php";
-    include_once "$url_path/dao/UsuarioDAO.php";
-    $compDAO = new CompeticaoDAO();
-    $userDAO = new UsuarioDAO();
+    $url_path = $_SERVER["DOCUMENT_ROOT"]."/computaria/ProjetoOlimpiada";
+    include_once "$url_path/dao/AlternativaDAO.php";
+    include_once "$url_path/dao/PerguntaDAO.php";
+    include_once "$url_path/modelo/Pergunta.php";
+    $alternativaDAO = new AlternativaDAO();
+    $perguntaDAO = new PerguntaDAO();
     $id = $_GET["id"];
     
-    $user = $userDAO->getUsuario($id);
+    $pergunta = $perguntaDAO->getPergunta($id);
+    $id_competicao = $pergunta['id_competicao'];
+    
 ?>
 <head>
 
@@ -28,9 +31,11 @@
 
 <body>
     <div id="wrapper">
-         <div class="row">
+        <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listaUser.php">Manter Usuário</a>->Editar Usuário</div>
+                    <a href="listaComp.php">Manter Competição</a>
+                    -><a href="listaProva.php?id=<?php echo $id_competicao?>">Ver Questões</a>
+                    -><a href="listaAlternativas.php?id=<?php echo $id?>">Ver Alternativas</a>->Adicionar Alternativa</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -67,45 +72,30 @@
        <div class="col-md-4 col-md-offset-4">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Editar Participante
+                  <i class="fa fa-trophy fa-fw"></i> Adicionar Alternativa
               </div>
     <div class="panel-body">
                 
-        <form class="form-horizontal" method="POST" action="editUser.php">
-    <div class="form-group">
+    <form class="form-horizontal" method="POST" action="addAlternativa.php">
         <input type="hidden" value="<?php echo $id ?>" name="id" />
-        <label for="inputNome" class="control-label col-xs-2">Nome</label>
-        <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" autofocus name="inputNome" value="<?php echo $user["nome"]?>" required>
-        </div>
-        
-        <label for="inputEmail" class="control-label col-xs-2">Email</label>
-        <div class="col-xs-10">
-            <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="<?php echo $user['email']?>" required>
-        </div>
-        
-        <label for="inputTurma" class="control-label col-xs-2">Turma</label>
-        <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputTurma" name="inputTurma" value="<?php echo $user['turma']?>" required>
-        </div>
-         
-         <label for="inputCompeticao" class="control-label col-xs-3">Competicao</label>
+    <div class="form-group">
+        <label for="inputAlternativa" class="control-label col-xs-3">Alternativa</label>
         <div class="col-xs-9">
-            <select class="form-control" id="inputCompeticao" name="inputCompeticao">
-                <?php $list = $compDAO->listarCompeticoes();
-                    foreach ($list as $row) {
-                        if ($user['id_competicao']==$row['id']){
-                            print "<option value=".$row['id']." SELECTED>".$row['nome']."</option>";
-                        }else{
-                            print "<option value=".$row['id'].">".$row['nome']."</option>";
-                        }
-                    }
-                ?>    
+            <input type="text" class="form-control" id="inputAlternativa" name="inputAlternativa" placeholder="Digite a alternativa" required>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label for="inputResposta" class="control-label col-xs-3">Resposta</label>
+        <div class="col-xs-9">
+            <select class="form-control" id="inputResposta" name="inputResposta">
+               
+                <option value="certa">Verdadeira</option>
+                <option value="errada">Falsa</option>
+                    
             </select>
         </div>
-         
-    </div>
-   
+    </div>       
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Salvar</button>

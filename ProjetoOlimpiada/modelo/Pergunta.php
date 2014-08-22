@@ -15,13 +15,17 @@ class Pergunta {
     private $id;
     private $pergunta;
     private $topico;
+    private $data_cadastro;
     private $alternativas;
+    private $competicao;
             
-    function __construct($id, $pergunta, $topico) {
+    function __construct($id, $pergunta, $topico, $competicao) {
         $this->pergunta = $pergunta;
         $this->topico = $topico;
         $this->id = $id;
+        $this->competicao = $competicao;
         $this->alternativas = array();
+        $this->data_cadastro = DateTimeZone::UTC;
     }
     
     public function getId() {
@@ -36,8 +40,20 @@ class Pergunta {
         return $this->topico;
     }
     
+    public function getDataCadastro() {
+        return $this->data_cadastro;
+    }
+    
+    public function getCompeticao() {
+        return $this->competicao;
+    }
+    
      public function setId($id) {
         $this->id = $id;
+    }
+    
+     public function setDataCadastro($data_cadastro) {
+        $this->data_cadastro = $data_cadastro;
     }
     
     public function setPergunta($pergunta) {

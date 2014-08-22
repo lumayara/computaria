@@ -23,7 +23,7 @@ class Alternativa {
         $this->eh_certa = $eh_certa;
     }
     public function getID() {
-        return $this->alternativa;
+        return $this->id;
     }
     
     public function getAlternativa() {

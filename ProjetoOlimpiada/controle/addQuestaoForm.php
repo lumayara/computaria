@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/CompeticaoDAO.php";
-    include_once "$url_path/dao/UsuarioDAO.php";
-    $compDAO = new CompeticaoDAO();
-    $userDAO = new UsuarioDAO();
+    include_once "$url_path/dao/PerguntaDAO.php";
+    $perguntaDAO = new PerguntaDAO();
     $id = $_GET["id"];
-    
-    $user = $userDAO->getUsuario($id);
+
 ?>
 <head>
 
@@ -28,9 +25,10 @@
 
 <body>
     <div id="wrapper">
-         <div class="row">
+        <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listaUser.php">Manter Usuário</a>->Editar Usuário</div>
+                    <a href="listaComp.php">Manter Competição</a>
+                    -><a href="listaProva.php?id=<?php echo $id?>">Ver Questões</a>->Adicionar Questão</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -43,7 +41,7 @@
                 <a class="navbar-brand" href="login.html">Olimpif - Login do Participante</a>
             </div>
             <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">                                
+            <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -51,7 +49,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="loginAdmin.html"><i class="fa fa-user fa-fw"></i> Acessar como Administrador</a>
                         </li>
-                        
+
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
@@ -67,45 +65,24 @@
        <div class="col-md-4 col-md-offset-4">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Editar Participante
+                  <i class="fa fa-trophy fa-fw"></i> Adicionar Questão
               </div>
     <div class="panel-body">
-                
-        <form class="form-horizontal" method="POST" action="editUser.php">
-    <div class="form-group">
+
+    <form class="form-horizontal" method="POST" action="addQuestao.php">
         <input type="hidden" value="<?php echo $id ?>" name="id" />
-        <label for="inputNome" class="control-label col-xs-2">Nome</label>
+    <div class="form-group">
+        <label for="inputTopico" class="control-label col-xs-2">Tópico</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" autofocus name="inputNome" value="<?php echo $user["nome"]?>" required>
+            <input type="text" class="form-control" id="inputTopico" name="inputTopico" placeholder="Digite o tópico da questão" required>
         </div>
-        
-        <label for="inputEmail" class="control-label col-xs-2">Email</label>
-        <div class="col-xs-10">
-            <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="<?php echo $user['email']?>" required>
-        </div>
-        
-        <label for="inputTurma" class="control-label col-xs-2">Turma</label>
-        <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputTurma" name="inputTurma" value="<?php echo $user['turma']?>" required>
-        </div>
-         
-         <label for="inputCompeticao" class="control-label col-xs-3">Competicao</label>
-        <div class="col-xs-9">
-            <select class="form-control" id="inputCompeticao" name="inputCompeticao">
-                <?php $list = $compDAO->listarCompeticoes();
-                    foreach ($list as $row) {
-                        if ($user['id_competicao']==$row['id']){
-                            print "<option value=".$row['id']." SELECTED>".$row['nome']."</option>";
-                        }else{
-                            print "<option value=".$row['id'].">".$row['nome']."</option>";
-                        }
-                    }
-                ?>    
-            </select>
-        </div>
-         
     </div>
-   
+    <div class="form-group">
+        <label for="inputPergunta" class="control-label col-xs-3">Pergunta</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="inputPergunta" name="inputPergunta" placeholder="Digite a pergunta" required>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -118,7 +95,7 @@
    </div>
  </div>
     </div>
- 
+
 
     <!-- Core Scripts - Include with every page -->
     <script src="../js/jquery-1.10.2.js"></script>

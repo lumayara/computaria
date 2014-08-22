@@ -2,9 +2,10 @@
 <html>
     <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/CompeticaoDAO.php";
+    include_once "$url_path/dao/PerguntaDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $compDAO = new CompeticaoDAO();
+    $perguntaDAO = new PerguntaDAO();
+    $id = $_GET["id"];
     ?>
 <head>
 
@@ -30,7 +31,9 @@
 
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Manter Competição</div>
+                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
+                    <a href="listaComp.php">Manter Competição</a>
+                    ->Ver Questões</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -70,7 +73,7 @@
             <div class="row">
                 
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Competição</h1>
+                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Prova</h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 
@@ -78,14 +81,14 @@
             <!-- /.row -->
            <div class="row">
                 <div class="col-lg-4">
-                    <a href="../addComp.html" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Competição</a> 
+                    <a href="addQuestaoForm.php?id=<?php echo $id?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Questão</a> 
                 
                 </div>
                <!-- /.col-lg-4 --> 
      <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Lista de Competições
+                            Lista de Questões
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -93,18 +96,18 @@
                                 <table class="table table-striped">
                                     <thead>
                                          <tr>
-                                            <th>Nome</th>
-                                            <th>Data Realizacao</th>
+                                            <th>Tópico</th>
+                                            <th>Pergunta</th>
+                                            <th>Ver Alternativas</th>
                                             <th>Editar</th>
-                                            <th>Manter Prova</th>
                                             <th>Remover</th>
-                                        </tr>
+                                          </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $list = $compDAO->listarCompeticoes();
+                                        <?php $list = $perguntaDAO->listarQuestoesByCompeticao($id);
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['nome']."</td><td>".date('d/m/Y H:i', strtotime($row['data_realizacao']))."</td><td><a href='editCompForm.php?id=".$row['id']."'>Editar</a></td><td><a href='listaProva.php?id=".$row['id']."'>"
-                                                        ."Manter Prova</a></td><td><a href='removeComp.php?id=".$row['id']."'>Remover</td></tr>";
+                                                print "<tr><td>".$row['topico']."</td><td>".$row['pergunta']."</td><td><a href='listaAlternativas.php?id=".$row['id']."'>"
+                                                        ."Manter Alternativas</a></td><td><a href='editProvaForm.php?id=".$row['id']."'>Editar</a></td><td><a href='removeProva.php?id=".$row['id']."'>Remover</td></tr>";
                                             }
                                         ?> 
                                     </tbody>

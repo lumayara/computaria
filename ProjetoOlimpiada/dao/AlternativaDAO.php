@@ -63,6 +63,18 @@ class AlternativaDAO {
         return $atualizado;
     }
     
+     public function getAlternativa($id){
+        try {
+            $stmt = $this->conexao->prepare("SELECT alternativa, eh_resposta, id_question FROM CHOICES WHERE id = :id");
+            $stmt->bindParam(":id", $id);
+            
+            $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
     public function removeAlternativa($id){
         $removido = false;
         try {
@@ -76,5 +88,29 @@ class AlternativaDAO {
             echo $e->getMessage();
         }
         return $removido;
+    }
+    
+    public function listarAlternativas() {
+            try{
+        $stmt = $this->conexao->prepare("SELECT id, alternativa, eh_resposta FROM CHOICES ORDER BY id DESC");
+        
+        $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+    }
+    
+    public function listarAlternativasByQuestao($id_question) {
+            try{
+        $stmt = $this->conexao->prepare("SELECT id, alternativa, eh_resposta FROM CHOICES WHERE id_question= :id_question ORDER BY id DESC");
+        $stmt->bindParam(":id_question", $id_question);
+        $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
     }
 }

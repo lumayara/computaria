@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
     <?php 
-    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/CompeticaoDAO.php";
-    include_once "$url_path/conexao/ConnectionFactory.php";
-    $compDAO = new CompeticaoDAO();
+    $url_path = $_SERVER["DOCUMENT_ROOT"]."/computaria/ProjetoOlimpiada";
+    include_once "$url_path/dao/AlternativaDAO.php";
+    include_once "$url_path/dao/PerguntaDAO.php";
+    include_once "$url_path/modelo/Pergunta.php";
+    $alternativaDAO = new AlternativaDAO();
+    $perguntaDAO = new PerguntaDAO();
+    $id = $_GET["id"];
+    
+    $pergunta = $perguntaDAO->getPergunta($id);
+    $id_competicao = $pergunta['id_competicao'];
+    
     ?>
 <head>
 
@@ -30,7 +37,10 @@
 
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Manter Competição</div>
+               <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
+                    <a href="listaComp.php">Manter Competição</a>
+                    -><a href="listaProva.php?id=<?php echo $id_competicao?>">Ver Questões</a>
+                    ->Ver Alternativas</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -70,22 +80,22 @@
             <div class="row">
                 
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Competição</h1>
+                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Alternativa</h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 
             </div>
-            <!-- /.row -->
+            <!-- /.row -->  
            <div class="row">
                 <div class="col-lg-4">
-                    <a href="../addComp.html" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Competição</a> 
+                    <a href="addAlternativaForm.php?id=<?php echo $id?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Alternativa</a> 
                 
                 </div>
                <!-- /.col-lg-4 --> 
      <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Lista de Competições
+                            Lista de Alternativas
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -93,18 +103,17 @@
                                 <table class="table table-striped">
                                     <thead>
                                          <tr>
-                                            <th>Nome</th>
-                                            <th>Data Realizacao</th>
+                                            <th>Alternativa</th>
+                                            <th>Resposta</th>                                           
                                             <th>Editar</th>
-                                            <th>Manter Prova</th>
                                             <th>Remover</th>
-                                        </tr>
+                                          </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $list = $compDAO->listarCompeticoes();
+                                        <?php $list = $alternativaDAO->listarAlternativasByQuestao($id);
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['nome']."</td><td>".date('d/m/Y H:i', strtotime($row['data_realizacao']))."</td><td><a href='editCompForm.php?id=".$row['id']."'>Editar</a></td><td><a href='listaProva.php?id=".$row['id']."'>"
-                                                        ."Manter Prova</a></td><td><a href='removeComp.php?id=".$row['id']."'>Remover</td></tr>";
+                                                print "<tr><td>".$row['alternativa']."</td><td>".$row['eh_resposta']."</td>"
+                                                        ."<td><a href='editAlternativaForm.php?id=".$row['id']."'>Editar</a></td><td><a href='removeAlternativa.php?id=".$row['id']."'>Remover</td></tr>";
                                             }
                                         ?> 
                                     </tbody>
