@@ -125,6 +125,22 @@ class UsuarioDAO {
         return $stmt->fetch(PDO::FETCH_COLUMN);    
     }
     
-    
+    public function addRespostas($id_user, $id_alternativa) {
+        $adicionado = false;
+        try {
+            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT_ANSWERS (id_user, id_alternativa) VALUES (:id_user, :id_alternativa)");
+           
+            $stmt->bindParam(":id_user", $id_user);
+            $stmt->bindParam(":id_alternativa", $id_alternativa);
+            
+            $resultado = $stmt->execute();
+            if($resultado){
+                $adicionado = TRUE;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $adicionado;
+        }
     
 }
