@@ -5,7 +5,7 @@ $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
     $userDAO = new UsuarioDAO();
     $id_user = $_POST['id_user'];
     $id_alternativa = $_POST['id_alternativa'];
-
+    $total = $_POST['total'];
     $usuario = $userDAO->addRespostas($id_user, $id_alternativa);
-    
+    $total++;
   
