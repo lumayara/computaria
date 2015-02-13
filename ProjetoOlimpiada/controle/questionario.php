@@ -14,7 +14,6 @@
     $usuario = $userDAO->getUsuario($id_user);
     $id_competicao = $usuario['id_competicao'];
     $listPerguntas = $perguntaDAO->listarQuestoesByCompeticao($id_competicao);
-    
     shuffle($listPerguntas);
     
     $total=0;
@@ -24,11 +23,13 @@
     
     <script>
        var size = "<?php echo sizeof($listPerguntas)?>";  
-       
+       var tempArray = <?php echo json_encode($listPerguntas); ?>;
+       var indice =0;
+       alert(tempArray[0]['id']);
             function mostraQuestao() {
-                var indice ="<?php echo $total?>";
-                alert(size);
-                alert(indice);
+                
+                //alert(size);
+                //alert(indice);
                 if (indice*1 < size) {
                 "<?php $questao = $listPerguntas[$total];?>";
                 "<?php $alternativas = $alternativaDAO->listarAlternativasByQuestao($questao['id']); shuffle($alternativas);?>";
@@ -36,7 +37,7 @@
                 document.getElementById('pergunta').innerHTML = "<?php echo $questao['pergunta']?>";
                 document.getElementById('respostas').innerHTML = "<?php foreach ($alternativas as $alternativa) {
                     echo "<p><input type='radio' name='alternativa' id='".$alternativa['id']."' value='".$alternativa['id']."'> "
-                            .$alternativa['alternativa']."</p>";
+                            .$alternativa['alternativa'].$alternativa['id']."</p>";
                     }?>"; 
                 } else {
                     alert("ja era");
@@ -46,7 +47,9 @@
           function salvarQuestao() {
                     
                 "<?php $total*1+1?>";
-                alert(<?php echo $total?>);
+                "<?php $idAlternativa = $_POST['submeter'];?>";
+                alert("<?php echo sizeof($listPerguntas)?>");
+                "<?php $userDAO->addRespostas($id_user,$alternativa[$idAlternativa]); ?>";
                 mostraQuestao();
                 
           }
