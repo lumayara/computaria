@@ -69,8 +69,8 @@
             });
             
             function sucesso(data) {
-                 total = total+1;
-                 alert(total);
+                 total++;
+                 alert("Total sucesso"+total);
                  mostraQuestao();    
                  alert("okkkkk");
             }

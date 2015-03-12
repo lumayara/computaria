@@ -58,7 +58,7 @@
                     document.getElementById('contador').innerHTML = "Espere só mais um pouco... Faltam: "+faltam;
                     setTimeout(atualizaContador, 1000);
                 } else {
-                    document.getElementById('contador').innerHTML = 'Sua hora chegou! '+'<a href="questionario.php?id=<?php echo $id_user?>">Iniciar Teste</a>';
+                    document.getElementById('contador').innerHTML = 'Sua hora chegou! '+'<a href="questionario_1.php?id=<?php echo $id_user?>">Iniciar Teste</a>';
                     setTimeout(atualizaContador, 1000);
                 }
           }
