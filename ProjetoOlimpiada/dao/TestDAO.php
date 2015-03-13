@@ -87,16 +87,17 @@ class TestDAO {
 
     public function get($id) {
         try {
-            $stmt = $this->conexao->prepare("SELECT id, classification, competition_id FROM Test WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT classification, competition_id FROM Test WHERE id = :id");
+            $stmt->bindParam(":id", $id);
 
             $stmt->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $competitionDAO = new CompetitionDAO();
         if ($result) {
-            return new Test($result['id'], $result['classification'], $competitionDAO->get($result['competition_id']));
+            return new Test($id, $result['classification'], $competitionDAO->get($result['competition_id']));
         } else {
             return FALSE;
         }

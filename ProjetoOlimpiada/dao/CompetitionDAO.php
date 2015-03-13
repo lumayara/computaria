@@ -93,9 +93,9 @@ class CompetitionDAO {
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            return new Competition($result['id'], $result['name'], $result['start_date']);
+            return new Competition($id, $result['name'], $result['start_date']);
         } else {
             return FALSE;
         }

@@ -84,6 +84,23 @@ class AdministratorDAO {
         return $removido;
     }
 
+    public function get($id) {
+        try {
+            $stmt = $this->conexao->prepare("SELECT email FROM Administrator WHERE id = :id");
+            $stmt->bindParam(":id", $id);
+            
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return new Administrator($id, $result['email'], NULL);
+        } else {
+            return FALSE;
+        }
+    }
+    
     public function listAdmins() {
         try {
             $stmt = $this->conexao->prepare("SELECT email, id FROM Administrator ORDER BY id DESC");

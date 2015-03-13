@@ -6,7 +6,7 @@
  * @author Luana
  */
 
-class Competicao {
+class Competition {
     private $id;
     private $name;
     private $startDate;
