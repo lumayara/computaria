@@ -56,7 +56,7 @@ class QuestionDAO {
                                             . "WHERE id = :id");
 
             $properties = array($question->getRegistrationDate(), $question->getQuestion(), 
-                                $question->getTopic(), $question->getTest()->getId());
+                                $question->getTopic(), $question->getTest()->getId(), $question->getId());
 
             $stmt->bindParam(":registration_date", $properties[0]);
             $stmt->bindParam(":question", $properties[1]);

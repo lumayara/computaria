@@ -4,11 +4,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/Admin
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/CompetitionDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/TestDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/QuestionDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/ChoiceDAO.php';
 
 $adminDAO = new AdministratorDAO();
 $cDAO = new CompetitionDAO();
 $testDAO = new TestDAO();
 $questionDAO = new QuestionDAO();
+$choiceDAO = new ChoiceDAO();
 
 //echo "=== Administrator ===";
 //echo "<br />";
@@ -72,9 +74,38 @@ $questionDAO = new QuestionDAO();
 //echo "<br />";
 //echo "= Add Test =";
 //echo "<br />";
-//echo var_dump($testDAO->add(new Test(NULL, "medio", $cDAO->get(2))));
+//echo var_dump($choiceDAO->add(new Test(NULL, "medio", $cDAO->get(2))));
 //echo "<br />";
-//echo var_dump($testDAO->add(new Test(NULL, "superior", $cDAO->get(2))));
+//echo var_dump($choiceDAO->add(new Test(NULL, "superior", $cDAO->get(2))));
+//echo "<br />";
+//echo "= Get Test =";
+//echo "<br />";
+//echo var_dump($choiceDAO->get(2));
+//echo "<br />";
+//echo "= Update Test =";
+//echo "<br />";
+//echo var_dump($choiceDAO->update(new Test(1, "superior", $cDAO->get(2))));
+//echo "<br />";
+//echo "= List Tests =";
+//echo "<br />";
+//echo var_dump($choiceDAO->listTests());
+//echo "<br />";
+//echo "= Remove Test =";
+//echo "<br />";
+//echo var_dump($choiceDAO->remove(1));
+//echo "<br />";
+//echo "<br />";
+
+//Testcenario
+//$comp = $compDAO->get(2);
+//
+//echo "=== Test ===";
+//echo "<br />";
+//echo "= Add Tests =";
+//echo "<br />";
+//for ($i = 0; $i < 15; $i++) {
+//    echo var_dump($testDAO->add(new Test(NULL, NULL, "Por que o céu é azul" . $i . "?", "Perguntas sem respostas", $comp)));
+//}
 //echo "<br />";
 //echo "= Get Test =";
 //echo "<br />";
@@ -82,45 +113,53 @@ $questionDAO = new QuestionDAO();
 //echo "<br />";
 //echo "= Update Test =";
 //echo "<br />";
-//echo var_dump($testDAO->update(new Test(1, "superior", $cDAO->get(2))));
+//echo var_dump($testDAO->update(new Test(1, "2015-03-11 22:08:26", "Por que o céu é azul" . $i . "?", "Perguntas sem respostas", $comp)));
 //echo "<br />";
 //echo "= List Tests =";
 //echo "<br />";
 //echo var_dump($testDAO->listTests());
 //echo "<br />";
-//echo "= Remove Test =";
+//echo "= Remove Choice =";
 //echo "<br />";
 //echo var_dump($testDAO->remove(1));
 //echo "<br />";
 //echo "<br />";
 
-//Questionario
-$test = $testDAO->get(2);
-
-echo "=== Question ===";
+//Choice
+echo "=== Choice ===";
 echo "<br />";
-echo "= Add Questions =";
-echo "<br />";
-for ($i = 0; $i < 15; $i++) {
-    echo var_dump($questionDAO->add(new Question(NULL, NULL, "Por que o céu é azul" . $i . "?", "Perguntas sem respostas", $test)));
-}
+echo "= Add Choices =";
 echo "<br />";
 echo "= Get Question =";
+$question = $questionDAO->get(2);
+for ($i = 0; $i < 5; $i++) {
+    echo var_dump($choiceDAO->add(new Choice(NULL, "porque ele nao é amarelo ". $i, FALSE, $question)));
+}
 echo "<br />";
-echo var_dump($questionDAO->get(2));
+echo "= Get Choice =";
 echo "<br />";
-echo "= Update Question =";
+echo var_dump($choiceDAO->get(1));
 echo "<br />";
-echo var_dump($questionDAO->update(new Question(1, "2015-03-11 22:08:26", "Por que o céu é azul" . $i . "?", "Perguntas sem respostas", $test)));
+echo "= Update Choice =";
 echo "<br />";
-echo "= List Questions =";
+echo var_dump($choiceDAO->update(new Choice(1, "por que ele nao é verde", TRUE, $question)));
 echo "<br />";
-echo var_dump($questionDAO->listQuestions());
+echo "= List Choices =";
 echo "<br />";
-echo "= Remove Question =";
+echo var_dump($choiceDAO->listChoices());
 echo "<br />";
-echo var_dump($questionDAO->remove(1));
+echo "= Remove Choice =";
+echo "<br />";
+echo var_dump($choiceDAO->remove(2));
 echo "<br />";
 echo "<br />";
 
-//Testar
+
+
+/* Testar
+ * 
+ * Pronto, agora a gente faz o de Choice
+ * Uhuuuu :) Simbora
+ * 
+ * 
+ */
