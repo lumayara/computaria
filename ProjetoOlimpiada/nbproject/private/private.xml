@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/conexao/ConnectionFactory.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/AdministratorDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Test.class.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Question.class.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/QuestionDAO.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Answers.class.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/ChoiceDAO.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/AnswersDAO.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/tests.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/CompetitionDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/TestDAO.php</file>
         </group>
     </open-files>
 </project-private>

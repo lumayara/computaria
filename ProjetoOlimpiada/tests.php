@@ -5,12 +5,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/Compe
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/TestDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/QuestionDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/ChoiceDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/ParticipantDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/TestParticipantDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/AnswersDAO.php';
 
 $adminDAO = new AdministratorDAO();
 $cDAO = new CompetitionDAO();
 $testDAO = new TestDAO();
 $questionDAO = new QuestionDAO();
 $choiceDAO = new ChoiceDAO();
+$participantDAO = new ParticipantDAO();
+$testParticipantDAO = new TestParticipantDAO();
+$answersDAO = new AnswersDAO();
 
 //echo "=== Administrator ===";
 //echo "<br />";
@@ -126,35 +132,127 @@ $choiceDAO = new ChoiceDAO();
 //echo "<br />";
 
 //Choice
-echo "=== Choice ===";
+//echo "=== Choice ===";
+//echo "<br />";
+//echo "= Add Choices =";
+//echo "<br />";
+//echo "= Get Question =";
+//$question = $questionDAO->get(2);
+//for ($i = 0; $i < 5; $i++) {
+//    echo var_dump($choiceDAO->add(new Choice(NULL, "porque ele nao é amarelo ". $i, FALSE, $question)));
+//}
+//echo "<br />";
+//echo "= Get Choice =";
+//echo "<br />";
+//echo var_dump($choiceDAO->get(1));
+//echo "<br />";
+//echo "= Update Choice =";
+//echo "<br />";
+//echo var_dump($choiceDAO->update(new Choice(1, "por que ele nao é verde", TRUE, $question)));
+//echo "<br />";
+//echo "= List Choices =";
+//echo "<br />";
+//echo var_dump($choiceDAO->listChoices());
+//echo "<br />";
+//echo "= Remove Choice =";
+//echo "<br />";
+//echo var_dump($choiceDAO->remove(2));
+//echo "<br />";
+//echo "<br />";
+
+//echo "=== Participant ===";
+//echo "<br />";
+//echo "= Get Competition =";
+//$competition = $cDAO->get(2);
+//echo var_dump($competition);
+//echo "= Add Participant =";
+//echo "<br />";
+//echo var_dump($participantDAO->add(new Participant(NULL, "Participant 1", "participant1@email.com", "123", "Vasco", $competition)));
+//echo "<br />";
+//echo var_dump($participantDAO->add(new Participant(NULL, "Participant 2", "participant2@email.com", "123", "Vasco", $competition)));
+//echo "<br />";
+//echo "= Get Participant =";
+//echo "<br />";
+//echo var_dump($participantDAO->get(1));
+//echo "= Participant Validate =";
+//echo "<br />";
+//echo "Email inexistente: " . var_dump($participantDAO->participantValidation("participant3@email.com", "123"));
+//echo "Senha errada: " . var_dump($participantDAO->participantValidation("participant1@email.com", "1234"));
+//echo "Certo: " . var_dump($participantDAO->participantValidation("participant1@email.com", "123"));
+//echo "<br />";
+//echo "= Update Participant =";
+//echo "<br />";
+//echo var_dump($participantDAO->update(new Participant(1, "Participant Segundo", "participant1@email.com", "123", "Vice", $competition)));
+//echo "<br />";
+//echo "= List Participants =";
+//echo "<br />";
+//echo var_dump($participantDAO->listParticipants());
+//echo "<br />";
+//echo "= Remove Participant =";
+//echo "<br />";
+//echo var_dump($participantDAO->remove(1));
+//echo "<br />";
+//echo "<br />";
+
+
+//echo "=== TestParticipant ===";
+//echo "<br />";
+//echo "= Get Participant =";
+//$participant = $participantDAO->get(2);
+//echo var_dump($participant);
+//echo "= Get Test =";
+//$test = $testDAO->get(2);
+//echo var_dump($test);
+//echo "= Add TestParticipant =";
+//echo "<br />";
+//echo var_dump($testParticipantDAO->add(new TestParticipant(NULL, $participant, $test, FALSE)));
+//echo "<br />";
+//echo "= Get TestParticipant =";
+//echo "<br />";
+//echo var_dump($testParticipantDAO->get(1));
+//echo "<br />";
+//echo "= Update TestParticipant =";
+//echo "<br />";
+//echo var_dump($testParticipantDAO->update(new TestParticipant(NULL, $participant, $test, TRUE)));
+//echo "<br />";
+//echo "= List TestParticipants =";
+//echo "<br />";
+//echo var_dump($testParticipantDAO->listTestsParticipant());
+//echo "<br />";
+//echo "= Remove TestParticipant =";
+//echo "<br />";
+//echo var_dump($testParticipantDAO->remove(1));
+//echo "<br />";
+//echo "<br />";
+
+
+echo "=== Answers ===";
 echo "<br />";
-echo "= Add Choices =";
-echo "<br />";
-echo "= Get Question =";
+echo "= Get TestParticipant =";
+$testParticipant = $testParticipantDAO->get(2);
 $question = $questionDAO->get(2);
-for ($i = 0; $i < 5; $i++) {
-    echo var_dump($choiceDAO->add(new Choice(NULL, "porque ele nao é amarelo ". $i, FALSE, $question)));
-}
+$choice = $choiceDAO->get(1);
+echo "= Add Answers =";
 echo "<br />";
-echo "= Get Choice =";
+echo var_dump($answersDAO->add(new Answers(NULL, $testParticipant, $question, $choice)));
 echo "<br />";
-echo var_dump($choiceDAO->get(1));
+echo "= Get Answers =";
 echo "<br />";
-echo "= Update Choice =";
+echo var_dump($answersDAO->get(1));
 echo "<br />";
-echo var_dump($choiceDAO->update(new Choice(1, "por que ele nao é verde", TRUE, $question)));
+echo "= Update Answers =";
 echo "<br />";
-echo "= List Choices =";
+echo var_dump($answersDAO->update(new Answers(NULL, $testParticipant, $question, $choice)));
 echo "<br />";
-echo var_dump($choiceDAO->listChoices());
+echo "= List Answers =";
 echo "<br />";
-echo "= Remove Choice =";
+echo var_dump($answersDAO->listAnswers());
 echo "<br />";
-echo var_dump($choiceDAO->remove(2));
+echo "= Remove Answers =";
+echo "<br />";
+echo var_dump($answersDAO->remove(1));
 echo "<br />";
 echo "<br />";
-
-
 
 /* Testar
  * 

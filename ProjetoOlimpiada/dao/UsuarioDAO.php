@@ -7,13 +7,13 @@
  */
 
 /**
- * Description of UsuarioDAO
+ * Description of ParticipantDAO
  *
  * @author Luana
  */
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/conexao/ConnectionFactory.php";
-include_once "$url_path/modelo/Usuario.php";
+include_once "$url_path/modelo/Participant.class.php";
 class UsuarioDAO {
     private $conexao;
     
@@ -21,18 +21,18 @@ class UsuarioDAO {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addUsuario(Usuario $usuario) {
+    public function addParticipant(Participant $participant) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT (nome, email, senha, turma, id_competicao)"
-                    . "VALUES (:nome, :email, :senha, :turma, :id_competicao)");
-            $vetorUser = array($usuario->getNome(), $usuario->getEmail(), $usuario->getSenha(), $usuario->getTurma(), $usuario->getCompeticao());
+            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT (name, email, password, team, competition_id)"
+                    . "VALUES (:name, :email, :password, :team, :competition_id)");
+            $vetorUser = array($participant->getNome(), $participant->getEmail(), $participant->getSenha(), $participant->getTurma(), $participant->getCompeticao());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
+            $stmt->bindParam(":name", $vetorUser[0]);
             $stmt->bindParam(":email", $vetorUser[1]);
-            $stmt->bindParam(":senha", $vetorUser[2]);
-            $stmt->bindParam(":turma", $vetorUser[3]);
-            $stmt->bindParam(":id_competicao", $vetorUser[4]);
+            $stmt->bindParam(":password", $vetorUser[2]);
+            $stmt->bindParam(":team", $vetorUser[3]);
+            $stmt->bindParam(":competition_id", $vetorUser[4]);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -47,7 +47,7 @@ class UsuarioDAO {
 
     public function listarParticipantes() {
             try{
-        $stmt = $this->conexao->prepare("SELECT P.nome, P.turma, P.email, C.nome AS competicao, P.id FROM PARTICIPANT P, COMPETITION C WHERE C.id=P.id_competicao");
+        $stmt = $this->conexao->prepare("SELECT P.name, P.team, P.email, C.name AS competicao, P.id FROM PARTICIPANT P, COMPETITION C WHERE C.id=P.competition_id");
         
         $stmt->execute();
         }catch (PDOException $e){
@@ -57,9 +57,9 @@ class UsuarioDAO {
             
     }
     
-    public function getUsuario($id){
+    public function getParticipant($id){
         try {
-            $stmt = $this->conexao->prepare("SELECT nome, email, turma, senha, id_competicao FROM PARTICIPANT WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT name, email, team, password, competition_id FROM PARTICIPANT WHERE id = :id");
             $stmt->bindParam(":id", $id);
             
             $stmt->execute();
@@ -70,20 +70,20 @@ class UsuarioDAO {
     }
     
         
-   public function updateUsuario(Usuario $usuario){
+   public function updateParticipant(Participant $participant){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE PARTICIPANT SET nome = :nome, email = :email, "
-                    . "senha = :senha, turma = :turma, id_competicao = :id_competicao WHERE id= :id");
+            $stmt = $this->conexao->prepare("UPDATE PARTICIPANT SET name = :name, email = :email, "
+                    . "password = :password, team = :team, competition_id = :competition_id WHERE id= :id");
             
-            $vetorUser = array($usuario->getNome(),$usuario->getEmail(), $usuario->getSenha(),
-                 $usuario->getTurma(), $usuario->getCompeticao(), $usuario->getID());
+            $vetorUser = array($participant->getNome(),$participant->getEmail(), $participant->getSenha(),
+                 $participant->getTurma(), $participant->getCompeticao(), $participant->getID());
             
-            $stmt->bindParam(":nome", $vetorUser[0]);
+            $stmt->bindParam(":name", $vetorUser[0]);
             $stmt->bindParam(":email", $vetorUser[1]);
-            $stmt->bindParam(":senha", $vetorUser[2]);
-            $stmt->bindParam(":turma", $vetorUser[3]);
-            $stmt->bindParam(":id_competicao", $vetorUser[4]);
+            $stmt->bindParam(":password", $vetorUser[2]);
+            $stmt->bindParam(":team", $vetorUser[3]);
+            $stmt->bindParam(":competition_id", $vetorUser[4]);
             $stmt->bindParam(":id", $vetorUser[5]);
            
             $resultado = $stmt->execute();
@@ -96,7 +96,7 @@ class UsuarioDAO {
         return $atualizado;
     }
     
-    public function removeUsuario($id){
+    public function removeParticipant($id){
         $removido = false;
         try {
             $stmt = $this->conexao->prepare("DELETE FROM PARTICIPANT WHERE id = :id");
@@ -111,11 +111,11 @@ class UsuarioDAO {
         return $removido;
     }  
     
-     public function validaUsuario($email, $senha) {
+     public function validaParticipant($email, $password) {
         try{
-            $stmt = $this->conexao->prepare("SELECT id FROM PARTICIPANT WHERE email =:email and senha =:senha");
+            $stmt = $this->conexao->prepare("SELECT id FROM PARTICIPANT WHERE email =:email and password =:password");
             $stmt->bindParam(":email", $email);
-            $stmt->bindParam(":senha", $senha);
+            $stmt->bindParam(":password", $password);
             
             $stmt->execute();
                        
