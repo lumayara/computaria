@@ -2,19 +2,19 @@
 <html>
 <?php
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/UsuarioDAO.php";
-    include_once "$url_path/dao/PerguntaDAO.php";
-    include_once "$url_path/dao/AlternativaDAO.php";
+    include_once "$url_path/dao/ParticipantDAO.php";
+    include_once "$url_path/dao/QuestionDAO.php";
+    include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $userDAO = new UsuarioDAO();
-    $perguntaDAO = new PerguntaDAO();
-    $alternativaDAO = new AlternativaDAO();
+    $userDAO = new ParticipantDAO();
+    $questionDAO = new QuestionDAO();
+    $choiceDAO = new ChoiceDAO();
     $id_user = $_GET['id'];
 
     $usuario = $userDAO->getUsuario($id_user);
-    $id_competicao = $usuario['id_competicao'];
-    $listPerguntas = $perguntaDAO->listarQuestoesByCompeticao($id_competicao);
-    shuffle($listPerguntas);
+    $competition_id = $usuario['competition_id'];
+    $listQuestions = $questionDAO->listarQuestoesByCompetition($competition_id);
+    shuffle($listQuestions);
     
     $total=0;
 
@@ -22,8 +22,8 @@
 <head>
     
     <script>
-       var size = "<?php echo sizeof($listPerguntas)?>";  
-       var tempArray = <?php echo json_encode($listPerguntas); ?>;
+       var size = "<?php echo sizeof($listQuestions)?>";  
+       var tempArray = <?php echo json_encode($listQuestions); ?>;
        var indice =0;
        alert(tempArray[0]['id']);
             function mostraQuestao() {
@@ -31,13 +31,13 @@
                 //alert(size);
                 //alert(indice);
                 if (indice*1 < size) {
-                "<?php $questao = $listPerguntas[$total];?>";
-                "<?php $alternativas = $alternativaDAO->listarAlternativasByQuestao($questao['id']); shuffle($alternativas);?>";
+                "<?php $questao = $listQuestions[$total];?>";
+                "<?php $choices = $choiceDAO->listarChoicesByQuestao($questao['id']); shuffle($choices);?>";
                 document.getElementById('topico').innerHTML = "<?php echo $questao['topico']?>";
-                document.getElementById('pergunta').innerHTML = "<?php echo $questao['pergunta']?>";
-                document.getElementById('respostas').innerHTML = "<?php foreach ($alternativas as $alternativa) {
-                    echo "<p><input type='radio' name='alternativa' id='".$alternativa['id']."' value='".$alternativa['id']."'> "
-                            .$alternativa['alternativa'].$alternativa['id']."</p>";
+                document.getElementById('question').innerHTML = "<?php echo $questao['question']?>";
+                document.getElementById('respostas').innerHTML = "<?php foreach ($choices as $choice) {
+                    echo "<p><input type='radio' name='Choice' id='".$choice['id']."' value='".$choice['id']."'> "
+                            .$choice['Choice'].$choice['id']."</p>";
                     }?>"; 
                 } else {
                     alert("ja era");
@@ -47,9 +47,9 @@
           function salvarQuestao() {
                     
                 "<?php $total*1+1?>";
-                "<?php $idAlternativa = $_POST['submeter'];?>";
-                alert("<?php echo sizeof($listPerguntas)?>");
-                "<?php $userDAO->addRespostas($id_user,$alternativa[$idAlternativa]); ?>";
+                "<?php $idChoice = $_POST['submeter'];?>";
+                alert("<?php echo sizeof($listQuestions)?>");
+                "<?php $userDAO->addRespostas($id_user,$choice[$idChoice]); ?>";
                 mostraQuestao();
                 
           }
@@ -139,7 +139,7 @@
                                             <strong class="primary-font"><span id="topico"></span></strong> 
                                  
                                         </div>
-                                        <p><span id="pergunta"></span></p>
+                                        <p><span id="question"></span></p>
                                     </div>
                                 </li>
                                 <!-- Fim Bloco da mensagem-->    

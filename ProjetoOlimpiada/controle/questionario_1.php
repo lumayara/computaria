@@ -2,26 +2,26 @@
 <html>
 <?php
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/UsuarioDAO.php";
-    include_once "$url_path/dao/PerguntaDAO.php";
-    include_once "$url_path/dao/AlternativaDAO.php";
+    include_once "$url_path/dao/ParticipantDAO.php";
+    include_once "$url_path/dao/QuestionDAO.php";
+    include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $userDAO = new UsuarioDAO();
-    $perguntaDAO = new PerguntaDAO();
-    $alternativaDAO = new AlternativaDAO();
+    $userDAO = new ParticipantDAO();
+    $questionDAO = new QuestionDAO();
+    $choiceDAO = new ChoiceDAO();
     $id_user = $_GET['id'];
     $usuario = $userDAO->getUsuario($id_user);
-    $id_competicao = $usuario['id_competicao'];
-    $listPerguntas = $perguntaDAO->listarQuestoesByCompeticao($id_competicao);
+    $competition_id = $usuario['competition_id'];
+    $listQuestions = $questionDAO->listarQuestoesByCompetition($competition_id);
     
-    shuffle($listPerguntas);
+    shuffle($listQuestions);
  
 
     ?>
 <head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
     <script>
-       var size = "<?php echo sizeof($listPerguntas)?>";  
+       var size = "<?php echo sizeof($listQuestions)?>";  
        var total =0;
         function mostraQuestao() {
             alert("Alert "+total);
@@ -29,13 +29,13 @@
                 $total = $total*1;?>";
                 alert("<?php echo "Total $total"?>");
                 if (total*1 < size) {                
-                "<?php $questao = $listPerguntas[$total];?>";
-                "<?php $alternativas = $alternativaDAO->listarAlternativasByQuestao($questao['id']); shuffle($alternativas);?>";
+                "<?php $questao = $listQuestions[$total];?>";
+                "<?php $choices = $choiceDAO->listarChoicesByQuestao($questao['id']); shuffle($choices);?>";
                 document.getElementById('topico').innerHTML = "<?php echo $questao['topico']?>";
-                document.getElementById('pergunta').innerHTML = "<?php echo $questao['pergunta']?>";
-                document.getElementById('respostas').innerHTML = "<?php foreach ($alternativas as $alternativa) {
-                    echo "<p><input type='radio' name='alternativa' value='".$alternativa['id']."'> "
-                            .$alternativa['alternativa']."</p>";
+                document.getElementById('question').innerHTML = "<?php echo $questao['question']?>";
+                document.getElementById('respostas').innerHTML = "<?php foreach ($choices as $choice) {
+                    echo "<p><input type='radio' name='Choice' value='".$choice['id']."'> "
+                            .$choice['Choice']."</p>";
                     }?>"; 
                 } else {
                     alert("ja era");
@@ -49,20 +49,20 @@
                 
                     var valor = "";
                     //Executa Loop entre todas as Radio buttons com o name de valor
-                    $('input:radio[name=alternativa]').each(function() {
+                    $('input:radio[name=Choice]').each(function() {
                         //Verifica qual está selecionado
                         if ($(this).is(':checked'))
                             valor = $(this).val();
                     });
                     alert(valor);
               
-                 var id_alternativa = valor;
+                 var id_Choice = valor;
                 
             $.ajax({
-                    url: "salvaPergunta.php",
+                    url: "salvaQuestion.php",
                     type: "POST",
                     dataType: " json",
-                    data: { id_user: id_user, id_alternativa: id_alternativa},
+                    data: { id_user: id_user, id_Choice: id_Choice},
                     success: function (data) { sucesso(data) },
                      error: function (jqXHR, textStatus, errorThrown) { erro(); }
                     });
@@ -165,7 +165,7 @@
                                             <strong class="primary-font"><span id="topico"></span></strong> 
                                  
                                         </div>
-                                        <p><span id="pergunta"></span></p>
+                                        <p><span id="question"></span></p>
                                     </div>
                                 </li>
                                 <!-- Fim Bloco da mensagem-->    

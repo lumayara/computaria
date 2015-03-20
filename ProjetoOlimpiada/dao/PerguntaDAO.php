@@ -7,33 +7,33 @@
  */
 
 /**
- * Description of PerguntaDAO
+ * Description of QuestionDAO
  *
  * @author Luana
  */
 include_once '../conexao/ConnectionFactory.php';
-include_once '../modelo/Pergunta.php';
-class PerguntaDAO {
+include_once '../modelo/Question.php';
+class QuestionDAO {
     private $conexao;
     
     public function __construct() {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addPergunta(Pergunta $pergunta) {
+    public function addQuestion(Question $question) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO QUESTIONS (id, data_cadastro, pergunta,"
-                    . "topico, id_competicao) VALUES (:id, :data_cadastro, :pergunta, :topico, :id_competicao)");
+            $stmt = $this->conexao->prepare("INSERT INTO QUESTIONS (id, data_cadastro, question,"
+                    . "topico, competition_id) VALUES (:id, :data_cadastro, :question, :topico, :competition_id)");
 
-            $vetorUser = array($pergunta->getId(), $pergunta->getDataCadastro(), $pergunta->getPergunta(),
-                $pergunta->getTopico(), $pergunta->getCompeticao());
+            $vetorUser = array($question->getId(), $question->getDataCadastro(), $question->getQuestion(),
+                $question->getTopico(), $question->getCompetition());
             
             $stmt->bindParam(":id", $vetorUser[0]);
             $stmt->bindParam(":data_cadastro", $vetorUser[1]);
-            $stmt->bindParam(":pergunta", $vetorUser[2]);
+            $stmt->bindParam(":question", $vetorUser[2]);
             $stmt->bindParam(":topico", $vetorUser[3]);
-            $stmt->bindParam(":id_competicao", $vetorUser[4]);
+            $stmt->bindParam(":competition_id", $vetorUser[4]);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -45,9 +45,9 @@ class PerguntaDAO {
         return $adicionado;
         }
         
-    public function getPergunta($id){
+    public function getQuestion($id){
         try {
-            $stmt = $this->conexao->prepare("SELECT pergunta, topico, id_competicao FROM QUESTIONS WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT question, topico, competition_id FROM QUESTIONS WHERE id = :id");
             $stmt->bindParam(":id", $id);
             
             $stmt->execute();
@@ -57,15 +57,15 @@ class PerguntaDAO {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
         
-   public function updatePergunta(Pergunta $pergunta){
+   public function updateQuestion(Question $question){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE QUESTIONS SET pergunta = :pergunta, "
+            $stmt = $this->conexao->prepare("UPDATE QUESTIONS SET question = :question, "
                     . "topico = :topico WHERE id = :id");
             
-            $vetorUser = array($pergunta->getPergunta(), $pergunta->getTopico(), $pergunta->getId());
+            $vetorUser = array($question->getQuestion(), $question->getTopico(), $question->getId());
             
-            $stmt->bindParam(":pergunta", $vetorUser[0]);
+            $stmt->bindParam(":question", $vetorUser[0]);
             $stmt->bindParam(":topico", $vetorUser[1]);
             $stmt->bindParam(":id", $vetorUser[2]);
            
@@ -79,7 +79,7 @@ class PerguntaDAO {
         return $atualizado;
     }
     
-    public function removePergunta($id){
+    public function removeQuestion($id){
         $removido = false;
         try {
             $stmt = $this->conexao->prepare("DELETE FROM QUESTIONS WHERE id = :id");
@@ -96,7 +96,7 @@ class PerguntaDAO {
     
     public function listarQuestoes() {
             try{
-        $stmt = $this->conexao->prepare("SELECT id, topico, pergunta, data_cadastro FROM QUESTIONS ORDER BY id DESC");
+        $stmt = $this->conexao->prepare("SELECT id, topico, question, data_cadastro FROM QUESTIONS ORDER BY id DESC");
         
         $stmt->execute();
         }catch (PDOException $e){
@@ -106,10 +106,10 @@ class PerguntaDAO {
             
     }
     
-    public function listarQuestoesByCompeticao($id_competicao) {
+    public function listarQuestoesByCompetition($competition_id) {
             try{
-        $stmt = $this->conexao->prepare("SELECT id, topico, pergunta, data_cadastro FROM QUESTIONS WHERE id_competicao= :id_competicao ORDER BY id DESC");
-        $stmt->bindParam(":id_competicao", $id_competicao);
+        $stmt = $this->conexao->prepare("SELECT id, topico, question, data_cadastro FROM QUESTIONS WHERE competition_id= :competition_id ORDER BY id DESC");
+        $stmt->bindParam(":competition_id", $competition_id);
         $stmt->execute();
         }catch (PDOException $e){
             echo $e->getMessage();

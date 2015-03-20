@@ -7,7 +7,7 @@
  */
 
 /**
- * Description of UsuarioDAO
+ * Description of ParticipantDAO
  *
  * @author Luana
  */
@@ -150,13 +150,13 @@ class ParticipantDAO {
         }
     }
 
-//    public function addRespostas($id_user, $id_alternativa) {
+//    public function addRespostas($id_user, $id_Choice) {
 //        $adicionado = false;
 //        try {
-//            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT_ANSWERS (id_user, id_alternativa) VALUES (:id_user, :id_alternativa)");
+//            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT_ANSWERS (id_user, id_Choice) VALUES (:id_user, :id_Choice)");
 //
 //            $stmt->bindParam(":id_user", $id_user);
-//            $stmt->bindParam(":id_alternativa", $id_alternativa);
+//            $stmt->bindParam(":id_Choice", $id_Choice);
 //
 //            $resultado = $stmt->execute();
 //            if ($resultado) {

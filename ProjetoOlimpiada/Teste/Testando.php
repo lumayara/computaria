@@ -11,46 +11,46 @@
  *
  * @author Luana
  */
-require_once '../dao/AdministradorDAO.php';
-require_once '../dao/AlternativaDAO.php';
-require_once '../dao/CompeticaoDAO.php';
-require_once '../dao/PerguntaDAO.php';
+require_once '../dao/AdministratorDAO.php';
+require_once '../dao/ChoiceDAO.php';
+require_once '../dao/CompetitionDAO.php';
+require_once '../dao/QuestionDAO.php';
 require_once '../dao/ProvaDAO.php';
-require_once '../dao/UsuarioDAO.php';
+require_once '../dao/ParticipantDAO.php';
 
-require_once '../modelo/Administrador.php';
-require_once '../modelo/Alternativa.php';
-require_once '../modelo/Competicao.php';
-require_once '../modelo/Pergunta.php';
+require_once '../modelo/Administrator.php';
+require_once '../modelo/Choice.php';
+require_once '../modelo/Competition.php';
+require_once '../modelo/Question.php';
 require_once '../modelo/Prova.php';
 require_once '../modelo/Usuario.php';
 
 class Testando {
-    private $administradorDAO;
-    private $competicaoDAO;
-    private $usuarioDAO;
+    private $AdministratorDAO;
+    private $competitionDAO;
+    private $participantDAO;
     private $provaDAO;
-    private $perguntaDAO;
-    private $alternativaDAO;
+    private $questionDAO;
+    private $choiceDAO;
     
     public function __construct() {
-        $this->administradorDAO = new AdministradorDAO();
-        $this->alternativaDAO = new AlternativaDAO();
-        $this->competicaoDAO = new CompeticaoDAO();
-        $this->perguntaDAO = new PerguntaDAO();
+        $this->AdministratorDAO = new AdministratorDAO();
+        $this->ChoiceDAO = new ChoiceDAO();
+        $this->competitionDAO = new CompetitionDAO();
+        $this->questionDAO = new QuestionDAO();
         $this->provaDAO = new ProvaDAO();
-        $this->usuarioDAO = new UsuarioDAO();        
+        $this->participantDAO = new ParticipantDAO();        
     }
    
     function testar() {
-     //   $administrador = new Administrador(0,"Luana", "lu@oi.com", "1234");
-      //  $this->administradorDAO->addAdministrador($administrador);
-      //  $this->administradorDAO->removeAdm(1);
-     // $competicao = new Competicao(0, "Computaria", "");
-     // $this->competicaoDAO->addCompeticao($competicao);
+     //   $Administrator = new Administrator(0,"Luana", "lu@oi.com", "1234");
+      //  $this->AdministratorDAO->addAdministrator($Administrator);
+      //  $this->AdministratorDAO->removeAdm(1);
+     // $competition = new Competition(0, "Computaria", "");
+     // $this->competitionDAO->addCompetition($competition);
       //  $participant = new Usuario(0, "Lulu", "lua@eu.com", "123","ADS", 1);
-        //$this->usuarioDAO->addUsuario($participant);
-        print_r($this->competicaoDAO->listarCompeticoes());
+        //$this->participantDAO->addUsuario($participant);
+        print_r($this->competitionDAO->listarCompeticoes());
 }
     
    

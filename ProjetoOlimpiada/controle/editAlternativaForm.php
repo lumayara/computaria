@@ -2,19 +2,19 @@
 <html>
 <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/AlternativaDAO.php";
-    include_once "$url_path/dao/PerguntaDAO.php";
-    $alternativaDAO = new AlternativaDAO();
-    $pergDAO = new PerguntaDAO();
+    include_once "$url_path/dao/ChoiceDAO.php";
+    include_once "$url_path/dao/QuestionDAO.php";
+    $choiceDAO = new ChoiceDAO();
+    $pergDAO = new QuestionDAO();
     $id = $_GET["id"];
   
-    $alternativa = $alternativaDAO->getAlternativa($id);
+    $choice = $choiceDAO->getChoice($id);
     
-    $id_pergunta = $alternativa['id_question'];
+    $id_question = $choice['id_question'];
     
-    $pergunta = $pergDAO->getPergunta($id_pergunta);
+    $question = $pergDAO->getQuestion($id_question);
     
-    $id_competicao = $pergunta['id_competicao'];
+    $competition_id = $question['competition_id'];
     
     ?>
 <head>
@@ -22,7 +22,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Olimpif - Perguntas e Respostas com resultados em tempo real</title>
+    <title>Olimpif - Questions e Respostas com resultados em tempo real</title>
 
     <!-- Core CSS - Include with every page -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -37,10 +37,10 @@
     <div id="wrapper">
         <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listaComp.php">Manter Competição</a>
-                    -><a href="listaProva.php?id=<?php echo $id_competicao ?>">Ver Questões</a>->
-                    <a href="listaAlternativas.php?id=<?php echo $id_pergunta ?>">Ver Alternativas</a>
-                    -> Editar Alternativa
+                    <a href="listComp.php">Manter Competição</a>
+                    -><a href="listTest.php?id=<?php echo $competition_id ?>">Ver Questões</a>->
+                    <a href="listaChoices.php?id=<?php echo $id_question ?>">Ver Choices</a>
+                    -> Editar Choice
                     </div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -60,7 +60,7 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="loginAdmin.html"><i class="fa fa-user fa-fw"></i> Acessar como Administrador</a>
+                        <li><a href="loginAdmin.html"><i class="fa fa-user fa-fw"></i> Acessar como Administrator</a>
                         </li>
                         
                     </ul>
@@ -82,13 +82,13 @@
               </div>
     <div class="panel-body">
                 
-        <form class="form-horizontal" method="POST" action="editAlternativa.php">
+        <form class="form-horizontal" method="POST" action="editChoice.php">
     <div class="form-group">
         <input type="hidden" value="<?php echo $id ?>" name="id" />
         <div class="form-group">
-        <label for="inputAlternativa" class="control-label col-xs-2">Alternativa</label>
+        <label for="inputChoice" class="control-label col-xs-2">Choice</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputAlternativa" name="inputAlternativa" value="<?php echo $alternativa['alternativa']?>" required>
+            <input type="text" class="form-control" id="inputChoice" name="inputChoice" value="<?php echo $choice['Choice']?>" required>
         </div>
     </div>
     <div class="form-group">

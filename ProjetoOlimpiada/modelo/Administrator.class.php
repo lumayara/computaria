@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of Administrador
+ * Description of Administrator
  *
  * @author Luana
  */

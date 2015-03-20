@@ -1,9 +1,9 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-include_once "$url_path/dao/AdministradorDAO.php";
-include_once "$url_path/modelo/Administrador.php";
+include_once "$url_path/dao/AdministratorDAO.php";
+include_once "$url_path/modelo/Administrator.php";
 
-$dao = new AdministradorDAO();
+$dao = new AdministratorDAO();
 // Verifica se um formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    $id=0;
     
    if((!empty($email)) && (!empty($senha))){
-    $admin = new Administrador($id, $email, $senha);
+    $admin = new Administrator($id, $email, $senha);
      
-    if ($dao->addAdministrador($admin)) {
+    if ($dao->addAdministrator($admin)) {
         header("Location: listaAdmin.php");
     }
     } else {

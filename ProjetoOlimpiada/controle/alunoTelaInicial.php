@@ -2,16 +2,16 @@
 <html>
     <?php
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/UsuarioDAO.php";
-    include_once "$url_path/dao/CompeticaoDAO.php";
+    include_once "$url_path/dao/ParticipantDAO.php";
+    include_once "$url_path/dao/CompetitionDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $userDAO = new UsuarioDAO();
-    $compDAO = new CompeticaoDAO();
+    $userDAO = new ParticipantDAO();
+    $compDAO = new CompetitionDAO();
     $id_user = $_GET['id'];
 
     $usuario = $userDAO->getUsuario($id_user);
-    $id_competicao = $usuario['id_competicao'];
-    $competicao = $compDAO->getCompeticao($id_competicao);
+    $competition_id = $usuario['competition_id'];
+    $competition = $compDAO->getCompetition($competition_id);
     ?>
     <head>
 
@@ -36,7 +36,7 @@
                 var fuso = (hoje.getTimezoneOffset() / 60) - 3;
                 if (fuso)
                     hoje = new Date(hoje.valueOf() + (fuso * 3600000));
-                var futuro = new Date("<?php echo $competicao['data_realizacao']?>");
+                var futuro = new Date("<?php echo $competition['data_realizacao']?>");
                 
                 var ss = parseInt((futuro - hoje) / 1000);
                 var mm = parseInt(ss / 60);

@@ -1,13 +1,13 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-include_once "$url_path/dao/CompeticaoDAO.php";
-include_once "$url_path/modelo/Competicao.php";
+include_once "$url_path/dao/CompetitionDAO.php";
+include_once "$url_path/modelo/Competition.php";
 
 // Verifica se um formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $id = $_POST['id'];
-    $dao= new CompeticaoDAO();
+    $dao= new CompetitionDAO();
 
 
 // Salva duas variáveis com o que foi digitado no formulário
@@ -19,16 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    
     $data_realizacao = $data_realizacao.'T'.$data_time;
     if((!empty($nome)) && (!empty($data_realizacao))){
-        $competicao = new Competicao($id, $nome, $data_realizacao);
+        $competition = new Competition($id, $nome, $data_realizacao);
         // Utiliza uma função pra validar os dados digitados
 
-        if ($dao->updateComp($competicao)){
+        if ($dao->updateComp($competition)){
         // O usuário e a senha digitados foram validados, manda pra página interna
-         header("Location: listaComp.php");
+         header("Location: listComp.php");
             
         } 
     }else{
-            header("Location: editCompeticao.php?id=$id");
+            header("Location: editCompetition.php?id=$id");
     }
 }
 

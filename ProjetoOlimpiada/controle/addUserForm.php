@@ -2,15 +2,15 @@
 <html>
 <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/CompeticaoDAO.php";
-    $compDAO = new CompeticaoDAO();
+    include_once "$url_path/dao/CompetitionDAO.php";
+    $compDAO = new CompetitionDAO();
     ?>
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Olimpif - Perguntas e Respostas com resultados em tempo real</title>
+    <title>Olimpif - Questions e Respostas com resultados em tempo real</title>
 
     <!-- Core CSS - Include with every page -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
     <div id="wrapper">
         <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listaUser.php">Manter Usuário</a>->Adicionar Usuário</div>
+                    <a href="listUser.php">Manter Usuário</a>->Adicionar Usuário</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -44,7 +44,7 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="loginAdmin.html"><i class="fa fa-user fa-fw"></i> Acessar como Administrador</a>
+                        <li><a href="loginAdmin.html"><i class="fa fa-user fa-fw"></i> Acessar como Administrator</a>
                         </li>
                         
                     </ul>
@@ -92,9 +92,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="inputCompeticao" class="control-label col-xs-3">Competicao</label>
+        <label for="inputCompetition" class="control-label col-xs-3">Competition</label>
         <div class="col-xs-9">
-            <select class="form-control" id="inputCompeticao" name="inputCompeticao">
+            <select class="form-control" id="inputCompetition" name="inputCompetition">
                 <?php $list = $compDAO->listarCompeticoes();
                     foreach ($list as $row) {
                           print "<option value=".$row['id'].">".$row['nome']."</option>";

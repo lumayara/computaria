@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of competicao
+ * Description of competition
  *
  * @author Luana
  */

@@ -2,9 +2,9 @@
 <html>
     <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/PerguntaDAO.php";
+    include_once "$url_path/dao/QuestionDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $perguntaDAO = new PerguntaDAO();
+    $questionDAO = new QuestionDAO();
     $id = $_GET["id"];
     ?>
 <head>
@@ -32,7 +32,7 @@
     <div id="wrapper">
         <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listaComp.php">Manter Competição</a>
+                    <a href="listComp.php">Manter Competição</a>
                     ->Ver Questões</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -81,7 +81,7 @@
             <!-- /.row -->
            <div class="row">
                 <div class="col-lg-4">
-                    <a href="addQuestaoForm.php?id=<?php echo $id?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Questão</a> 
+                    <a href="addQuestionForm.php?id=<?php echo $id?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Questão</a> 
                 
                 </div>
                <!-- /.col-lg-4 --> 
@@ -97,17 +97,17 @@
                                     <thead>
                                          <tr>
                                             <th>Tópico</th>
-                                            <th>Pergunta</th>
-                                            <th>Ver Alternativas</th>
+                                            <th>Question</th>
+                                            <th>Ver Choices</th>
                                             <th>Editar</th>
                                             <th>Remover</th>
                                           </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $list = $perguntaDAO->listarQuestoesByCompeticao($id);
+                                        <?php $list = $questionDAO->listarQuestoesByCompetition($id);
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['topico']."</td><td>".$row['pergunta']."</td><td><a href='listaAlternativas.php?id=".$row['id']."'>"
-                                                        ."Manter Alternativas</a></td><td><a href='editProvaForm.php?id=".$row['id']."'>Editar</a></td><td><a href='removeProva.php?id=".$row['id']."'>Remover</td></tr>";
+                                                print "<tr><td>".$row['topico']."</td><td>".$row['question']."</td><td><a href='listaChoices.php?id=".$row['id']."'>"
+                                                        ."Manter Choices</a></td><td><a href='editProvaForm.php?id=".$row['id']."'>Editar</a></td><td><a href='removeProva.php?id=".$row['id']."'>Remover</td></tr>";
                                             }
                                         ?> 
                                     </tbody>

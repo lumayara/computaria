@@ -1,14 +1,14 @@
 <?php
-   include_once "$url_path/dao/AlternativaDAO.php";
+   include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $alternativaDAO = new AlternativaDAO();
+    $choiceDAO = new ChoiceDAO();
     $total = $_POST['total'];
-    $listPerguntas = $_POST['listPerguntas'];
+    $listQuestions = $_POST['listQuestions'];
     
-    $questao = $listPerguntas[$total]++;
-    $alternativas = $alternativaDAO->listarAlternativasByQuestao($questao['id']); shuffle($alternativas);
+    $questao = $listQuestions[$total]++;
+    $choices = $choiceDAO->listarChoicesByQuestao($questao['id']); shuffle($choices);
    
  echo json_encode($questao);
-    echo json_encode($alternativas);
+    echo json_encode($choices);
     
    

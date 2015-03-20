@@ -110,7 +110,7 @@ $answersDAO = new AnswersDAO();
 //echo "= Add Tests =";
 //echo "<br />";
 //for ($i = 0; $i < 15; $i++) {
-//    echo var_dump($testDAO->add(new Test(NULL, NULL, "Por que o céu é azul" . $i . "?", "Perguntas sem respostas", $comp)));
+//    echo var_dump($testDAO->add(new Test(NULL, NULL, "Por que o céu é azul" . $i . "?", "Questions sem respostas", $comp)));
 //}
 //echo "<br />";
 //echo "= Get Test =";
@@ -119,7 +119,7 @@ $answersDAO = new AnswersDAO();
 //echo "<br />";
 //echo "= Update Test =";
 //echo "<br />";
-//echo var_dump($testDAO->update(new Test(1, "2015-03-11 22:08:26", "Por que o céu é azul" . $i . "?", "Perguntas sem respostas", $comp)));
+//echo var_dump($testDAO->update(new Test(1, "2015-03-11 22:08:26", "Por que o céu é azul" . $i . "?", "Questions sem respostas", $comp)));
 //echo "<br />";
 //echo "= List Tests =";
 //echo "<br />";

@@ -7,21 +7,21 @@
  */
 
 /**
- * Description of CompeticaoDAO
+ * Description of CompetitionDAO
  *
  * @author Luana
  */
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/conexao/ConnectionFactory.php";
-include_once "$url_path/modelo/Competicao.php";
-class CompeticaoDAO {
+include_once "$url_path/modelo/Competition.php";
+class CompetitionDAO {
     private $conexao;
     
     public function __construct() {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addCompeticao(Competicao $comp) {
+    public function addCompetition(Competition $comp) {
         $adicionado = false;
         try {
             $stmt = $this->conexao->prepare("INSERT INTO COMPETITION (nome, data_realizacao)"
@@ -41,7 +41,7 @@ class CompeticaoDAO {
         return $adicionado;
         }
         
-  public function updateComp(Competicao $comp){
+  public function updateComp(Competition $comp){
         $atualizado=FALSE;
         try{
             $stmt = $this->conexao->prepare("UPDATE COMPETITION SET nome = :nome, data_realizacao = :data_realizacao WHERE id= :id");
@@ -63,7 +63,7 @@ class CompeticaoDAO {
     }
     
     
-    public function removeCompeticao($id){
+    public function removeCompetition($id){
         $removido = false;
         try {
             $stmt = $this->conexao->prepare("DELETE FROM COMPETITION WHERE id = :id");
@@ -90,7 +90,7 @@ class CompeticaoDAO {
             
     }
     
-    public function getCompeticao($id){
+    public function getCompetition($id){
         try {
             $stmt = $this->conexao->prepare("SELECT nome, data_realizacao FROM COMPETITION WHERE id = :id");
             $stmt->bindParam(":id", $id);

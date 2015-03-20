@@ -7,29 +7,29 @@
  */
 
 /**
- * Description of Alternativa
+ * Description of Choice
  *
  * @author Luana
  */
 include_once '../conexao/ConnectionFactory.php';
-include_once '../modelo/Alternativa.php';
-class AlternativaDAO {
+include_once '../modelo/Choice.php';
+class ChoiceDAO {
     private $conexao;
     
     public function __construct() {
         $this->conexao = ConnectionFactory::getInstance();
     }
     
-    public function addAlternativa(Alternativa $alternativa, $id_pergunta) {
+    public function addChoice(Choice $choice, $id_question) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO CHOICES (alternativa, eh_resposta, id_question)"
-                    . "VALUES (:alternativa, :eh_resposta, :id_question)");
-            $vetorUser = array($alternativa->getAlternativa(), $alternativa->getEh_certa());
+            $stmt = $this->conexao->prepare("INSERT INTO CHOICES (Choice, eh_resposta, id_question)"
+                    . "VALUES (:Choice, :eh_resposta, :id_question)");
+            $vetorUser = array($choice->getChoice(), $choice->getEh_certa());
             
-            $stmt->bindParam(":alternativa", $vetorUser[0]);
+            $stmt->bindParam(":Choice", $vetorUser[0]);
             $stmt->bindParam(":eh_resposta", $vetorUser[1]);
-            $stmt->bindParam(":id_question", $id_pergunta);
+            $stmt->bindParam(":id_question", $id_question);
             
             $resultado = $stmt->execute();
             if($resultado){
@@ -41,15 +41,15 @@ class AlternativaDAO {
         return $adicionado;
         }
         
-   public function updateAlternativa(Alternativa $alternativa){
+   public function updateChoice(Choice $choice){
         $atualizado=FALSE;
         try{
-            $stmt = $this->conexao->prepare("UPDATE CHOICES SET alternativa = :alternativa, "
+            $stmt = $this->conexao->prepare("UPDATE CHOICES SET Choice = :Choice, "
                     . "eh_resposta = :eh_resposta WHERE id = :id");
             
-            $vetorUser = array($alternativa->getAlternativa(), $alternativa->getEh_certa(), $alternativa->getID());
+            $vetorUser = array($choice->getChoice(), $choice->getEh_certa(), $choice->getID());
             
-            $stmt->bindParam(":alternativa", $vetorUser[0]);
+            $stmt->bindParam(":Choice", $vetorUser[0]);
             $stmt->bindParam(":eh_resposta", $vetorUser[1]);
             $stmt->bindParam(":id", $vetorUser[2]);
             
@@ -63,9 +63,9 @@ class AlternativaDAO {
         return $atualizado;
     }
     
-     public function getAlternativa($id){
+     public function getChoice($id){
         try {
-            $stmt = $this->conexao->prepare("SELECT alternativa, eh_resposta, id_question FROM CHOICES WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT Choice, eh_resposta, id_question FROM CHOICES WHERE id = :id");
             $stmt->bindParam(":id", $id);
             
             $stmt->execute();
@@ -75,7 +75,7 @@ class AlternativaDAO {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    public function removeAlternativa($id){
+    public function removeChoice($id){
         $removido = false;
         try {
             $stmt = $this->conexao->prepare("DELETE FROM CHOICES WHERE id = :id");
@@ -90,9 +90,9 @@ class AlternativaDAO {
         return $removido;
     }
     
-    public function listarAlternativas() {
+    public function listarChoices() {
             try{
-        $stmt = $this->conexao->prepare("SELECT id, alternativa, eh_resposta FROM CHOICES ORDER BY id DESC");
+        $stmt = $this->conexao->prepare("SELECT id, Choice, eh_resposta FROM CHOICES ORDER BY id DESC");
         
         $stmt->execute();
         }catch (PDOException $e){
@@ -102,9 +102,9 @@ class AlternativaDAO {
             
     }
     
-    public function listarAlternativasByQuestao($id_question) {
+    public function listarChoicesByQuestao($id_question) {
             try{
-        $stmt = $this->conexao->prepare("SELECT id, alternativa, eh_resposta FROM CHOICES WHERE id_question= :id_question ORDER BY id DESC");
+        $stmt = $this->conexao->prepare("SELECT id, Choice, eh_resposta FROM CHOICES WHERE id_question= :id_question ORDER BY id DESC");
         $stmt->bindParam(":id_question", $id_question);
         $stmt->execute();
         }catch (PDOException $e){

@@ -14,7 +14,7 @@
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/conexao/ConnectionFactory.php";
 include_once "$url_path/modelo/Participant.class.php";
-class UsuarioDAO {
+class ParticipantDAO {
     private $conexao;
     
     public function __construct() {
@@ -26,7 +26,7 @@ class UsuarioDAO {
         try {
             $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT (name, email, password, team, competition_id)"
                     . "VALUES (:name, :email, :password, :team, :competition_id)");
-            $vetorUser = array($participant->getNome(), $participant->getEmail(), $participant->getSenha(), $participant->getTurma(), $participant->getCompeticao());
+            $vetorUser = array($participant->getNome(), $participant->getEmail(), $participant->getSenha(), $participant->getTurma(), $participant->getCompetition());
             
             $stmt->bindParam(":name", $vetorUser[0]);
             $stmt->bindParam(":email", $vetorUser[1]);
@@ -47,7 +47,7 @@ class UsuarioDAO {
 
     public function listarParticipantes() {
             try{
-        $stmt = $this->conexao->prepare("SELECT P.name, P.team, P.email, C.name AS competicao, P.id FROM PARTICIPANT P, COMPETITION C WHERE C.id=P.competition_id");
+        $stmt = $this->conexao->prepare("SELECT P.name, P.team, P.email, C.name AS competition, P.id FROM PARTICIPANT P, COMPETITION C WHERE C.id=P.competition_id");
         
         $stmt->execute();
         }catch (PDOException $e){
@@ -77,7 +77,7 @@ class UsuarioDAO {
                     . "password = :password, team = :team, competition_id = :competition_id WHERE id= :id");
             
             $vetorUser = array($participant->getNome(),$participant->getEmail(), $participant->getSenha(),
-                 $participant->getTurma(), $participant->getCompeticao(), $participant->getID());
+                 $participant->getTurma(), $participant->getCompetition(), $participant->getID());
             
             $stmt->bindParam(":name", $vetorUser[0]);
             $stmt->bindParam(":email", $vetorUser[1]);
@@ -125,13 +125,13 @@ class UsuarioDAO {
         return $stmt->fetch(PDO::FETCH_COLUMN);    
     }
     
-    public function addRespostas($id_user, $id_alternativa) {
+    public function addRespostas($id_user, $id_Choice) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT_ANSWERS (id_user, id_alternativa) VALUES (:id_user, :id_alternativa)");
+            $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT_ANSWERS (id_user, id_Choice) VALUES (:id_user, :id_Choice)");
            
             $stmt->bindParam(":id_user", $id_user);
-            $stmt->bindParam(":id_alternativa", $id_alternativa);
+            $stmt->bindParam(":id_Choice", $id_Choice);
             
             $resultado = $stmt->execute();
             if($resultado){

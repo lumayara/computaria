@@ -2,9 +2,9 @@
 <html>
     <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/AdministradorDAO.php";
+    include_once "$url_path/dao/AdministratorDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $adminDAO = new AdministradorDAO();
+    $adminDAO = new AdministratorDAO();
     ?>
 <head>
 
@@ -30,7 +30,7 @@
 
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Ver Administradores</div>
+                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Ver Administratores</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -70,7 +70,7 @@
             <div class="row">
                 
                 <div class="col-lg-12">
-                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Administrador</h1>
+                    <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Administrator</h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 
@@ -78,14 +78,14 @@
             <!-- /.row -->
            <div class="row">
                 <div class="col-lg-4">
-                    <a href="../addAdmin.html" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Administrador</a> 
+                    <a href="../addAdmin.html" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Administrator</a> 
                 
                 </div>
                <!-- /.col-lg-4 --> 
      <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Lista de Administradores
+                            Lista de Administratores
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

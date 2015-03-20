@@ -2,9 +2,9 @@
 <html>
     <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/UsuarioDAO.php";
+    include_once "$url_path/dao/ParticipantDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $userDAO = new UsuarioDAO();
+    $userDAO = new ParticipantDAO();
     ?>
 <head>
 
@@ -94,7 +94,7 @@
                                             <th>Nome</th>
                                             <th>Email</th>
                                             <th>Turma</th>
-                                            <th>Competicao</th>
+                                            <th>Competition</th>
                                             <th>Editar</th>
                                             <th>Remover</th>
                                         </tr>
@@ -102,7 +102,7 @@
                                     <tbody>
                                         <?php $list = $userDAO->listarParticipantes();
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['nome']."</td><td>".$row['email']."</td><td>".$row['turma']."</td><td>".$row['competicao']
+                                                print "<tr><td>".$row['nome']."</td><td>".$row['email']."</td><td>".$row['turma']."</td><td>".$row['competition']
                                                         ."</td><td><a href='editUserForm.php?id=".$row['id']."'>Editar</a></td>"
                                                         ."<td><a href='removeUser.php?id=".$row['id']."'>Remover</a></td></tr>";
                                             }

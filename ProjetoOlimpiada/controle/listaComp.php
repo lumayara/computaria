@@ -2,9 +2,9 @@
 <html>
     <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/CompeticaoDAO.php";
+    include_once "$url_path/dao/CompetitionDAO.php";
     include_once "$url_path/conexao/ConnectionFactory.php";
-    $compDAO = new CompeticaoDAO();
+    $compDAO = new CompetitionDAO();
     ?>
 <head>
 
@@ -103,7 +103,7 @@
                                     <tbody>
                                         <?php $list = $compDAO->listarCompeticoes();
                                             foreach ($list as $row) {
-                                                print "<tr><td>".$row['nome']."</td><td>".date('d/m/Y H:i', strtotime($row['data_realizacao']))."</td><td><a href='editCompForm.php?id=".$row['id']."'>Editar</a></td><td><a href='listaProva.php?id=".$row['id']."'>"
+                                                print "<tr><td>".$row['nome']."</td><td>".date('d/m/Y H:i', strtotime($row['data_realizacao']))."</td><td><a href='editCompForm.php?id=".$row['id']."'>Editar</a></td><td><a href='listTest.php?id=".$row['id']."'>"
                                                         ."Manter Prova</a></td><td><a href='removeComp.php?id=".$row['id']."'>Remover</td></tr>";
                                             }
                                         ?> 

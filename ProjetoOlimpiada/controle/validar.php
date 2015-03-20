@@ -1,11 +1,11 @@
 <?php
 
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-include_once "$url_path/dao/UsuarioDAO.php";
-include_once "$url_path/dao/AdministradorDAO.php";
+include_once "$url_path/dao/ParticipantDAO.php";
+include_once "$url_path/dao/AdministratorDAO.php";
 
 
-$dao = new UsuarioDAO();
+$dao = new ParticipantDAO();
 // Verifica se um formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $remember = isset($_POST['senha']);
 
-    if (isset($_POST['administrador'])) {
-        $dao = new AdministradorDAO();
+    if (isset($_POST['Administrator'])) {
+        $dao = new AdministratorDAO();
         if ($dao->validaUsuario($email, $senha)) {
 
             // O usuário e a senha digitados foram validados, manda pra página interna
