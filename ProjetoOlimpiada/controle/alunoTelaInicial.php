@@ -9,9 +9,9 @@
     $compDAO = new CompetitionDAO();
     $id_user = $_GET['id'];
 
-    $usuario = $userDAO->getUsuario($id_user);
+    $usuario = $userDAO->get($id_user);
     $competition_id = $usuario['competition_id'];
-    $competition = $compDAO->getCompetition($competition_id);
+    $competition = $compDAO->get($competition_id);
     ?>
     <head>
 
@@ -36,7 +36,7 @@
                 var fuso = (hoje.getTimezoneOffset() / 60) - 3;
                 if (fuso)
                     hoje = new Date(hoje.valueOf() + (fuso * 3600000));
-                var futuro = new Date("<?php echo $competition['data_realizacao']?>");
+                var futuro = new Date("<?php echo $competition['start_date']?>");
                 
                 var ss = parseInt((futuro - hoje) / 1000);
                 var mm = parseInt(ss / 60);
@@ -108,7 +108,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-smile-o"></i> Bem vindo(a), <?php echo $usuario['nome'] ?>!</h1>
+                        <h1 class="page-header"><i class="fa fa-smile-o"></i> Bem vindo(a), <?php echo $usuario['name'] ?>!</h1>
                     </div>
 
                     <div class="col-md-4 col-md-offset-4">

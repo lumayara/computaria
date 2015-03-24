@@ -26,13 +26,15 @@ class TestDAO {
     public function add(Test $test) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO Test (classification, competition_id) "
-                    . "VALUES (:classification, :competition_id)");
+            $stmt = $this->conexao->prepare("INSERT INTO Test (classification, start_date, end_date, competition_id) "
+                    . "VALUES (:classification, :start_date, :end_date, :competition_id)");
 
             $properties = array($test->getClassification(), $test->getCompetition()->getId());
 
             $stmt->bindParam(":classification", $properties[0]);
-            $stmt->bindParam(":competition_id", $properties[1]);
+            $stmt->bindParam(":start_date", $properties[1]);
+            $stmt->bindParam(":end_date", $properties[2]);
+            $stmt->bindParam(":competition_id", $properties[3]);
 
             $resultado = $stmt->execute();
 
@@ -49,13 +51,16 @@ class TestDAO {
         $atualizado = FALSE;
         try {
             $stmt = $this->conexao->prepare("UPDATE Test SET classification = :classification, "
+                    . "start_date = :start_date, end_date = :end_date"
                     . "competition_id = :competition_id WHERE id = :id");
 
             $properties = array($test->getClassification(), $test->getCompetition()->getId(), $test->getId());
 
             $stmt->bindParam(":classification", $properties[0]);
-            $stmt->bindParam(":competition_id", $properties[1]);
-            $stmt->bindParam(":id", $properties[2]);
+            $stmt->bindParam(":start_date", $properties[1]);
+            $stmt->bindParam(":end_date", $properties[2]);
+            $stmt->bindParam(":competition_id", $properties[3]);
+            $stmt->bindParam(":id", $properties[4]);
 
             $resultado = $stmt->execute();
 
@@ -87,7 +92,7 @@ class TestDAO {
 
     public function get($id) {
         try {
-            $stmt = $this->conexao->prepare("SELECT classification, competition_id FROM Test WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT classification, start_date, end_date, competition_id FROM Test WHERE id = :id");
             $stmt->bindParam(":id", $id);
 
             $stmt->execute();
@@ -97,7 +102,8 @@ class TestDAO {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $competitionDAO = new CompetitionDAO();
         if ($result) {
-            return new Test($id, $result['classification'], $competitionDAO->get($result['competition_id']));
+            return new Test($id, $result['classification'], $result['start_date'], 
+                    $result['end_date'], $competitionDAO->get($result['competition_id']));
         } else {
             return FALSE;
         }
@@ -105,7 +111,7 @@ class TestDAO {
 
     public function listTests() {
         try {
-            $stmt = $this->conexao->prepare("SELECT id, classification, competition_id FROM Test ORDER BY id DESC");
+            $stmt = $this->conexao->prepare("SELECT id, classification, start_date, end_date, competition_id FROM Test ORDER BY id DESC");
 
             $stmt->execute();
         } catch (PDOException $e) {
@@ -115,7 +121,8 @@ class TestDAO {
         $tests = array();
         $competitionDAO = new CompetitionDAO();
         for ($i = 0; $i < count($result); $i++) {
-            $tests[$i] = new Test($result[$i]['id'], $result[$i]['classification'], $competitionDAO->get($result[$i]['competition_id']));
+            $tests[$i] = new Test($result[$i]['id'], $result[$i]['classification'], 
+                    $result[$i]['start_date'], $result[$i]['end_date'], $competitionDAO->get($result[$i]['competition_id']));
         }
         return $tests;
     }

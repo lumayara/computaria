@@ -95,9 +95,9 @@
         <label for="inputCompetition" class="control-label col-xs-3">Competition</label>
         <div class="col-xs-9">
             <select class="form-control" id="inputCompetition" name="inputCompetition">
-                <?php $list = $compDAO->listarCompeticoes();
+                <?php $list = $compDAO->listCompetitions();
                     foreach ($list as $row) {
-                          print "<option value=".$row['id'].">".$row['nome']."</option>";
+                          print "<option value=".$row['id'].">".$row['name']."</option>";
                     }
                 ?>    
             </select>

@@ -1,7 +1,7 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/ParticipantDAO.php";
-include_once "$url_path/modelo/Usuario.php";
+include_once "$url_path/modelo/Participant.class.php";
 
 $dao = new ParticipantDAO();
 // Verifica se um formulário foi enviado
@@ -20,9 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    $id=0;
     
    if((!empty($nome)) && (!empty($email)) && (!empty($turma)) && (!empty($senha))){
-    $user = new Usuario($id, $nome, $email, $senha, $turma, $competition);
+    $user = new Participant($id, $nome, $email, $senha, $turma, $competition);
      
-    if ($dao->addUsuario($user)) {
+    if ($dao->add($user)) {
         header("Location: listUser.php");
     }
     } else {

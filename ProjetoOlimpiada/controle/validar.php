@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['Administrator'])) {
         $dao = new AdministratorDAO();
-        if ($dao->validaUsuario($email, $senha)) {
+        if ($dao->userValidate($email, $senha)) {
 
             // O usuário e a senha digitados foram validados, manda pra página interna
             header("Location: ../painelControle.html");
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Utiliza uma função pra validar os dados digitados
     else if (isset($_POST['usuario'])) {
-        $usuario = $dao->validaUsuario($email, $senha);
+        $usuario = $dao->userValidate($email, $senha);
         if ($usuario) {
             // O usuário e a senha digitados foram validados, manda pra página interna
             header("Location: alunoTelaInicial.php?id=" . $usuario['id']);

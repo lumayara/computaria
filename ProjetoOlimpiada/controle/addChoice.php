@@ -1,7 +1,7 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"]."/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/ChoiceDAO.php";
-include_once "$url_path/modelo/Choice.php";
+include_once "$url_path/modelo/Choice.class.php";
 
 $dao = new ChoiceDAO();
 // Verifica se um formulário foi enviado
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    if((!empty($choice)) && (!empty($resposta))){
     $choice = new Choice($id, $choice, $resposta);
      
-    if ($dao->addChoice($choice, $questao)){
+    if ($dao->add($choice, $questao)){
         header("Location: listaChoices.php?id=$questao");
      
     }

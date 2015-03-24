@@ -1,7 +1,7 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/CompetitionDAO.php";
-include_once "$url_path/modelo/Competition.php";
+include_once "$url_path/modelo/Competition.class.php";
 
 $dao = new CompetitionDAO();
 // Verifica se um formulário foi enviado
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     if((!empty($nome)) && (!empty($data_realizacao))){
         $comp = new Competition($id, $nome, $data_realizacao);
-        if ($dao->addCompetition($comp)) {
+        if ($dao->add($comp)) {
             header("Location: listComp.php");
         }       
     }else{

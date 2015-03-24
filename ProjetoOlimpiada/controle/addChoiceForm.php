@@ -4,12 +4,12 @@
     $url_path = $_SERVER["DOCUMENT_ROOT"]."/computaria/ProjetoOlimpiada";
     include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
-    include_once "$url_path/modelo/Question.php";
+    include_once "$url_path/modelo/Question.class.php";
     $choiceDAO = new ChoiceDAO();
     $questionDAO = new QuestionDAO();
     $id = $_GET["id"];
     
-    $question = $questionDAO->getQuestion($id);
+    $question = $questionDAO->get($id);
     $competition_id = $question['competition_id'];
     
 ?>
@@ -72,7 +72,7 @@
        <div class="col-md-4 col-md-offset-4">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Adicionar Choice
+                  <i class="fa fa-trophy fa-fw"></i> Adicionar Alternativa
               </div>
     <div class="panel-body">
                 
@@ -81,7 +81,7 @@
     <div class="form-group">
         <label for="inputChoice" class="control-label col-xs-3">Choice</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="inputChoice" name="inputChoice" placeholder="Digite a Choice" required>
+            <input type="text" class="form-control" id="inputChoice" name="inputChoice" placeholder="Digite a Alternativa" required>
         </div>
     </div>
         

@@ -6,7 +6,7 @@
     $compDAO = new CompetitionDAO();
     $id = $_GET["id"];
   
-    $comp = $compDAO->getCompetition($id);
+    $comp = $compDAO->get($id);
     
     
     ?>
@@ -76,7 +76,7 @@
         <input type="hidden" value="<?php echo $id ?>" name="id" />
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" name="inputNome" autofocus value="<?php echo $comp["nome"]?>" required>
+            <input type="text" class="form-control" id="inputNome" name="inputNome" autofocus value="<?php echo $comp["name"]?>" required>
         </div>
 
     

@@ -1,7 +1,7 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/ChoiceDAO.php";
-include_once "$url_path/modelo/Choice.php";
+include_once "$url_path/modelo/Choice.class.php";
 
 // Verifica se um formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -18,12 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    
     if((!empty($choice)) && (!empty($resposta))){
         $novaChoice = new Choice($id, $choice, $resposta);
-        $alt = $dao->getChoice($id);
+        $alt = $dao->get($id);
         // Utiliza uma função pra validar os dados digitados
 
-        if ($dao->updateChoice($novaChoice)){
+        if ($dao->update($novaChoice)){
         // O usuário e a senha digitados foram validados, manda pra página interna
-         header("Location: listaChoices.php?id=".$alt['id_question']);
+         header("Location: listaChoices.php?id=".$alt['question_id']);
         
         } 
     }else{

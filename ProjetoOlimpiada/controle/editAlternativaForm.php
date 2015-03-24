@@ -88,7 +88,7 @@
         <div class="form-group">
         <label for="inputChoice" class="control-label col-xs-2">Choice</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputChoice" name="inputChoice" value="<?php echo $choice['Choice']?>" required>
+            <input type="text" class="form-control" id="inputChoice" name="inputChoice" value="<?php echo $choice['choice']?>" required>
         </div>
     </div>
     <div class="form-group">

@@ -8,14 +8,19 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/modelo/Co
  * @author Luana
  */
 class Test {
+
     private $id;
     private $classification;
     private $competition;
-                
-    function __construct($id, $classification, $competition) {
+    private $startDate;
+    private $endDate;
+
+    function __construct($id, $classification, $startDate, $endDate, $competition) {
         $this->id = $id;
         $this->classification = $classification;
-        $this->competitionId = $competition;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+        $this->competition = $competition;
     }
 
     public function getId() {
@@ -27,7 +32,15 @@ class Test {
     }
 
     public function getCompetition() {
-        return $this->competitionId;
+        return $this->competition;
+    }
+
+    public function getStartDate() {
+        return $this->startDate;
+    }
+
+    public function getEndDate() {
+        return $this->endDate;
     }
 
     public function setId($id) {
@@ -39,7 +52,15 @@ class Test {
     }
 
     public function setCompetition($competition) {
-        $this->competitionId = $competition;
+        $this->competition = $competition;
     }
-    
+
+    public function setStartDate($startDate) {
+        $this->startDate = $startDate;
+    }
+
+    public function setEndDate($endDate) {
+        $this->endDate = $endDate;
+    }
+
 }

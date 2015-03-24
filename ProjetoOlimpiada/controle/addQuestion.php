@@ -1,7 +1,7 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/QuestionDAO.php";
-include_once "$url_path/modelo/Question.php";
+include_once "$url_path/modelo/Question.class.php";
 
 $dao = new QuestionDAO();
 // Verifica se um formulário foi enviado
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    if((!empty($topico)) && (!empty($question))){
     $question = new Question($id, $question, $topico, $competition);
      
-    if ($dao->addQuestion($question)) {
+    if ($dao->add($question)) {
         header("Location: listTest.php?id=$competition");
     }
     } else {

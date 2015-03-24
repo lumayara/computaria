@@ -127,5 +127,17 @@ class ChoiceDAO {
         }
         return $choices;
     }
+    
+    public function listChoicesByQuestion($id_question) {
+            try{
+        $stmt = $this->conexao->prepare("SELECT id, Choice, eh_resposta FROM CHOICES WHERE id_question= :id_question ORDER BY id DESC");
+        $stmt->bindParam(":id_question", $id_question);
+        $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+    }
 
 }

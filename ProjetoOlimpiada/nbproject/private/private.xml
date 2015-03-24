@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>modelo/Test.class.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>15</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Answers.class.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/ChoiceDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/AnswersDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/tests.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/addComp.html</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/painelControle.html</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/listComp.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addComp.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/addComp.php</file>
         </group>
     </open-files>
 </project-private>
