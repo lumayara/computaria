@@ -79,7 +79,7 @@
     <form class="form-horizontal" method="POST" action="addChoice.php">
         <input type="hidden" value="<?php echo $id ?>" name="id" />
     <div class="form-group">
-        <label for="inputChoice" class="control-label col-xs-3">Choice</label>
+        <label for="inputChoice" class="control-label col-xs-3">Alternativa</label>
         <div class="col-xs-9">
             <input type="text" class="form-control" id="inputChoice" name="inputChoice" placeholder="Digite a Alternativa" required>
         </div>

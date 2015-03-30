@@ -117,14 +117,27 @@ class TestDAO {
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
-        $tests = array();
-        $competitionDAO = new CompetitionDAO();
-        for ($i = 0; $i < count($result); $i++) {
-            $tests[$i] = new Test($result[$i]['id'], $result[$i]['classification'], 
-                    $result[$i]['start_date'], $result[$i]['end_date'], $competitionDAO->get($result[$i]['competition_id']));
-        }
-        return $tests;
+//        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+//        $tests = array();
+//        $competitionDAO = new CompetitionDAO();
+//        for ($i = 0; $i < count($result); $i++) {
+//            $tests[$i] = new Test($result[$i]['id'], $result[$i]['classification'], 
+//                    $result[$i]['start_date'], $result[$i]['end_date'], $competitionDAO->get($result[$i]['competition_id']));
+//        }
+//        return $tests;
+        return $stmt->fetchALL(PDO::FETCH_ASSOC);
     }
+    
+    public function listTestsbyCompetition() {
+            try{
+        $stmt = $this->conexao->prepare("SELECT id, topic, question, registrationDate FROM QUESTIONS WHERE test_id= :test_id ORDER BY id DESC");
+        $stmt->bindParam(":test_id", $test_id);
+        $stmt->execute();
+        }catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+ } 
 
 }

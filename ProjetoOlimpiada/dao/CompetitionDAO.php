@@ -102,19 +102,16 @@ class CompetitionDAO {
     }
 
     public function listCompetitions() {
-        try {
-            $stmt = $this->conexao->prepare("SELECT id, name, start_date FROM Competition ORDER BY id DESC");
-
-            $stmt->execute();
-        } catch (PDOException $e) {
+     
+            try{
+        $stmt = $this->conexao->prepare("SELECT id, name, start_date FROM COMPETITION");
+        
+        $stmt->execute();
+        }catch (PDOException $e){
             echo $e->getMessage();
         }
-        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
-        $competitions = array();
-        for ($i = 0; $i < count($result); $i++) {
-            $competitions[$i] = new Competition($result[$i]['id'], $result[$i]['name'], $result[$i]['start_date']);
-        }
-        return $competitions;
+        return $stmt->fetchALL(PDO::FETCH_ASSOC);
+            
     }
 
 }

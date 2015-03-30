@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = (isset($_POST['inputNome'])) ? $_POST['inputNome'] : '';
 
     $data_realizacao = (isset($_POST['inputData'])) ? $_POST['inputData'] : '';
-    $data_time = (isset($_POST['inputTime'])) ? $_POST['inputTime'] : '';
+    //$data_time = (isset($_POST['inputTime'])) ? $_POST['inputTime'] : '';
     
     $id=0;
-    $data_realizacao = $data_realizacao.'T'.$data_time;
+    //$data_realizacao = $data_realizacao.'T'.$data_time;
     
     if((!empty($nome)) && (!empty($data_realizacao))){
         $comp = new Competition($id, $nome, $data_realizacao);

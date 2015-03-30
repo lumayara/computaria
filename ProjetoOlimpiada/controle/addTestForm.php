@@ -2,8 +2,8 @@
 <html>
 <?php
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/QuestionDAO.php";
-    $questionDAO = new QuestionDAO();
+    include_once "$url_path/dao/TestDAO.php";
+    $testDAO = new TestDAO();
     $id = $_GET["id"];
 
 ?>
@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Olimpif - Questions e Respostas com resultados em tempo real</title>
+    <title>Olimpif - Perguntas e Respostas com resultados em tempo real</title>
 
     <!-- Core CSS - Include with every page -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
         <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
                     <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $id?>">Ver Questões</a>->Adicionar Questão</div>
+                    -><a href="listTest.php?id=<?php echo $id?>">Ver Provas</a>->Adicionar Prova</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -47,7 +47,7 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="loginAdmin.html"><i class="fa fa-user fa-fw"></i> Acessar como Administrator</a>
+                        <li><a href="loginAdmin.html"><i class="fa fa-user fa-fw"></i> Acessar como Administrador</a>
                         </li>
 
                     </ul>
@@ -62,25 +62,35 @@
    <div class="row">
        <br>
        <br>
-       <div class="col-md-4 col-md-offset-4">
+       <!--<div class="col-md-5 col-md-offset-4">-->
+       <div class="col-md-5">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Adicionar Questão
+                  <i class="fa fa-trophy fa-fw"></i> Adicionar Prova
               </div>
     <div class="panel-body">
 
-    <form class="form-horizontal" method="POST" action="addQuestion.php">
+    <form class="form-horizontal" method="POST" action="addTest.php">
         <input type="hidden" value="<?php echo $id ?>" name="id" />
     <div class="form-group">
-        <label for="inputTopico" class="control-label col-xs-2">Tópico</label>
-        <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputTopico" name="inputTopico" placeholder="Digite o tópico da questão" required>
+        <label for="inputTopico" class="control-label col-xs-3">Classificação</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="inputNome" name="inputClassificacao" autofocus placeholder="Digite a classificação da Prova" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="inputQuestion" class="control-label col-xs-3">Questão</label>
+        <label for="inputData" class="control-label col-xs-3">Data</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" placeholder="Digite a questão" required>
+            <input type="date" class="form-control" id="inputData" name="inputData" required>
+        </div>
+       <label for="inputTimeStart" class="control-label col-xs-3">Hora de início</label>
+       <div class="col-xs-9">
+            <input type="time" class="form-control" id="inputTimeStart" name="inputTimeStart" required>
+       </div>
+       <label for="inputTimeEnd" class="control-label col-xs-3">Hora de término</label>
+       <div class="col-xs-9">
+            <input type="time" class="form-control" id="inputTimeEnd" name="inputTimeEnd" required>
+       </div>     
         </div>
     </div>
     <div class="form-group">
