@@ -4,12 +4,10 @@
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
     include_once "$url_path/dao/QuestionDAO.php";
     
-    $pergDAO = new QuestionDAO();
+    $questionDAO = new QuestionDAO();
     $id = $_GET["id"];
   
-    $question = $pergDAO->getQuestion($id);
-     
-    $competition_id = $question['competition_id'];
+    $question = $questionDAO->get($id);
     
     ?>
 <head>
@@ -33,7 +31,7 @@
         <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
                     <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $competition_id ?>">Ver Questões</a>-> Editar Questão</div>
+                    -><a href="listTest.php?id=<?php echo $question->getCompetition()->getId() ?>">Ver Questões</a>-> Editar Questão</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

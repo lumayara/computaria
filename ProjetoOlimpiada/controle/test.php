@@ -2,15 +2,16 @@
 <html>
     <?php
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/ChoiceDAO.php";
+    include_once "$url_path/dao/TestDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
-    include_once "$url_path/modelo/Question.php";
-    $choiceDAO = new ChoiceDAO();
+    
+    $testDAO = new TestDAO();
     $questionDAO = new QuestionDAO();
+    
     $id = $_GET["id"];
-
-    $question = $questionDAO->getQuestion($id);
-    $competition_id = $question['competition_id'];
+    
+    $test = $testDAO->get($id);
+    
     ?>
     <head>
 
@@ -38,8 +39,7 @@
             <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
                     <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $competition_id ?>">Ver Questões</a>
-                    ->Ver Choices</div>
+                    -> Prova</div>
             </div>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
@@ -77,24 +77,31 @@
             <div id="page-wrapper">
 
                 <div class="row">
-
-                    <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Choice</h1>
+                    
+                    <div>
+                        <h1>Prova</h1>
+                        <p><b>Classificação: </b><?php echo $test->getClassification(); ?></p>
+                        <p><b>Data de Início: </b><?php echo $test->getStartDate(); ?></p>
+                        <p><b>Data de Fim: </b><?php echo $test->getEndDate(); ?></p>
+                        <p><b>Competição: </b><?php echo $test->getCompetition()->getName(); ?></p>
                     </div>
-                    <!-- /.col-lg-12 -->
+                    
+                    <div>
+                        <h2>Questões para essa prova</h2>
+                    </div>
 
                 </div>
-                <!-- /.row -->  
+                <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-4">
-                        <a href="addChoiceForm.php?id=<?php echo $id ?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Choice</a> 
+                        <a href="addQuestionForm.php?id=<?php echo $id ?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Nova Questão</a> 
 
                     </div>
                     <!-- /.col-lg-4 --> 
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Lista de Choices
+                                Lista de Questões
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -102,24 +109,28 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Choice</th>
-                                                <th>Resposta</th>                                           
+                                                <th>Tópico</th>
+                                                <th>Question</th>
+                                                <th>Ver Choices</th>
                                                 <th>Editar</th>
                                                 <th>Remover</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $list = $choiceDAO->listarChoicesByQuestao($id);
-                                            foreach ($list as $choice) {
+                                            $list = $questionDAO->listQuestionsByTest($test->getId());
+                                            foreach ($list as $question) {
                                                 print "<tr>"
-                                                        . "<td>" . $choice->getChoice() . "</td>"
-                                                        . "<td>" . $choice->getItsAnswer() . "</td>"
+                                                        . "<td>" . $question->getTopic() . "</td>"
+                                                        . "<td>" . $question->getQuestion() . "</td>"
                                                         . "<td>"
-                                                        . "<a href='editChoiceForm.php?id=" . $choice->getId() . "'>Editar</a>"
+                                                        . "<a href='listaChoices.php?id=" . $question->getId() . "'>Manter Choices</a>"
                                                         . "</td>"
                                                         . "<td>"
-                                                        . "<a href='removeChoice.php?id=" . $choice->getId() . "'>Remover</a>"
+                                                        . "<a href='editTestForm.php?id=" . $question->getId() . "'>Editar</a>"
+                                                        . "</td>"
+                                                        . "<td>"
+                                                        . "<a href='removeProva.php?id=" . $question->getId() . "'>Remover</a>"
                                                         . "</td>"
                                                         . "</tr>";
                                             }

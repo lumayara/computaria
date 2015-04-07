@@ -29,8 +29,8 @@ class ChoiceDAO {
             $stmt = $this->conexao->prepare("INSERT INTO Choice (choice, its_answer, question_id) "
                     . "VALUES (:choice, :its_answer, :question_id)");
 
-            $properties = array($choice->getChoice(), $choice->getItsAnswer(), 
-                                $choice->getQuestion()->getId());
+            $properties = array($choice->getChoice(), $choice->getItsAnswer(),
+                $choice->getQuestion()->getId());
 
             $stmt->bindParam(":choice", $properties[0]);
             $stmt->bindParam(":its_answer", $properties[1]);
@@ -51,11 +51,11 @@ class ChoiceDAO {
         $atualizado = FALSE;
         try {
             $stmt = $this->conexao->prepare("UPDATE Choice SET choice = :choice, "
-                                            . "its_answer = :its_answer, question_id = :question_id "
-                                            . "WHERE id = :id");
+                    . "its_answer = :its_answer, question_id = :question_id "
+                    . "WHERE id = :id");
 
-            $properties = array($choice->getChoice(), $choice->getItsAnswer(), 
-                                $choice->getQuestion()->getId(), $choice->getId());
+            $properties = array($choice->getChoice(), $choice->getItsAnswer(),
+                $choice->getQuestion()->getId(), $choice->getId());
 
             $stmt->bindParam(":choice", $properties[0]);
             $stmt->bindParam(":its_answer", $properties[1]);
@@ -102,8 +102,7 @@ class ChoiceDAO {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $questionDAO = new QuestionDAO();
         if ($result) {
-            return new Choice($id, $result['choice'], $result['its_answer'], 
-                              $questionDAO->get($result['question_id']));
+            return new Choice($id, $result['choice'], $result['its_answer'], $questionDAO->get($result['question_id']));
         } else {
             return FALSE;
         }
@@ -121,23 +120,26 @@ class ChoiceDAO {
         $choices = array();
         $questionDAO = new QuestionDAO();
         for ($i = 0; $i < count($result); $i++) {
-            $choices[$i] = new Choice($result[$i]['id'], $result[$i]['choice'], $result[$i]['its_answer'], 
-                                      $questionDAO->get($result[$i]['question_id']));
-                                
+            $choices[$i] = new Choice($result[$i]['id'], $result[$i]['choice'], $result[$i]['its_answer'], $questionDAO->get($result[$i]['question_id']));
         }
         return $choices;
     }
-    
-    public function listChoicesByQuestion($id_question) {
-            try{
-        $stmt = $this->conexao->prepare("SELECT id, Choice, eh_resposta FROM CHOICES WHERE id_question= :id_question ORDER BY id DESC");
-        $stmt->bindParam(":id_question", $id_question);
-        $stmt->execute();
-        }catch (PDOException $e){
+
+    public function listChoicesByQuestion($questionId) {
+        try {
+            $stmt = $this->conexao->prepare("SELECT id, Choice, eh_resposta FROM CHOICES WHERE question_id = :question_id ORDER BY id DESC");
+            $stmt->bindParam(":question_id", $questionId);
+            $stmt->execute();
+        } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $choices = array();
+        $questionDAO = new QuestionDAO();
+        for ($i = 0; $i < count($result); $i++) {
+            $choices[$i] = new Choice($result[$i]['id'], $result[$i]['choice'], $result[$i]['its_answer'], $questionDAO->get($result[$i]['question_id']));
+        }
+        return $choices;
     }
 
 }

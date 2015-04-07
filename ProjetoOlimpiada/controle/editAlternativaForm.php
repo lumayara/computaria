@@ -5,14 +5,14 @@
     include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
     $choiceDAO = new ChoiceDAO();
-    $pergDAO = new QuestionDAO();
+    $questionDAO = new QuestionDAO();
     $id = $_GET["id"];
   
     $choice = $choiceDAO->getChoice($id);
     
     $id_question = $choice['id_question'];
     
-    $question = $pergDAO->getQuestion($id_question);
+    $question = $questionDAO->getQuestion($id_question);
     
     $competition_id = $question['competition_id'];
     

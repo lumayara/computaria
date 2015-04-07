@@ -12,7 +12,7 @@
  * @author Luana
  */
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/conexao/ConnectionFactory.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/QuestionDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/TestDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/modelo/Question.class.php';
 
 class QuestionDAO {
@@ -119,22 +119,35 @@ class QuestionDAO {
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        return $stmt->fetchALL(PDO::FETCH_ASSOC);
-                                       
-        
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $questions = array();
+        $testDAO = new TestDAO();
+        for ($i = 0; $i < count($result); $i++) {
+            $questions[$i] = new Question($result[$i]['id'], $result[$i]['registration_date'], $result[$i]['question'], 
+                                $result[$i]['topic'], $testDAO->get($result[$i]['test_id']));
+                                
+        }
+        return $questions;
     }
+    
+    public function listQuestionsByTest($testId) {
+        try {
+            $stmt = $this->conexao->prepare("SELECT id, registration_date, question, topic FROM Question WHERE test_id = :test_id ORDER BY id DESC");
+            $stmt->bindParam(":test_id", $testId);
 
-public function listQuestionsbyTest() {
-            try{
-        $stmt = $this->conexao->prepare("SELECT id, topic, question, registrationDate FROM QUESTIONS WHERE test_id= :test_id ORDER BY id DESC");
-        $stmt->bindParam(":test_id", $test_id);
-        $stmt->execute();
-        }catch (PDOException $e){
+            $stmt->execute();
+        } catch (PDOException $e) {
             echo $e->getMessage();
         }
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
- }    
- 
-    
- }
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $questions = array();
+        $testDAO = new TestDAO();
+        for ($i = 0; $i < count($result); $i++) {
+            $questions[$i] = new Question($result[$i]['id'], $result[$i]['registration_date'], $result[$i]['question'], 
+                                $result[$i]['topic'], $testDAO->get($testId));
+                                
+        }
+        return $questions;
+    }
+
+}

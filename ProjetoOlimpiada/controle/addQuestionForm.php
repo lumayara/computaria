@@ -70,7 +70,7 @@
     <div class="panel-body">
 
     <form class="form-horizontal" method="POST" action="addQuestion.php">
-        <input type="hidden" value="<?php echo $id ?>" name="id" />
+        <input type="hidden" value="<?php echo $id ?>" name="inputTest" />
     <div class="form-group">
         <label for="inputTopico" class="control-label col-xs-2">Tópico</label>
         <div class="col-xs-10">

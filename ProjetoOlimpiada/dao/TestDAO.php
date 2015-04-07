@@ -29,7 +29,7 @@ class TestDAO {
             $stmt = $this->conexao->prepare("INSERT INTO Test (classification, start_date, end_date, competition_id) "
                     . "VALUES (:classification, :start_date, :end_date, :competition_id)");
 
-            $properties = array($test->getClassification(), $test->getCompetition()->getId());
+            $properties = array($test->getClassification(),$test->getStartDate(),$test->getEndDate(), $test->getCompetition());
 
             $stmt->bindParam(":classification", $properties[0]);
             $stmt->bindParam(":start_date", $properties[1]);
@@ -117,26 +117,32 @@ class TestDAO {
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
-//        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
-//        $tests = array();
-//        $competitionDAO = new CompetitionDAO();
-//        for ($i = 0; $i < count($result); $i++) {
-//            $tests[$i] = new Test($result[$i]['id'], $result[$i]['classification'], 
-//                    $result[$i]['start_date'], $result[$i]['end_date'], $competitionDAO->get($result[$i]['competition_id']));
-//        }
-//        return $tests;
-        return $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $tests = array();
+        $competitionDAO = new CompetitionDAO();
+        for ($i = 0; $i < count($result); $i++) {
+            $tests[$i] = new Test($result[$i]['id'], $result[$i]['classification'], 
+                    $result[$i]['start_date'], $result[$i]['end_date'], $competitionDAO->get($result[$i]['competition_id']));
+        }
+        return $tests;
     }
     
-    public function listTestsbyCompetition() {
+    public function listTestsByCompetition($competitionId) {
             try{
-        $stmt = $this->conexao->prepare("SELECT id, topic, question, registrationDate FROM QUESTIONS WHERE test_id= :test_id ORDER BY id DESC");
-        $stmt->bindParam(":test_id", $test_id);
+        $stmt = $this->conexao->prepare("SELECT id, classification, start_date, end_date FROM Test WHERE competition_id = :competition_id ORDER BY id DESC");
+        $stmt->bindParam(":competition_id", $competitionId);
         $stmt->execute();
         }catch (PDOException $e){
             echo $e->getMessage();
         }
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        $tests = array();
+        $competitionDAO = new CompetitionDAO();
+        for ($i = 0; $i < count($result); $i++) {
+            $tests[$i] = new Test($result[$i]['id'], $result[$i]['classification'], 
+                    $result[$i]['start_date'], $result[$i]['end_date'], $competitionDAO->get($competitionId));
+        }
+        return $tests;
             
  } 
 

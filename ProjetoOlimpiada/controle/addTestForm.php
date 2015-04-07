@@ -73,16 +73,17 @@
     <form class="form-horizontal" method="POST" action="addTest.php">
         <input type="hidden" value="<?php echo $id ?>" name="id" />
     <div class="form-group">
-        <label for="inputTopico" class="control-label col-xs-3">Classificação</label>
+        <label for="inputClassification" class="control-label col-xs-3">Classificação</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" id="inputNome" name="inputClassificacao" autofocus placeholder="Digite a classificação da Prova" required>
+            <input type="text" class="form-control" id="inputClassification" name="inputClassification" autofocus placeholder="Digite a classificação da Prova" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="inputData" class="control-label col-xs-3">Data</label>
-        <div class="col-xs-9">
-            <input type="date" class="form-control" id="inputData" name="inputData" required>
-        </div>
+        <label for="inputDate" class="control-label col-xs-3">Data da prova</label>
+       <div class="col-xs-9">
+            <input type="date" class="form-control" id="inputDate" name="inputDate" required>
+       </div>
+        
        <label for="inputTimeStart" class="control-label col-xs-3">Hora de início</label>
        <div class="col-xs-9">
             <input type="time" class="form-control" id="inputTimeStart" name="inputTimeStart" required>
