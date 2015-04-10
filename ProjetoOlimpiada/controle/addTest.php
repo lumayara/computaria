@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      
     if ($dao->add($test)) {
         echo "here: ".$test->getClassification();
-       header("Location: listTest.php?id=$competition");
+       header("Location: competition.php?id=$competition");
     }
     } else {
         header("Location: addTestForm.php?id=$competition");

@@ -1,13 +1,15 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/ChoiceDAO.php";
-include_once "$url_path/modelo/Choice.class.php";
+include_once "$url_path/dao/QuestionDAO.php";
 
 // Verifica se um formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $id = $_POST['id'];
     $dao= new ChoiceDAO();
+    $choice_old = $dao->get($id);
+    $question_id = $choice_old->getQuestion();
 
 
 // Salva duas variáveis com o que foi digitado no formulário
@@ -16,14 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $choice = (isset($_POST['inputChoice'])) ? $_POST['inputChoice'] : '';
     $resposta = (isset($_POST['inputResposta'])) ? $_POST['inputResposta'] : '';
    
-    if((!empty($choice)) && (!empty($resposta))){
-        $novaChoice = new Choice($id, $choice, $resposta);
-        $alt = $dao->get($id);
+    if((!empty($choice))){
+        
+        $novaChoice = new Choice($id, $choice, $resposta, $question_id);
+     
         // Utiliza uma função pra validar os dados digitados
 
         if ($dao->update($novaChoice)){
         // O usuário e a senha digitados foram validados, manda pra página interna
-         header("Location: listaChoices.php?id=".$alt['question_id']);
+         header("Location: listaChoices.php?id=".$choice_old->getQuestion()->getId());
         
         } 
     }else{

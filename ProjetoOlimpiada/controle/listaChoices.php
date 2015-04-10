@@ -4,13 +4,20 @@
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
     include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
-    include_once "$url_path/modelo/Question.php";
+    include_once "$url_path/dao/TestDAO.php";
+    
     $choiceDAO = new ChoiceDAO();
     $questionDAO = new QuestionDAO();
+    $testDAO = new TestDAO();
     $id = $_GET["id"];
 
-    $question = $questionDAO->getQuestion($id);
-    $competition_id = $question['competition_id'];
+    $question = $questionDAO->get($id);
+    $test= $question->getTest();
+   
+//    $test = $testDAO->get($test_id);
+    
+    $competition = $test->getCompetition();
+    
     ?>
     <head>
 
@@ -38,8 +45,9 @@
             <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
                     <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $competition_id ?>">Ver Questões</a>
-                    ->Ver Choices</div>
+                    -><a href="competition.php?id=<?php echo $competition->getId() ?>">Ver Provas</a>
+                    -><a href="test.php?id=<?php echo $test->getId() ?>">Ver Questões</a>
+                    ->Ver Alternativas</div>
             </div>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
@@ -79,7 +87,7 @@
                 <div class="row">
 
                     <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Choice</h1>
+                        <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Alternativa</h1>
                     </div>
                     <!-- /.col-lg-12 -->
 
@@ -87,7 +95,7 @@
                 <!-- /.row -->  
                 <div class="row">
                     <div class="col-lg-4">
-                        <a href="addChoiceForm.php?id=<?php echo $id ?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Choice</a> 
+                        <a href="addChoiceForm.php?id=<?php echo $id ?>" class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Adicionar Alternativa</a> 
 
                     </div>
                     <!-- /.col-lg-4 --> 
@@ -110,7 +118,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $list = $choiceDAO->listarChoicesByQuestao($id);
+                                            $list = $choiceDAO->listChoicesByQuestion($id);
                                             foreach ($list as $choice) {
                                                 print "<tr>"
                                                         . "<td>" . $choice->getChoice() . "</td>"

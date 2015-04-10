@@ -12,8 +12,8 @@
  * @author Luana
  */
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/conexao/ConnectionFactory.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/ChoiceDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/modelo/Choice.class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/QuestionDAO.php';
 
 class ChoiceDAO {
 
@@ -127,7 +127,7 @@ class ChoiceDAO {
 
     public function listChoicesByQuestion($questionId) {
         try {
-            $stmt = $this->conexao->prepare("SELECT id, Choice, eh_resposta FROM CHOICES WHERE question_id = :question_id ORDER BY id DESC");
+            $stmt = $this->conexao->prepare("SELECT id, choice, its_answer FROM CHOICE WHERE question_id = :question_id ORDER BY id DESC");
             $stmt->bindParam(":question_id", $questionId);
             $stmt->execute();
         } catch (PDOException $e) {
@@ -137,7 +137,8 @@ class ChoiceDAO {
         $choices = array();
         $questionDAO = new QuestionDAO();
         for ($i = 0; $i < count($result); $i++) {
-            $choices[$i] = new Choice($result[$i]['id'], $result[$i]['choice'], $result[$i]['its_answer'], $questionDAO->get($result[$i]['question_id']));
+            $choices[$i] = new Choice($result[$i]['id'], $result[$i]['choice'], 
+                    $result[$i]['its_answer'], $questionDAO->get($questionId)->getId());
         }
         return $choices;
     }

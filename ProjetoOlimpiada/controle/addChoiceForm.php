@@ -4,13 +4,14 @@
     $url_path = $_SERVER["DOCUMENT_ROOT"]."/computaria/ProjetoOlimpiada";
     include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
-    include_once "$url_path/modelo/Question.class.php";
+    
     $choiceDAO = new ChoiceDAO();
     $questionDAO = new QuestionDAO();
     $id = $_GET["id"];
     
     $question = $questionDAO->get($id);
-    $competition_id = $question['competition_id'];
+    $test= $question->getTest();
+    $competition = $test->getCompetition();
     
 ?>
 <head>
@@ -34,8 +35,10 @@
         <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
                     <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $competition_id?>">Ver Questões</a>
-                    -><a href="listaChoices.php?id=<?php echo $id?>">Ver Choices</a>->Adicionar Choice</div>
+                    -><a href="competition.php?id=<?php echo $competition->getId() ?>">Ver Provas</a>
+                    -><a href="test.php?id=<?php echo $test->getId() ?>">Ver Questões</a>
+                    -><a href="listaChoices.php?id=<?php echo $question->getId() ?>">Ver Alternativas</a>
+                    ->Adicionar Alternativa</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -89,9 +92,9 @@
         <label for="inputResposta" class="control-label col-xs-3">Resposta</label>
         <div class="col-xs-9">
             <select class="form-control" id="inputResposta" name="inputResposta">
-               
-                <option value="certa">Verdadeira</option>
-                <option value="errada">Falsa</option>
+                <option value="0">Falsa</option>
+                <option value="1">Verdadeira</option>
+                
                     
             </select>
         </div>

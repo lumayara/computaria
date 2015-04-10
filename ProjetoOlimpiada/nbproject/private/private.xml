@@ -12,11 +12,13 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/addComp.html</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/painelControle.html</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/listComp.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addComp.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/addComp.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addQuestionForm.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/listComp.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addQuestion.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Competition.class.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Test.class.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/QuestionDAO.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/test.php</file>
         </group>
     </open-files>
 </project-private>

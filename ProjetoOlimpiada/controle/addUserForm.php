@@ -3,7 +3,10 @@
 <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
     include_once "$url_path/dao/CompetitionDAO.php";
+    include_once "$url_path/dao/TestDAO.php";
+    
     $compDAO = new CompetitionDAO();
+    $testDAO = new TestDAO();
     ?>
 <head>
 
@@ -104,6 +107,18 @@
         </div>
     </div>
         
+    <div class="form-group">
+        <label for="inputCompetition" class="control-label col-xs-3">Test</label>
+        <div class="col-xs-9">
+            <select class="form-control" id="inputTest" name="inputTest">
+                <?php $listTest = $testDAO->listTestsByCompetition(); //need to get only the test for the selected competition
+                    foreach ($listTest as $rowTest) {
+                          print "<option value=".$rowTest['id'].">".$rowTest['classification']."</option>";
+                    }
+                ?>    
+            </select>
+        </div>
+    </div>    
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Salvar</button>

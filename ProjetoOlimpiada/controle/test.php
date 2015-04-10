@@ -111,7 +111,7 @@
                                             <tr>
                                                 <th>Tópico</th>
                                                 <th>Question</th>
-                                                <th>Ver Choices</th>
+                                                <th>Alternativas</th>
                                                 <th>Editar</th>
                                                 <th>Remover</th>
                                             </tr>
@@ -124,7 +124,7 @@
                                                         . "<td>" . $question->getTopic() . "</td>"
                                                         . "<td>" . $question->getQuestion() . "</td>"
                                                         . "<td>"
-                                                        . "<a href='listaChoices.php?id=" . $question->getId() . "'>Manter Choices</a>"
+                                                        . "<a href='listaChoices.php?id=" . $question->getId() . "'>Visualizar</a>"
                                                         . "</td>"
                                                         . "<td>"
                                                         . "<a href='editTestForm.php?id=" . $question->getId() . "'>Editar</a>"

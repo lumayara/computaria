@@ -1,8 +1,8 @@
 <?php
 
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-include_once "$url_path/questionDAO/TestDAO.php";
-include_once "$url_path/questionDAO/QuestionDAO.php";
+include_once "$url_path/dao/TestDAO.php";
+include_once "$url_path/dao/QuestionDAO.php";
 
 $testDAO = new TestDAO();
 $questionDAO = new QuestionDAO();
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $question = new Question($id, $regDate, $question, $topico, $testDAO->get($test));
 
         if ($questionDAO->add($question)) {
-            header("Location: listTest.php?id=$test");
+            header("Location: test.php?id=$test");
         }
     } else {
         header("Location: addQuestionForm.php?id=$test");

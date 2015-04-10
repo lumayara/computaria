@@ -100,7 +100,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $list = $userDAO->listarParticipantes();
+                                        <?php $list = $userDAO->listParticipants();
                                             foreach ($list as $row) {
                                                 print "<tr><td>".$row['nome']."</td><td>".$row['email']."</td><td>".$row['turma']."</td><td>".$row['competition']
                                                         ."</td><td><a href='editUserForm.php?id=".$row['id']."'>Editar</a></td>"

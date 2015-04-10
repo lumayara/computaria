@@ -95,6 +95,7 @@
                                             <tr>
                                                 <th>Nome</th>
                                                 <th>Data Realizacao</th>
+                                                <th>Competição</th>
                                                 <th>Editar</th>
                                                 <th>Remover</th>
                                             </tr>
@@ -107,10 +108,13 @@
                                                 //     ."Manter Prova</a></td><td><a href='removeComp.php?id=".$competition['id']."'>Remover</td></tr>";
                                                 print "<tr>"
                                                         . "<td>"
-                                                        . "<a href='competition.php?id=" . $competition->getId() . "'>" . $competition->getName() . "</a>"
+                                                        . $competition->getName()
                                                         . "</td>"
                                                         . "<td>" 
                                                         . date('d/m/Y', strtotime($competition->getStartDate())) 
+                                                        . "</td>"
+                                                        . "<td>" 
+                                                        . "<a href='competition.php?id=" . $competition->getId() . "'>Visualizar</a>"
                                                         . "</td>"
                                                         . "<td>"
                                                         . "<a href='editCompForm.php?id=" . $competition->getId() . "'>Editar</a>"

@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
 <?php 
-    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    $url_path = $_SERVER["DOCUMENT_ROOT"]."/computaria/ProjetoOlimpiada";
     include_once "$url_path/dao/ChoiceDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
+    
     $choiceDAO = new ChoiceDAO();
     $questionDAO = new QuestionDAO();
     $id = $_GET["id"];
-  
-    $choice = $choiceDAO->getChoice($id);
+    $choice = $choiceDAO->get($id);
     
-    $id_question = $choice['id_question'];
-    
-    $question = $questionDAO->getQuestion($id_question);
-    
-    $competition_id = $question['competition_id'];
+    $question = $choice->getQuestion();
+    $test= $question->getTest();
+    $competition = $test->getCompetition();
     
     ?>
 <head>
@@ -38,9 +36,10 @@
         <div class="row">
                 <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
                     <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $competition_id ?>">Ver Questões</a>->
-                    <a href="listaChoices.php?id=<?php echo $id_question ?>">Ver Choices</a>
-                    -> Editar Choice
+                    -><a href="competition.php?id=<?php echo $competition->getId() ?>">Ver Provas</a>
+                    -><a href="test.php?id=<?php echo $test->getId() ?>">Ver Questões</a>
+                    -><a href="listaChoices.php?id=<?php echo $test->getId() ?>">Ver Alternativas</a>
+                    ->Editar Alternativa
                     </div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -88,16 +87,15 @@
         <div class="form-group">
         <label for="inputChoice" class="control-label col-xs-2">Choice</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputChoice" name="inputChoice" value="<?php echo $choice['choice']?>" required>
+            <input type="text" class="form-control" id="inputChoice" name="inputChoice" value="<?php echo $choice->getChoice() ?>" required>
         </div>
     </div>
     <div class="form-group">
         <label for="inputResposta" class="control-label col-xs-3">Resposta</label>
         <div class="col-xs-9">
             <select class="form-control" id="inputResposta" name="inputResposta">
-               
-                <option value="certa">Verdadeira</option>
-                <option value="errada">Falsa</option>
+                <option value="0">Falsa</option>
+                <option value="1">Verdadeira</option>              
                     
             </select>
         </div>
