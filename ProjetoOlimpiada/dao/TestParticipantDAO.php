@@ -107,10 +107,11 @@ class TestParticipantDAO {
         }
     }
 
-    public function listTestsParticipant() {
+    public function listTestsParticipant($participantId) {
         try {
-            $stmt = $this->conexao->prepare("SELECT id, participant_id, test_id, finalized FROM Test_Participant ORDER BY id DESC");
-
+            $stmt = $this->conexao->prepare("SELECT * FROM Test_Participant WHERE participant_id = :participantId ORDER BY id DESC");
+            $stmt->bindParam(":participantId", $participantId);
+            
             $stmt->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();

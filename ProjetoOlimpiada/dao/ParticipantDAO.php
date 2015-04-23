@@ -24,7 +24,7 @@ class ParticipantDAO {
     }
 
     public function add(Participant $participant) {
-        $adicionado = false;
+        $adicionado = 0;
         try {
             $stmt = $this->conexao->prepare("INSERT INTO PARTICIPANT (name, email, password, team, competition_id)"
                     . "VALUES (:name, :email, :password, :team, :competition_id)");
@@ -39,8 +39,9 @@ class ParticipantDAO {
             $stmt->bindParam(":competition_id", $vetorUser[4]);
 
             $resultado = $stmt->execute();
-            if ($resultado) {
-                $adicionado = TRUE;
+            
+            if ($resultado) {                
+                $adicionado = $this->conexao->lastInsertId();
             }
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -125,7 +126,7 @@ class ParticipantDAO {
         $participants = array();
         $competitionDAO = new CompetitionDAO();
         for ($i = 0; $i < count($result); $i++) {
-            $participants[$i] = new Participant($result[$i]['name'], $result[$i]['name'], $result[$i]['email'], $result[$i]['password'], $result[$i]['team'], $competitionDAO->get($result[$i]['competition_id']));
+            $participants[$i] = new Participant($result[$i]['id'], $result[$i]['name'], $result[$i]['email'], $result[$i]['password'], $result[$i]['team'], $competitionDAO->get($result[$i]['competition_id']));
                                 
         }
         return $participants;

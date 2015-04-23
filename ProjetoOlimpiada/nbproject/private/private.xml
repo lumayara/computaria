@@ -12,13 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addQuestionForm.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/listComp.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addQuestion.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/listUser.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/ParticipantDAO.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Competition.class.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Test.class.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/QuestionDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/test.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/questionario_1.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/validar.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/alunoTelaInicial.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/TestParticipant.class.php</file>
         </group>
     </open-files>
 </project-private>

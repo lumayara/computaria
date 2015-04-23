@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Utiliza uma função pra validar os dados digitados
     else if (isset($_POST['usuario'])) {
-        $usuario = $dao->userValidate($email, $senha);
-        if ($usuario) {
+        $user = $dao->participantValidation($email, $senha);
+        if ($user) {
             // O usuário e a senha digitados foram validados, manda pra página interna
-            header("Location: alunoTelaInicial.php?id=" . $usuario['id']);
+            header("Location: alunoTelaInicial.php?id=" . $user->getId());
         } else {
             header("Location: ../login.html");
         }

@@ -1,18 +1,20 @@
+<?php
+$url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+include_once "$url_path/dao/ParticipantDAO.php";
+include_once "$url_path/dao/CompetitionDAO.php";
+include_once "$url_path/dao/TestParticipantDAO.php";
+
+$userDAO = new ParticipantDAO();
+$tpDAO = new TestParticipantDAO();
+
+$id_user = $_GET['id'];
+
+$participant = $userDAO->get($id_user);
+$testsParticipant = $tpDAO->listTestsParticipant($participant->getId());
+?>
+
 <!DOCTYPE html>
 <html>
-    <?php
-    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/ParticipantDAO.php";
-    include_once "$url_path/dao/CompetitionDAO.php";
-    include_once "$url_path/conexao/ConnectionFactory.php";
-    $userDAO = new ParticipantDAO();
-    $compDAO = new CompetitionDAO();
-    $id_user = $_GET['id'];
-
-    $usuario = $userDAO->get($id_user);
-    $competition_id = $usuario['competition_id'];
-    $competition = $compDAO->get($competition_id);
-    ?>
     <head>
 
         <meta charset="utf-8">
@@ -30,40 +32,6 @@
 
         <!-- SB Admin CSS - Include with every page -->
         <link href="../css/sb-admin.css" rel="stylesheet">
-        <script>
-            function atualizaContador() {
-                var hoje = new Date();
-                var fuso = (hoje.getTimezoneOffset() / 60) - 3;
-                if (fuso)
-                    hoje = new Date(hoje.valueOf() + (fuso * 3600000));
-                var futuro = new Date("<?php echo $competition['start_date']?>");
-                
-                var ss = parseInt((futuro - hoje) / 1000);
-                var mm = parseInt(ss / 60);
-                var hh = parseInt(mm / 60);
-                var dd = parseInt(hh / 24);
-
-                ss = ss - (mm * 60);
-                mm = mm - (hh * 60);
-                hh = hh - (dd * 24);
-
-
-                var faltam = '';
-                faltam += (dd && dd > 1) ? dd + ' dias, ' : (dd == 1 ? '1 dia, ' : '');
-                faltam += (toString(hh).length) ? hh + ' hr, ' : '';
-                faltam += (toString(mm).length) ? mm + ' min e ' : '';
-                faltam += ss + ' seg';
-                
-                if (dd + hh + mm + ss > 0) {
-                    document.getElementById('contador').innerHTML = "Espere só mais um pouco... Faltam: "+faltam;
-                    setTimeout(atualizaContador, 1000);
-                } else {
-                    document.getElementById('contador').innerHTML = 'Sua hora chegou! '+'<a href="questionario_1.php?id=<?php echo $id_user?>">Iniciar Teste</a>';
-                    setTimeout(atualizaContador, 1000);
-                }
-          }
-          //window.onload = atualizaContador();
-        </script>
     </head>
 
     <body onload="atualizaContador()"> 
@@ -108,38 +76,73 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-smile-o"></i> Bem vindo(a), <?php echo $usuario['name'] ?>!</h1>
+                        <h1 class="page-header"><i class="fa fa-smile-o"></i> Bem vindo(a), <?php echo $participant->getName() ?>!</h1>
                     </div>
 
                     <div class="col-md-4 col-md-offset-4">
                         <img src="../img/waiting.png"/>
                         <h1><span id="contador"></span></h1>
                     </div>
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /row -->           
             </div>
-            <!-- /row -->           
+            <!-- /#page-wrapper -->
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /#wrapper -->
 
-    </div>
-    <!-- /#wrapper -->
+        <!-- Core Scripts - Include with every page -->
+        <script src="../js/jquery-1.10.2.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-    <!-- Core Scripts - Include with every page -->
-    <script src="../js/jquery-1.10.2.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <!-- Page-Level Plugin Scripts - Dashboard -->
+        <script src="../js/plugins/morris/raphael-2.1.0.min.js"></script>
+        <script src="../js/plugins/morris/morris.js"></script>
 
-    <!-- Page-Level Plugin Scripts - Dashboard -->
-    <script src="../js/plugins/morris/raphael-2.1.0.min.js"></script>
-    <script src="../js/plugins/morris/morris.js"></script>
+        <!-- SB Admin Scripts - Include with every page -->
+        <script src="../js/sb-admin.js"></script>
 
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="../js/sb-admin.js"></script>
+        <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+        <script src="../js/demo/dashboard-demo.js"></script>
 
-    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
-    <script src="../js/demo/dashboard-demo.js"></script>
+        <script type="text/javascript">
+        function atualizaContador() {
+            var hoje = new Date();
+            var fuso = (hoje.getTimezoneOffset() / 60) - 3;
+            if (fuso)
+                hoje = new Date(hoje.valueOf() + (fuso * 3600000));
+            var futuro = new Date("<?php echo $participant->getCompetition()->getStartDate(); ?>");
 
-</body>
+            var ss = parseInt((futuro - hoje) / 1000);
+            var mm = parseInt(ss / 60);
+            var hh = parseInt(mm / 60);
+            var dd = parseInt(hh / 24);
+
+            ss = ss - (mm * 60);
+            mm = mm - (hh * 60);
+            hh = hh - (dd * 24);
+
+
+            var faltam = '';
+            faltam += (dd && dd > 1) ? dd + ' dias, ' : (dd == 1 ? '1 dia, ' : '');
+            faltam += (toString(hh).length) ? hh + ' hr, ' : '';
+            faltam += (toString(mm).length) ? mm + ' min e ' : '';
+            faltam += ss + ' seg';
+
+            if (dd + hh + mm + ss > 0) {
+                document.getElementById('contador').innerHTML = "Espere só mais um pouco... Faltam: " + faltam;
+                setTimeout(atualizaContador, 1000);
+            } else {
+                document.getElementById('contador').innerHTML = 'Sua hora chegou! Escolha o teste' +
+                        '<ul>'
+                '<a href="questionario_1.php?id=<?php echo $id_user ?>">Iniciar Teste</a>';
+                setTimeout(atualizaContador, 1000);
+            }
+        }
+        //window.onload = atualizaContador();
+        </script>
+
+    </body>
 
 </html>

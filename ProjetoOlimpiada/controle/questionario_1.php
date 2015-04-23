@@ -5,13 +5,15 @@
     include_once "$url_path/dao/ParticipantDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
     include_once "$url_path/dao/ChoiceDAO.php";
-    include_once "$url_path/conexao/ConnectionFactory.php";
+    
     $userDAO = new ParticipantDAO();
     $questionDAO = new QuestionDAO();
     $choiceDAO = new ChoiceDAO();
+    
     $id_user = $_GET['id'];
+    
     $usuario = $userDAO->getUsuario($id_user);
-    $competition_id = $usuario['competition_id'];
+    
     $listQuestions = $questionDAO->listarQuestoesByCompetition($competition_id);
     
     shuffle($listQuestions);
