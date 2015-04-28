@@ -5,7 +5,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 
 // Criar variável e retorno
-$jsonReturn = '{"message": ';
+$jsonReturn;
 
 // Verifica se existe requisição GET
 if (isset($_GET)) {
@@ -29,27 +29,30 @@ if (isset($_GET)) {
         $tests = $testDAO->listTestsByCompetition($competitionId);
 
         if (count($tests) > 0) {
-            // Adicionar mensagem de retorno
-            $jsonReturn .= '"Testes recuperados com sucesso!"';
 
             // Adicionar resultados ao array JSON
             foreach ($tests as $key => $value) {
                 $jsonTests[$key] = ["id" => $value->getId(), "classification" => $value->getClassification()];
             }
             
-            // Adicionar o vetor de testes em formato JSON ao JSON de retorno
-            $jsonReturn .= ', "tests": ' . json_encode($jsonTests) . '}';
+            // Adicionar mensagem de retorno
+            $jsonReturn = array(
+                "message" => "Testes recuperados com sucesso!",
+                // Adicionar o vetor de testes
+                "tests" => $jsonTests);
+            
+            
             
         } else {
-            $jsonReturn .= '"Nenhum teste encontrado para essa competição!"}';
+            $jsonReturn = array("message" => "Nenhum teste encontrado para essa competição!");
         }
         
     } else {
-        $jsonReturn .= '"Nenhuma competição foi informada"}';
+        $jsonReturn = array("message" => "Nenhuma competição foi informada.");
     }
     
 } else {
-    $jsonReturn .= '"Acesso negado!"}';
+    $jsonReturn = array("message" => "Acesso negado!");
 }
 
-echo $jsonReturn;
+echo json_encode($jsonReturn);

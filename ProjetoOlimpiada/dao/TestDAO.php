@@ -92,7 +92,7 @@ class TestDAO {
 
     public function get($id) {
         try {
-            $stmt = $this->conexao->prepare("SELECT classification, start_date, end_date, competition_id FROM Test WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT * FROM Test WHERE id = :id");
             $stmt->bindParam(":id", $id);
 
             $stmt->execute();

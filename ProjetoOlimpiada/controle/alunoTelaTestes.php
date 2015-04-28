@@ -2,17 +2,18 @@
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/ParticipantDAO.php";
 include_once "$url_path/dao/CompetitionDAO.php";
-include_once "$url_path/dao/TestParticipantDAO.php";
 include_once "$url_path/dao/TestDAO.php";
+include_once "$url_path/dao/TestParticipantDAO.php";
 
 $userDAO = new ParticipantDAO();
 $tpDAO = new TestParticipantDAO();
+//$testID = $_GET['id'];
+$testParticipant = $_GET['testParticipant'];
 
-$id_user = $_GET['id'];
+var_dump($testParticipant);
 
 $participant = $userDAO->get($id_user);
 $testsParticipant = $tpDAO->listTestsParticipant($participant->getId());
-$testDAO = new TestDAO();
 ?>
 
 <!DOCTYPE html>
@@ -82,19 +83,8 @@ $testDAO = new TestDAO();
                     </div>
 
                     <div class="col-md-4 col-md-offset-4">
-                        <h1>Testes</h1>
-                                                 
-                        <?php 
-                        if ($testsParticipant) {
-                            echo '<ul>';                            
-                        foreach ($testsParticipant as $tests) {
-                            
-                            print"<li><a href='alunoTelaTestes.php?id=".$tests->getTest()->getID()."'>".$tests->getTest()->getClassification()."</li>"
-                                    . '<input type="hidden" name="testParticipant" value="'.$tests->getId().'">';
-                        }
-                        echo '</ul>';
-                        }
-                        ?>
+                        <img src="../img/waiting.png"/>
+                        <h1><span id="contador"></span></h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -118,6 +108,43 @@ $testDAO = new TestDAO();
 
         <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
         <script src="../js/demo/dashboard-demo.js"></script>
+
+        <script type="text/javascript">
+        function atualizaContador() {
+            var hoje = new Date();
+            var fuso = (hoje.getTimezoneOffset() / 60) - 3;
+            if (fuso)
+                hoje = new Date(hoje.valueOf() + (fuso * 3600000));
+            var futuro = new Date("<?php echo $participant->getCompetition()->getStartDate(); ?>");
+
+            var ss = parseInt((futuro - hoje) / 1000);
+            var mm = parseInt(ss / 60);
+            var hh = parseInt(mm / 60);
+            var dd = parseInt(hh / 24);
+
+            ss = ss - (mm * 60);
+            mm = mm - (hh * 60);
+            hh = hh - (dd * 24);
+
+
+            var faltam = '';
+            faltam += (dd && dd > 1) ? dd + ' dias, ' : (dd == 1 ? '1 dia, ' : '');
+            faltam += (toString(hh).length) ? hh + ' hr, ' : '';
+            faltam += (toString(mm).length) ? mm + ' min e ' : '';
+            faltam += ss + ' seg';
+
+            if (dd + hh + mm + ss > 0) {
+                document.getElementById('contador').innerHTML = "Espere só mais um pouco... Faltam: " + faltam;
+                setTimeout(atualizaContador, 1000);
+            } else {
+                document.getElementById('contador').innerHTML = 'Sua hora chegou! Escolha o teste' +
+                        '<ul>'
+                '<a href="questionario_1.php?id=<?php echo $id_user ?>">Iniciar Teste</a>';
+                setTimeout(atualizaContador, 1000);
+            }
+        }
+        //window.onload = atualizaContador();
+        </script>
 
     </body>
 
