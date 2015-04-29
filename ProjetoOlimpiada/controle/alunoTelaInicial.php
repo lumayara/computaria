@@ -83,18 +83,70 @@ $testDAO = new TestDAO();
 
                     <div class="col-md-4 col-md-offset-4">
                         <h1>Testes</h1>
-                                                 
-                        <?php 
-                        if ($testsParticipant) {
-                            echo '<ul>';                            
-                        foreach ($testsParticipant as $tests) {
-                            
-                            print"<li><a href='alunoTelaTestes.php?id=".$tests->getTest()->getID()."'>".$tests->getTest()->getClassification()."</li>"
-                                    . '<input type="hidden" name="testParticipant" value="'.$tests->getId().'">';
-                        }
-                        echo '</ul>';
-                        }
-                        ?>
+
+                        <table>
+                            <tr>
+                                <th>Classificação</th>
+                                <th>Início</th>
+                                <th>Fim</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                            <?php
+                            if ($testsParticipant) {
+                                foreach ($testsParticipant as $testParticipant) {
+
+                                    $started = (strtotime($testParticipant->getTest()->getStartDate()) <= time());
+                                    echo var_dump($started);
+
+                                    $expired = (strtotime($testParticipant->getTest()->getEndDate()) < time());
+                                    echo "Agora: " . var_dump(time());
+                                    echo "Expira em: " . var_dump(strtotime($testParticipant->getTest()->getEndDate()));
+                                    echo var_dump($expired);
+
+                                    $finalized = $testParticipant->getFinalized();
+                                    echo var_dump($finalized);
+
+                                    $linkavel = true;
+
+                                    $link = "<a href='questionario.php?id={$testParticipant->getTest()->getID()}' title='Ir para o Teste'>Ir para o Teste</a>";
+                                    ?>
+
+                                    <tr>
+                                        <td><?php echo $testParticipant->getTest()->getClassification(); ?></td>
+                                        <td><?php echo $testParticipant->getTest()->getStartDate(); ?></td>
+                                        <td><?php echo $testParticipant->getTest()->getEndDate(); ?></td>
+                                        <td>
+                                            <?php
+                                            if (!$started) { // Teste não começou ainda
+                                                echo "<p>Quase lá...</p>";
+                                                echo "<p>Tempo para começar a prova: " . "Função do Tempo (vemos já)" . "</p>";
+                                                $linkavel = false;
+                                            } else if ($started && !$expired && !$finalized) { // Condição: Teste já iniciou, não encerrou e ainda não foi respondido
+                                                echo "<p>Iniciado - Não finalizado</p>";
+                                                echo "<p>Tempo restante: " . "Função do Tempo (vemos já)" . "</p>";
+                                            } else if ($started && !$expired && $finalized) { // Condição: Nao expirado, mas já respondido
+                                                echo "<p>Iniciado - Finalizado!</p>";
+                                                echo "<p>Tempo para o fim da prova: " . "Função do Tempo (vemos já)" . "</p>";
+                                            } else if ($expired && !$finalized) { // Condição: Teste expirou, mas não foi respondido
+                                                echo "<p>Encerrado - Não finalizado</p>";
+                                            } else if ($expired && $finalized) {
+                                                echo "<p>Encerrado - Finalizado</p>";
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php echo ($linkavel ? $link : ""); ?>
+                                        </td>
+                                    </tr>
+
+                                    <?php
+                                }
+                            } else {
+                                echo "<tr><td>Nenhum teste encontrado.</td></tr>";
+                            }
+                            ?>
+                        </table>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>

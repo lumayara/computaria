@@ -7,7 +7,7 @@ include_once "$url_path/dao/TestParticipantDAO.php";
 
 $userDAO = new ParticipantDAO();
 $tpDAO = new TestParticipantDAO();
-//$testID = $_GET['id'];
+$testID = $_GET['id'];
 $testParticipant = $_GET['testParticipant'];
 
 var_dump($testParticipant);
