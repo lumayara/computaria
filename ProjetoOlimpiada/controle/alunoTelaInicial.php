@@ -34,9 +34,12 @@ $testDAO = new TestDAO();
 
         <!-- SB Admin CSS - Include with every page -->
         <link href="../css/sb-admin.css" rel="stylesheet">
+
+        <!-- Contador -->
+        <script type="text/javascript" src="../js/timer.js"></script>
     </head>
 
-    <body onload="atualizaContador()"> 
+    <body> 
 
         <div id="wrapper">
             <div class="row">
@@ -118,20 +121,38 @@ $testDAO = new TestDAO();
                                         <td><?php echo $testParticipant->getTest()->getEndDate(); ?></td>
                                         <td>
                                             <?php
+                                            $idIt = "contador-" . $testParticipant->getTest()->getId();
                                             if (!$started) { // Teste não começou ainda
-                                                echo "<p>Quase lá...</p>";
-                                                echo "<p>Tempo para começar a prova: " . "Função do Tempo (vemos já)" . "</p>";
+                                                ?>
+                                                <p>Quase lá...</p>
+                                                <p>Tempo para começar a prova: <span id="<?php echo $idIt; ?>"></span></p>
+
+                                                <script type="text/javascript">
+                                                    atualizaContador("<?php echo $testParticipant->getTest()->getStartDate(); ?>",
+                                                            "<?php echo $idIt; ?>");
+                                                </script>
+
+                                                <?php
                                                 $linkavel = false;
                                             } else if ($started && !$expired && !$finalized) { // Condição: Teste já iniciou, não encerrou e ainda não foi respondido
-                                                echo "<p>Iniciado - Não finalizado</p>";
-                                                echo "<p>Tempo restante: " . "Função do Tempo (vemos já)" . "</p>";
+                                                ?>
+                                                <p>Iniciado - Não finalizado</p>
+                                                <p>Tempo restante: <span id="<?php echo $idIt; ?>"></span></p>
+
+                                                <?php
                                             } else if ($started && !$expired && $finalized) { // Condição: Nao expirado, mas já respondido
-                                                echo "<p>Iniciado - Finalizado!</p>";
-                                                echo "<p>Tempo para o fim da prova: " . "Função do Tempo (vemos já)" . "</p>";
+                                                ?>
+                                                <p>Iniciado - Finalizado!</p>
+                                                <p>Tempo para o fim da prova: </p>
+                                                <?php
                                             } else if ($expired && !$finalized) { // Condição: Teste expirou, mas não foi respondido
-                                                echo "<p>Encerrado - Não finalizado</p>";
+                                                ?>
+                                                <p>Encerrado - Não finalizado</p>
+                                                <?php
                                             } else if ($expired && $finalized) {
-                                                echo "<p>Encerrado - Finalizado</p>";
+                                                ?>
+                                                <p>Encerrado - Finalizado</p>
+                                                <?php
                                             }
                                             ?>
                                         </td>

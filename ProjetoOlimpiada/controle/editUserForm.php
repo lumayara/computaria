@@ -8,7 +8,7 @@
     $userDAO = new ParticipantDAO();
     $id = $_GET["id"];
     
-    $user = $userDAO->getUsuario($id);
+    $user = $userDAO->get($id);
 ?>
 <head>
 
@@ -23,6 +23,53 @@
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="../css/sb-admin.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/jquery-min.js"></script>
+    
+    <script type="text/javascript">
+            $(document).ready(function() {
+
+                $("#inputCompetition").change(function(event) {
+
+                    // Id da competição selecionada
+                    var competition = $(this).find(":selected").attr("value");
+
+                    // Dados a serem enviados na requisição
+                    var dados = {competition: competition};
+
+                    // URL de requisição
+                    var url = "getTestsByCompetition.php";
+                    
+                    // Conteúdo a ser modificado
+                    var html = "";
+
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        async: false,
+                        data: dados,
+                        processData: true,
+                        datatype: 'json',
+                        success: function(data) {
+                            
+//                            html += '<option value="">-- Selecione o Teste --</option>';
+                            
+                            for (i = 0; i < data.tests.length; i++) {
+                                html += '<input type="checkbox" name="prova" value="' + data.tests[i].id + '"/>' + data.tests[i].classification + '</br>';
+                            }
+                            
+                            
+                            // Alterar lista de Testes
+                            $("#inputTest").html(html);
+                            
+                        },
+                        error: function(data) {
+                            alert("Um erro ocorreu ao se conectar com o servidor");
+                        }
+                    });
+
+                });
+            });
+        </script>
 
 </head>
 
@@ -76,35 +123,51 @@
         <input type="hidden" value="<?php echo $id ?>" name="id" />
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" autofocus name="inputNome" value="<?php echo $user["nome"]?>" required>
+            <input type="text" class="form-control" id="inputNome" name="inputNome" value="<?php echo $user->getName()?>" required>
         </div>
-        
+    </div>
+    <div class="form-group">
         <label for="inputEmail" class="control-label col-xs-2">Email</label>
         <div class="col-xs-10">
-            <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="<?php echo $user['email']?>" required>
+            <input type="email" class="form-control" id="inputEmail" name="inputEmail" value="<?php echo $user->getEmail()?>" required>
         </div>
-        
+    </div>
+    <div class="form-group">
         <label for="inputTurma" class="control-label col-xs-2">Turma</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputTurma" name="inputTurma" value="<?php echo $user['turma']?>" required>
+            <input type="text" class="form-control" id="inputTurma" name="inputTurma" value="<?php echo $user->getTeam()?>" required>
         </div>
-         
-         <label for="inputCompetition" class="control-label col-xs-3">Competition</label>
+    </div>
+    <div class="form-group">
+        <label for="inputSenha" class="control-label col-xs-2">Senha</label>
+        <div class="col-xs-10">
+            <input type="password" class="form-control" id="inputSenha" name="inputSenha" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputCompetition" class="control-label col-xs-3">Competition</label>
         <div class="col-xs-9">
             <select class="form-control" id="inputCompetition" name="inputCompetition">
-                <?php $list = $compDAO->listarCompeticoes();
+                <?php $list = $compDAO->listCompetitions();
                     foreach ($list as $row) {
-                        if ($user['competition_id']==$row['id']){
-                            print "<option value=".$row['id']." SELECTED>".$row['nome']."</option>";
+                        if ($user->getCompetition()==$row->getId()){
+                            print "<option value=".$row->getId()." SELECTED>".$row->getName()."</option>";
                         }else{
-                            print "<option value=".$row['id'].">".$row['nome']."</option>";
+                            print "<option value=".$row->getId().">".$row->getName()."</option>";
                         }
                     }
                 ?>    
             </select>
         </div>
-         
     </div>
+
+    <div class="form-group">
+        <label for="inputTest" class="control-label col-xs-3">Test</label>
+        <div class="col-xs-9">
+            <div id="inputTest" name="inputTest">
+            </div>
+        </div>
+    </div>    
    
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
