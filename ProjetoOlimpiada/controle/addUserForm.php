@@ -48,10 +48,10 @@
                         datatype: 'json',
                         success: function(data) {
                             
-                            html += '<option value="">-- Selecione o Teste --</option>';
+                           // html += '<option value="">-- Selecione o Teste --</option>';
                             
                             for (i = 0; i < data.tests.length; i++) {
-                                html += '<option value="' + data.tests[i].id + '">' + data.tests[i].classification + '</option>';
+                                html += '<input type="checkbox" name="prova" value="' + data.tests[i].id + '"/>' + data.tests[i].classification + '</br>';
                             }
                             
                             // Alterar lista de Testes
@@ -157,8 +157,8 @@
                                     <div class="form-group">
                                         <label for="inputTest" class="control-label col-xs-3">Test</label>
                                         <div class="col-xs-9">
-                                            <select class="form-control" id="inputTest" name="inputTest">
-                                            </select>
+                                            <div id="inputTest" name="inputTest">
+                                            </div>
                                         </div>
                                     </div>    
                                     <div class="form-group">

@@ -100,15 +100,10 @@ $testDAO = new TestDAO();
                                 foreach ($testsParticipant as $testParticipant) {
 
                                     $started = (strtotime($testParticipant->getTest()->getStartDate()) <= time());
-                                    echo var_dump($started);
 
                                     $expired = (strtotime($testParticipant->getTest()->getEndDate()) < time());
-                                    echo "Agora: " . var_dump(time());
-                                    echo "Expira em: " . var_dump(strtotime($testParticipant->getTest()->getEndDate()));
-                                    echo var_dump($expired);
 
                                     $finalized = $testParticipant->getFinalized();
-                                    echo var_dump($finalized);
 
                                     $linkavel = true;
 
@@ -128,8 +123,10 @@ $testDAO = new TestDAO();
                                                 <p>Tempo para começar a prova: <span id="<?php echo $idIt; ?>"></span></p>
 
                                                 <script type="text/javascript">
-                                                    atualizaContador("<?php echo $testParticipant->getTest()->getStartDate(); ?>",
-                                                            "<?php echo $idIt; ?>");
+                                                    
+                                                        atualizaContador("<?php echo $testParticipant->getTest()->getStartDate(); ?>",
+                                                                "<?php echo $idIt; ?>");
+                                                    
                                                 </script>
 
                                                 <?php
