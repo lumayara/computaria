@@ -2,7 +2,7 @@
 /*
  * Contador Regressivo
  */
-function atualizaContador(startDate, id) {
+function timer(startDate, id) {
     var hoje = new Date();
     var fuso = (hoje.getTimezoneOffset() / 60) - 3;
     if (fuso)
@@ -27,7 +27,7 @@ function atualizaContador(startDate, id) {
 
     if (dd + hh + mm + ss > 0) {
         document.getElementById(id).innerHTML = faltam;
-        setTimeout(function(){atualizaContador(startDate, id)}, 1000);
+        setTimeout(function(){timer(startDate, id)}, 1000);
     } else {
         document.getElementById(id).innerHTML = 'Teste já iniciou!';
     }

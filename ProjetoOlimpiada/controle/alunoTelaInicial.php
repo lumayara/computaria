@@ -99,6 +99,10 @@ $testDAO = new TestDAO();
                             if ($testsParticipant) {
                                 foreach ($testsParticipant as $testParticipant) {
 
+                                    date_default_timezone_set('America/New_York');
+                                    
+                                    echo date("Y-m-d H:i:s", time());
+
                                     $started = (strtotime($testParticipant->getTest()->getStartDate()) <= time());
 
                                     $expired = (strtotime($testParticipant->getTest()->getEndDate()) < time());
@@ -123,10 +127,8 @@ $testDAO = new TestDAO();
                                                 <p>Tempo para começar a prova: <span id="<?php echo $idIt; ?>"></span></p>
 
                                                 <script type="text/javascript">
-                                                    
-                                                        atualizaContador("<?php echo $testParticipant->getTest()->getStartDate(); ?>",
-                                                                "<?php echo $idIt; ?>");
-                                                    
+                                                    timer("<?php echo $testParticipant->getTest()->getStartDate(); ?>",
+                                                            "<?php echo $idIt; ?>");
                                                 </script>
 
                                                 <?php
@@ -135,12 +137,23 @@ $testDAO = new TestDAO();
                                                 ?>
                                                 <p>Iniciado - Não finalizado</p>
                                                 <p>Tempo restante: <span id="<?php echo $idIt; ?>"></span></p>
+                                                
+                                                <script type="text/javascript">
+                                                    timer("<?php echo $testParticipant->getTest()->getEndDate(); ?>",
+                                                            "<?php echo $idIt; ?>");
+                                                </script>
 
                                                 <?php
                                             } else if ($started && !$expired && $finalized) { // Condição: Nao expirado, mas já respondido
                                                 ?>
                                                 <p>Iniciado - Finalizado!</p>
-                                                <p>Tempo para o fim da prova: </p>
+                                                <p>Tempo para o fim da prova: <span id="<?php echo $idIt; ?>"></span></p>
+                                                
+                                                <script type="text/javascript">
+                                                    timer("<?php echo $testParticipant->getTest()->getEndDate(); ?>",
+                                                            "<?php echo $idIt; ?>");
+                                                </script>
+                                                
                                                 <?php
                                             } else if ($expired && !$finalized) { // Condição: Teste expirou, mas não foi respondido
                                                 ?>
