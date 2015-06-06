@@ -17,10 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $senha = (isset($_POST['password'])) ? $_POST['password'] : '';
 
     $remember = isset($_POST['senha']);
+    
+    // Iniciar Sessão
+    session_start();
 
     if (isset($_POST['Administrator'])) {
         $dao = new AdministratorDAO();
-        if ($dao->userValidate($email, $senha)) {
+        // Resgatar Administrador
+        $admin = $dao->userValidate($email, $senha);
+        // Utiliza uma função pra validar os dados digitados
+        if ($admin) {
+            
+            // Colocar Usuário na Sessão
+            $_SESSION["admin"] = $admin->getId();
 
             // O usuário e a senha digitados foram validados, manda pra página interna
             header("Location: ../painelControle.html");
@@ -31,14 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             header("Location: ../loginAdmin.html");
         }
-    }
-
-// Utiliza uma função pra validar os dados digitados
-    else if (isset($_POST['usuario'])) {
+    } else if (isset($_POST['usuario'])) {
         $user = $dao->participantValidation($email, $senha);
         if ($user) {
+            // Colocar Usuário na Sessão
+            $_SESSION["user"] = $user->getId();
             // O usuário e a senha digitados foram validados, manda pra página interna
-            header("Location: alunoTelaInicial.php?id=" . $user->getId());
+            header("Location: alunoTelaInicial.php");
         } else {
             header("Location: ../login.html");
         }

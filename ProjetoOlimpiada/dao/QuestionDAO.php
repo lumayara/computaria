@@ -26,21 +26,22 @@ class QuestionDAO {
     public function add(Question $question) {
         $adicionado = false;
         try {
-            $stmt = $this->conexao->prepare("INSERT INTO Question (registration_date, question, topic, test_id) "
-                    . "VALUES (:registration_date, :question, :topic, :test_id)");
+            $stmt = $this->conexao->prepare("INSERT INTO Question (registration_date, question, topic, points, test_id) "
+                    . "VALUES (:registration_date, :question, :topic, :points, :test_id)");
 
             $properties = array($question->getRegistrationDate(), $question->getQuestion(), 
-                                $question->getTopic(), $question->getTest()->getId());
+                                $question->getTopic(), $question->getPoints(), $question->getTest()->getId());
 
             $stmt->bindParam(":registration_date", $properties[0]);
             $stmt->bindParam(":question", $properties[1]);
             $stmt->bindParam(":topic", $properties[2]);
-            $stmt->bindParam(":test_id", $properties[3]);
+            $stmt->bindParam(":points", $properties[3]);
+            $stmt->bindParam(":test_id", $properties[4]);
 
             $resultado = $stmt->execute();
 
             if ($resultado) {
-                $adicionado = TRUE;
+                $adicionado = $this->conexao->lastInsertId();
             }
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -52,17 +53,18 @@ class QuestionDAO {
         $atualizado = FALSE;
         try {
             $stmt = $this->conexao->prepare("UPDATE Question SET registration_date = :registration_date, "
-                                            . "question = :question, topic = :topic, test_id = :test_id "
+                                            . "question = :question, topic = :topic, points = :points, test_id = :test_id "
                                             . "WHERE id = :id");
 
             $properties = array($question->getRegistrationDate(), $question->getQuestion(), 
-                                $question->getTopic(), $question->getTest()->getId(), $question->getId());
+                                $question->getTopic(), $question->getPoints(), $question->getTest()->getId(), $question->getId());
 
             $stmt->bindParam(":registration_date", $properties[0]);
             $stmt->bindParam(":question", $properties[1]);
             $stmt->bindParam(":topic", $properties[2]);
-            $stmt->bindParam(":test_id", $properties[3]);
-            $stmt->bindParam(":id", $properties[4]);
+            $stmt->bindParam(":points", $properties[3]);
+            $stmt->bindParam(":test_id", $properties[4]);
+            $stmt->bindParam(":id", $properties[5]);
 
             $resultado = $stmt->execute();
 
@@ -94,7 +96,7 @@ class QuestionDAO {
 
     public function get($id) {
         try {
-            $stmt = $this->conexao->prepare("SELECT registration_date, question, topic, test_id FROM Question WHERE id = :id");
+            $stmt = $this->conexao->prepare("SELECT registration_date, question, topic, points, test_id FROM Question WHERE id = :id");
             $stmt->bindParam(":id", $id);
 
             $stmt->execute();
@@ -105,7 +107,7 @@ class QuestionDAO {
         $testDAO = new TestDAO();
         if ($result) {
             return new Question($id, $result['registration_date'], $result['question'], 
-                                $result['topic'], $testDAO->get($result['test_id']));
+                                $result['topic'], $result['points'], $testDAO->get($result['test_id']));
         } else {
             return FALSE;
         }
@@ -113,7 +115,7 @@ class QuestionDAO {
 
     public function listQuestions() {
         try {
-            $stmt = $this->conexao->prepare("SELECT id, registration_date, question, topic, test_id FROM Question ORDER BY id DESC");
+            $stmt = $this->conexao->prepare("SELECT id, registration_date, question, topic, points, test_id FROM Question ORDER BY id DESC");
 
             $stmt->execute();
         } catch (PDOException $e) {
@@ -124,7 +126,7 @@ class QuestionDAO {
         $testDAO = new TestDAO();
         for ($i = 0; $i < count($result); $i++) {
             $questions[$i] = new Question($result[$i]['id'], $result[$i]['registration_date'], $result[$i]['question'], 
-                                $result[$i]['topic'], $testDAO->get($result[$i]['test_id']));
+                                $result[$i]['topic'], $result[$i]['points'], $testDAO->get($result[$i]['test_id']));
                                 
         }
         return $questions;
@@ -132,7 +134,7 @@ class QuestionDAO {
     
     public function listQuestionsByTest($testId) {
         try {
-            $stmt = $this->conexao->prepare("SELECT id, registration_date, question, topic FROM Question WHERE test_id = :test_id ORDER BY id DESC");
+            $stmt = $this->conexao->prepare("SELECT id, registration_date, question, topic, points FROM Question WHERE test_id = :test_id ORDER BY id ASC");
             $stmt->bindParam(":test_id", $testId);
 
             $stmt->execute();
@@ -144,7 +146,7 @@ class QuestionDAO {
         $testDAO = new TestDAO();
         for ($i = 0; $i < count($result); $i++) {
             $questions[$i] = new Question($result[$i]['id'], $result[$i]['registration_date'], $result[$i]['question'], 
-                                $result[$i]['topic'], $testDAO->get($testId));
+                                $result[$i]['topic'],  $result[$i]['points'], $testDAO->get($testId));
                                 
         }
         return $questions;

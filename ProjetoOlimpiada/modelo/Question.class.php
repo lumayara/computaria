@@ -14,12 +14,14 @@ class Question{
     private $question;
     private $topic;
     private $test;
+    private $points;
     
-    function __construct($id, $registrationDate, $question, $topic, $test) {
+    function __construct($id, $registrationDate, $question, $topic, $points, $test) {
         $this->id = $id;
         $this->registrationDate = $registrationDate;
         $this->question = $question;
         $this->topic = $topic;
+        $this->points = $points;
         $this->test = $test;
     }
 
@@ -37,6 +39,10 @@ class Question{
 
     public function getTopic() {
         return $this->topic;
+    }
+    
+    public function getPoints() {
+        return $this->points;
     }
 
     public function getTest() {
@@ -59,6 +65,10 @@ class Question{
         $this->topic = $topic;
     }
 
+     public function setPoints($points) {
+        $this->points = $points;
+    }
+    
     public function setTest($test) {
         $this->test = $test;
     }

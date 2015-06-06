@@ -151,7 +151,7 @@
                 <?php $list = $compDAO->listCompetitions();
                     foreach ($list as $row) {
                         if ($user->getCompetition()==$row->getId()){
-                            print "<option value=".$row->getId()." SELECTED>".$row->getName()."</option>";
+                            print "<option value=".$row->getId()." selected>".$row->getName()."</option>";
                         }else{
                             print "<option value=".$row->getId().">".$row->getName()."</option>";
                         }

@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $topico = (isset($_POST['inputTopico'])) ? $_POST['inputTopico'] : '';
     $question = (isset($_POST['inputQuestion'])) ? $_POST['inputQuestion'] : '';
+    $points = (isset($_POST['inputPoints'])) ? $_POST['inputPoints'] : '';
     $test = (isset($_POST['inputTest'])) ? $_POST['inputTest'] : '';
 
     $id = 0;
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     if ((!empty($topico)) && (!empty($question))) {
-        $question = new Question($id, $regDate, $question, $topico, $testDAO->get($test));
+        $question = new Question($id, $regDate, $question, $topico, $points, $testDAO->get($test));
 
         if ($questionDAO->add($question)) {
             header("Location: test.php?id=$test");

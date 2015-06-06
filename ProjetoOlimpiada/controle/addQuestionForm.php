@@ -83,6 +83,14 @@
             <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" placeholder="Digite a questão" required>
         </div>
     </div>
+        
+    <div class="form-group">
+        <label for="inputPoints" class="control-label col-xs-3">Pontos</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="inputPoints" name="inputPoints" value="1">
+        </div>
+    </div>
+        
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Salvar</button>

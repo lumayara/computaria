@@ -33,10 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user->setId($participantDAO->add($user));
         
         if ($user->getId() != 0) {
-            
-            $testParticipant = new TestParticipant($id, $user, $testDAO->get($test), false);
-            
-            if ($testParticipantDAO->add($testParticipant)) {
+            $added = false;
+            for ($i = 0; $i < count($test); $i++) {
+            $testParticipant = new TestParticipant($id, $user, $testDAO->get($test[$i]), false);
+            $testParticipantDAO->add($testParticipant);
+            $added = true;
+            }
+            if ($added) {
                 header("Location: listUser.php");
             } else {
                 header("Location: addUserForm.php");
