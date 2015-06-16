@@ -13,12 +13,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/ChoiceDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Question.class.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Choice.class.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/QuestionDAO.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/validar.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/tests.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/questionnaireControl.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/alunoTelaInicial.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/questionario_2.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/getTestsByCompetition.php</file>
         </group>
     </open-files>
 </project-private>

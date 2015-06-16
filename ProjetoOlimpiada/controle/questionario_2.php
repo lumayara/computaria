@@ -2,17 +2,10 @@
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/ParticipantDAO.php";
 include_once "$url_path/dao/TestParticipantDAO.php";
-include_once "$url_path/dao/AnswersDAO.php";
-include_once "$url_path/dao/TestDAO.php";
-include_once "$url_path/dao/QuestionDAO.php";
-include_once "$url_path/dao/ChoiceDAO.php";
+include_once "$url_path/modelo/Question.class.php";
 
 $userDAO = new ParticipantDAO();
 $testParticipantDAO = new TestParticipantDAO();
-$answersDAO = new AnswersDAO();
-$testDAO = new TestDAO();
-$questionDAO = new QuestionDAO();
-$choiceDAO = new ChoiceDAO();
 
 // Iniciar Sessão
 session_start();
@@ -21,18 +14,16 @@ if (isset($_SESSION["user"])) {
 
     $participant = $userDAO->get($_SESSION["user"]);
 
+    $question = new Question(1, NULL, NULL, NULL, NULL, 1);
+
     if (isset($_GET["id"])) {
 
-        // TestParticipant
-        $testParticipant = $testParticipantDAO->get($_GET["id"]);
-
-        // Questões
-        $questions = $questionDAO->listQuestionsByTest($testParticipant->getTest()->getId());
+        $test = $testParticipantDAO->get($_GET["id"])->getTest();
         ?>
         <!DOCTYPE html>
         <html>
             <head>
-                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+                <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,6 +40,8 @@ if (isset($_SESSION["user"])) {
 
                 <!-- SB Admin CSS - Include with every page -->
                 <link href="../css/sb-admin.css" rel="stylesheet">
+
+                <link href="../css/questionaire.css" rel="stylesheet" type="text/css">
 
             </head>
 
@@ -91,19 +84,25 @@ if (isset($_SESSION["user"])) {
 
                     <div id="page-wrapper">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <h1 class="page-header"><i class="fa  fa-pencil-square-o fa-fw"></i>Questionário</h1>
+                            <div class="col-lg-8">
+                                <h1>Competição: <?php echo $participant->getCompetition()->getName(); ?></h1>
+                                <div class="questionaire-header">
+                                    <h2><i class="fa fa-pencil-square-o fa-fw"></i>Questionário - <?php echo $test->getClassification(); ?></h2>
+                                    <div><p id="qtde-questions"></p></div>
+                                </div>
+
                             </div>
                             <!-- /.col-lg-12 -->
                         </div>
                         <!-- /.row -->
                         <div class="row">
                             <div class="col-lg-8">
-                                <?php foreach ($questions as $question) { ?>
+                                <form role="form" method="post" id="form-submit-question" action="questionnaireControl.php">
+                                    <input id="question-id" type="hidden" name="question" value="" />
                                     <div class="question chat-panel panel panel-default">
                                         <div class="panel-heading">
                                             <i class="fa  fa-file-text-o fa-fw"></i>
-                                            <?php echo $question->getQuestion(); ?>
+                                            <span id="question-title"></span>
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
@@ -113,8 +112,8 @@ if (isset($_SESSION["user"])) {
 
                                                     <div class="chat-body clearfix">
                                                         <div class="header">
-                                                            <strong class="primary-font"><span id="topico"></span></strong> 
-
+                                                            <strong class="primary-font"><span id="question-topic"></span></strong>
+                                                            <strong class="primary-font"> - <span id="question-points"></span> Pontos</strong>
                                                         </div>
                                                         <p><span id="question"></span></p>
                                                     </div>
@@ -124,30 +123,9 @@ if (isset($_SESSION["user"])) {
 
                                                     <div class="chat-body clearfix">
 
-                                                        <p>Respostas:</p>
+                                                        <p>Alternativas:</p>
 
-                                                        <ul>
-
-                                                            <?php
-                                                            // Resgatar escolhas da questão
-                                                            $choices = $choiceDAO->listChoicesByQuestion($question->getId());
-
-                                                            foreach ($choices as $choice) {
-                                                                ?>
-
-                                                                <li>
-                                                                    <input type="radio" 
-                                                                           id="choice-<?php echo $choice->getId(); ?>" 
-                                                                           name="choice_question_<?php echo $question->getId(); ?>" 
-                                                                           value="<?php echo $choice->getId(); ?>" />
-                                                                    <label for="choice-<?php echo $choice->getId(); ?>">
-                                                                        <?php echo $choice->getChoice(); ?>
-                                                                    </label>
-                                                                </li>
-
-                                                                <?php
-                                                            }
-                                                            ?>
+                                                        <ul id="question-choices">
 
                                                         </ul>
                                                     </div>
@@ -158,19 +136,17 @@ if (isset($_SESSION["user"])) {
                                         <!-- /.panel-body -->
                                         <div class="panel-footer">
                                             <div class="input-group">
-                                                <form role="form" method="post" id="form" action="javascript:void(0)">
 
-                                                    <span class="input-group-btn">
-                                                        <input type="submit" class="btn btn-warning btn-sm" id="btn-chat" value="Submeter"/>
-                                                    </span>
+                                                <span class="input-group-btn">
+                                                    <input type="submit" class="btn btn-warning btn-sm" id="btn-submit" value="Submeter"/>
+                                                </span>
 
-                                                </form>
                                             </div>
                                         </div>
                                         <!-- /.panel-footer -->
                                     </div>
                                     <!-- /.panel .chat-panel -->
-                                <?php } ?>
+                                </form>
                             </div>
                             <!-- /.col-lg-8 -->
                             <div class="col-lg-4">
@@ -241,6 +217,103 @@ if (isset($_SESSION["user"])) {
 
                 </div>
                 <!-- /#wrapper -->
+
+                <script type="text/javascript">
+
+                    $(document).ready(function() {
+                        setQuestion();
+                    });
+
+                    $("form#form-submit-question").submit(function(event) {
+                        event.preventDefault();
+
+                        var $form = $(this);
+
+                        var requiredData = {
+                            type: "SUBMIT",
+                            id: <?php echo $_GET["id"]; ?>,
+                            questionId: $form.find("input[name='question']").val(),
+                            choiceId: $form.find("input[name='choice']").val()
+                        };
+                        var result;
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            async: false,
+                            data: requiredData,
+                            processData: true,
+                            datatype: 'json',
+                            success: function(data) {
+
+                                result = data;
+
+                            },
+                            error: function(data) {
+                                question = {
+                                    message: "Um erro ocorreu ao se conectar com o servidor"
+                                };
+                            }
+                        });
+                        
+                        alert(JSON.stringify(result));
+
+                    });
+
+                    var url = "questionnaireControl.php";
+
+                    function setQuestion() {
+
+                        var requiredData = {
+                            type: "QUESTION",
+                            id: <?php echo $_GET["id"]; ?>
+                        };
+                        var question;
+                        var qtdeQuestions;
+
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            async: false,
+                            data: requiredData,
+                            processData: true,
+                            datatype: 'json',
+                            success: function(data) {
+
+                                question = data.question;
+                                qtdeQuestions = data.qtdeQuestions;
+
+                            },
+                            error: function(data) {
+                                question = {
+                                    message: "Um erro ocorreu ao se conectar com o servidor"
+                                };
+                            }
+                        });
+
+                        // Informações da Questão
+                        $("#qtde-questions").html(qtdeQuestions + (qtdeQuestions > 1 ? " questões restantes" : "questão restante"));
+                        $("#question-id").attr("value", question.id);
+                        $("#question-title").html(question.question);
+                        $("#question-topic").html(question.topic);
+                        $("#question-points").html(question.points);
+                        // Alternativas da Questão
+                        for (var i = 0; i < question.choices.length; i++) {
+                            $("#question-choices").append(
+                                    '<li>' +
+                                    '<input type="radio" ' +
+                                    'id="choice-' + question.choices[i].id + '" ' +
+                                    'name="choice"' +
+                                    'value="' + question.choices[i].id + '" />' +
+                                    '<label for="choice-' + question.choices[i].id + '">' + question.choices[i].choice + '</label>' +
+                                    '</li>'
+
+                                    );
+                        }
+
+                    }
+
+                </script>
 
                 <!-- Core Scripts - Include with every page -->
 
