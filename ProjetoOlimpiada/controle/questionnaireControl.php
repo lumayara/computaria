@@ -78,9 +78,31 @@ if (isset($_SESSION["user"])) {
                         "qtdeQuestions" => count($questions)
                     );
                 } else if ($_POST["type"] == "SUBMIT") { // Submete uma resposta
-                    
-                    
-                    
+                    if (isset($_POST["questionId"])) {
+                        // Resgatar Questão
+                        $question = $questionDAO->get($_POST["questionId"]);
+
+                        if (isset($_POST["choiceId"])) {
+                            // Resgatar Alternativa
+                            $choice = $choiceDAO->get($_POST["choiceId"]);
+
+                            // Adicionar Resposta
+                            $answer = new Answers(NULL, $testParticipant, $question, $choice);
+                            $answersDAO->add($answer);
+
+                            // Adicionar mensagem de retorno
+                            $jsonReturn = array(
+                                "message" => "Questão respondida com sucesso!",
+                                // Adicionar o vetor de testes
+                                "success" => true
+                            );
+                            
+                        } else {
+                            $jsonReturn = array("message" => "Não foi possível realizar a operação. Falta a Alternativa.");
+                        }
+                    } else {
+                        $jsonReturn = array("message" => "Não foi possível realizar a operação. Falta a Questão.");
+                    }
                 }
             } else {
                 $jsonReturn = array("message" => "Não foi possível realizar a operação. Falta o tipo de requisição.");

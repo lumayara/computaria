@@ -135,11 +135,16 @@ if (isset($_SESSION["user"])) {
                                         </div>
                                         <!-- /.panel-body -->
                                         <div class="panel-footer">
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                                    <span class="sr-only"></span>
+                                                </div>
+                                            </div>
                                             <div class="input-group">
 
-                                                <span class="input-group-btn">
-                                                    <input type="submit" class="btn btn-warning btn-sm" id="btn-submit" value="Submeter"/>
-                                                </span>
+                                                <button id="btn-submit" class="btn btn-warning btn-sm" type="submit">
+                                                    Submeter
+                                                </button>
 
                                             </div>
                                         </div>
@@ -224,8 +229,13 @@ if (isset($_SESSION["user"])) {
                         setQuestion();
                     });
 
+                    var url = "questionnaireControl.php";
+
                     $("form#form-submit-question").submit(function(event) {
                         event.preventDefault();
+
+                        $(".progress").show(0);
+                        $(".progress-bar").addClass("progress-bar-animate");
 
                         var $form = $(this);
 
@@ -235,7 +245,6 @@ if (isset($_SESSION["user"])) {
                             questionId: $form.find("input[name='question']").val(),
                             choiceId: $form.find("input[name='choice']").val()
                         };
-                        var result;
 
                         $.ajax({
                             type: "POST",
@@ -246,7 +255,19 @@ if (isset($_SESSION["user"])) {
                             datatype: 'json',
                             success: function(data) {
 
-                                result = data;
+                                if (data.success) {
+
+                                    setTimeout(
+                                            function()
+                                            {
+                                                setQuestion();
+                                                $(".progress").hide(0);
+                                                $(".progress-bar").removeClass("progress-bar-animate");
+                                            }, 2000);
+
+                                } else {
+                                    alert("Erro ao responder a questão. " + data.message);
+                                }
 
                             },
                             error: function(data) {
@@ -255,12 +276,8 @@ if (isset($_SESSION["user"])) {
                                 };
                             }
                         });
-                        
-                        alert(JSON.stringify(result));
 
                     });
-
-                    var url = "questionnaireControl.php";
 
                     function setQuestion() {
 
@@ -291,8 +308,11 @@ if (isset($_SESSION["user"])) {
                             }
                         });
 
+                        // Limpar Informações da Questão
+                        clear();
+
                         // Informações da Questão
-                        $("#qtde-questions").html(qtdeQuestions + (qtdeQuestions > 1 ? " questões restantes" : "questão restante"));
+                        $("#qtde-questions").html(qtdeQuestions + (qtdeQuestions > 1 ? " questões restantes" : " questão restante"));
                         $("#question-id").attr("value", question.id);
                         $("#question-title").html(question.question);
                         $("#question-topic").html(question.topic);
@@ -310,6 +330,19 @@ if (isset($_SESSION["user"])) {
 
                                     );
                         }
+
+                    }
+
+                    function clear() {
+
+                        // Informações da Questão
+                        $("#qtde-questions").html("");
+                        $("#question-id").attr("value", "");
+                        $("#question-title").html("");
+                        $("#question-topic").html("");
+                        $("#question-points").html("");
+                        // Alternativas da Questão
+                        $("#question-choices").html("");
 
                     }
 

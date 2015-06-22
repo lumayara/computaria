@@ -37,3 +37,27 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
+/* Barra de Progresso */
+.progress {
+    display: none;
+}
+
+.progress .progress-bar-animate {
+    -webkit-animation: spin 2s ease-in-out;
+    -moz-animation: spin 2s ease-in-out;
+    animation: spin 2s ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes spin2 {
+    from { width: 0;}
+    to { width: 100%;}
+}
+
+@keyframes spin {
+    from { width: 0;}
+    to { width: 100%;}
+}
