@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION["admin"] = $admin->getId();
 
             // O usuário e a senha digitados foram validados, manda pra página interna
-            header("Location: ../painelControle.html");
+            header("Location: ../painelControle.php");
         } else {
 
             // O usuário e/ou a senha são inválidos, manda de volta pro form de login

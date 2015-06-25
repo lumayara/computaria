@@ -24,31 +24,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $competition = (isset($_POST['inputCompetition'])) ? $_POST['inputCompetition'] : '';
     $test = (isset($_POST['inputTest'])) ? $_POST['inputTest'] : '';
 
-    $id = 0;
-
     if ((!empty($nome)) && (!empty($email)) && (!empty($turma)) && (!empty($senha)) && (!empty($competition)) && (!empty($test))) {
 
-        $user = new Participant($id, $nome, $email, $senha, $turma, $competitionDAO->get($competition));
-        
+        $user = new Participant(NULL, $nome, $email, $senha, $turma, $competitionDAO->get($competition));
+
         $user->setId($participantDAO->add($user));
-        
-        if ($user->getId() != 0) {
-            $added = false;
+
+        if ($user->getId() != 0) {            
             for ($i = 0; $i < count($test); $i++) {
-            $testParticipant = new TestParticipant($id, $user, $testDAO->get($test[$i]), false);
-            $testParticipantDAO->add($testParticipant);
-            $added = true;
+                $testParticipant = new TestParticipant(NULL, $user, $testDAO->get($test[$i]), false, '', '');
+                echo var_dump($testParticipant);
+                $testParticipantDAO->add($testParticipant);
             }
-            if ($added) {
-                header("Location: listUser.php");
-            } else {
-                header("Location: addUserForm.php");
-            }
-            
+            header("Location: listUser.php");
         } else {
-            header("Location: addUserForm.php");            
+            header("Location: addUserForm.php");
         }
-        
     } else {
         header("Location: addUserForm.php");
     }

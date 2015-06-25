@@ -161,52 +161,18 @@ if (isset($_SESSION["user"])) {
                                     </div>
                                     <!-- /.panel-heading -->
                                     <div class="panel-body">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 1
-                                                <span class="pull-right text-muted small"><em>58 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 2
-                                                <span class="pull-right text-muted small"><em>57 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 3
-                                                <span class="pull-right text-muted small"><em>48 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 4
-                                                <span class="pull-right text-muted small"><em>45 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 5
-                                                <span class="pull-right text-muted small"><em>40 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 6
-                                                <span class="pull-right text-muted small"><em>40 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 7
-                                                <span class="pull-right text-muted small"><em>38 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 8
-                                                <span class="pull-right text-muted small"><em>37 pontos</em>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="list-group-item">
-                                                <i class="fa fa-child fa-fw"></i> Usuário 9
-                                                <span class="pull-right text-muted small"><em>36 pontos</em>
-                                                </span>
-                                            </a>
+                                        <div class="list-group" id="ranking-area">
+                                            <header class="list-group-item">
+                                                <span>Pos</span>
+                                                <span>Participante</span>
+                                                <span>Feitas</span>
+                                                <span>Certas</span>
+                                                <span>Pontos</span>
+                                                <span>Tempo</span>
+                                            </header>
+                                            <div class="list-group">
+                                                
+                                            </div>
                                         </div>
                                         <!-- /.list-group -->
                                     </div>
@@ -227,6 +193,7 @@ if (isset($_SESSION["user"])) {
 
                     $(document).ready(function() {
                         setQuestion();
+                        setRanking();
                     });
 
                     var url = "questionnaireControl.php";
@@ -243,7 +210,7 @@ if (isset($_SESSION["user"])) {
                             type: "SUBMIT",
                             id: <?php echo $_GET["id"]; ?>,
                             questionId: $form.find("input[name='question']").val(),
-                            choiceId: $form.find("input[name='choice']").val()
+                            choiceId: $form.find("input[name='choice']:checked").val()
                         };
 
                         $.ajax({
@@ -343,6 +310,54 @@ if (isset($_SESSION["user"])) {
                         $("#question-points").html("");
                         // Alternativas da Questão
                         $("#question-choices").html("");
+
+                    }
+
+                    // Ranking
+                    function setRanking() {
+
+                        var requiredData = {
+                            id: <?php echo $test->getId(); ?>
+                        };
+                        var ranking;
+
+                        $.ajax({
+                            type: "GET",
+                            url: 'rankingControl.php',
+                            async: false,
+                            data: requiredData,
+                            processData: true,
+                            datatype: 'json',
+                            success: function(data) {
+
+                                ranking = data.ranking;
+
+                            },
+                            error: function(data) {
+                                alert("Um erro ocorreu ao se conectar com o servidor");
+                            }
+                        });
+
+                        // Limpar área do Ranking
+                        $("#ranking-area > div").html("");
+
+                        // Classificação do Ranking
+                        for (var i = 0; i < ranking.length; i++) {
+                            $("#ranking-area > div").append(
+                                    '<a href="#" class="list-group-item' + (ranking[i].testParticipant.finalized == 1 ? " finalized" : "") + '">' +
+                                    '<span>' + (i + 1) + '</span>' +
+                                    '<span>' + ranking[i].testParticipant.participant.name + '</span>' +
+                                    '<span class="small"><em>' + ranking[i].answered + '</em></span>' +
+                                    '<span class="small"><em>' + ranking[i].rights + '</em></span>' +
+                                    '<span class="small"><em>' +
+                                    ranking[i].points + "" + (ranking[i].points === 1 ? " ponto" : " pontos") +
+                                    '</em></span>' +
+                                    '<span class="small"><em>' + ranking[i].completionTime + '</em></span>' +
+                                    '</a>'
+                                    );
+                        }
+                        
+                        setTimeout(function(){setRanking()}, 5000);
 
                     }
 

@@ -119,7 +119,7 @@ class AdministratorDAO {
 
     public function userValidate($email, $password) {
         try {
-            $stmt = $this->conexao->prepare("SELECT id FROM Administrator WHERE email =:email and password =:password");
+            $stmt = $this->conexao->prepare("SELECT id FROM Administrator WHERE email = :email and password = :password");
             $stmt->bindParam(":email", $email);
             $stmt->bindParam(":password", $password);
 

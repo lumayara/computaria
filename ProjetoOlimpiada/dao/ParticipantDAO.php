@@ -39,8 +39,8 @@ class ParticipantDAO {
             $stmt->bindParam(":competition_id", $vetorUser[4]);
 
             $resultado = $stmt->execute();
-            
-            if ($resultado) {                
+
+            if ($resultado) {
                 $adicionado = $this->conexao->lastInsertId();
             }
         } catch (PDOException $e) {
@@ -113,7 +113,7 @@ class ParticipantDAO {
             return FALSE;
         }
     }
-    
+
     public function listParticipants() {
         try {
             $stmt = $this->conexao->prepare("SELECT id, name, email, password, team, competition_id FROM Participant ORDER BY id DESC");
@@ -127,7 +127,6 @@ class ParticipantDAO {
         $competitionDAO = new CompetitionDAO();
         for ($i = 0; $i < count($result); $i++) {
             $participants[$i] = new Participant($result[$i]['id'], $result[$i]['name'], $result[$i]['email'], $result[$i]['password'], $result[$i]['team'], $competitionDAO->get($result[$i]['competition_id']));
-                                
         }
         return $participants;
     }
@@ -168,5 +167,4 @@ class ParticipantDAO {
 //        }
 //        return $adicionado; 
 //    }
-
 }

@@ -61,3 +61,54 @@
     from { width: 0;}
     to { width: 100%;}
 }
+
+#ranking-area > header,
+#ranking-area > div > a {
+    font-size: 0px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+}
+#ranking-area > header > span,
+#ranking-area > div > a > span {
+    font-size: 12px;
+    display: inline-block;
+    text-align: center;
+}
+#ranking-area > header > span:first-child,
+#ranking-area > div > a > span:first-child {
+    width: 10%;
+}
+#ranking-area > header > span:nth-child(2),
+#ranking-area > div > a > span:nth-child(2) {
+    width: 35%;
+}
+#ranking-area > header > span:nth-child(3),
+#ranking-area > div > a > span:nth-child(3) {
+    width: 10%;
+}
+#ranking-area > header > span:nth-child(4),
+#ranking-area > div > a > span:nth-child(4) {
+    width: 10%;
+}
+#ranking-area > header > span:nth-child(5),
+#ranking-area > div > a > span:nth-child(5) {
+    width: 20%;
+}
+#ranking-area > header > span:last-child,
+#ranking-area > div > a > span:last-child {
+    width: 15%;
+}
+
+#ranking-area > div > a.finalized {
+    background-color: #d0e9c6;
+}
+#ranking-area > div > a:first-child {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+#ranking-area > div > a:last-child {
+    -webkit-border-radius: 0px 0px 3px 3px;
+    -moz-border-radius: 0px 0px 3px 3px;
+    border-radius: 0px 0px 3px 3px;
+}

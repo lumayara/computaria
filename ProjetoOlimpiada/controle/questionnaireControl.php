@@ -60,7 +60,7 @@ if (isset($_SESSION["user"])) {
                     $choices = $choiceDAO->listChoicesByQuestion($question->getId());
                     // Adicionar resultados ao array JSON
                     foreach ($choices as $key => $value) {
-                        $jsonChoices[$key] = ["id" => $value->getId(), "choice" => $value->getChoice()];
+                        $jsonChoices[$key] = ["id" => $value->getId(), "choice" => mb_convert_encoding($value->getChoice(), "UTF-8", "Windows-1252")];
                     }
 
                     // Adicionar mensagem de retorno
@@ -70,8 +70,8 @@ if (isset($_SESSION["user"])) {
                         "question" => array(
                             "id" => $question->getId(),
                             "registrationDate" => $question->getRegistrationDate(),
-                            "question" => $question->getQuestion(),
-                            "topic" => $question->getTopic(),
+                            "question" => mb_convert_encoding($question->getQuestion(), "UTF-8", "Windows-1252"),
+                            "topic" => mb_convert_encoding($question->getTopic(), "UTF-8", "Windows-1252"),
                             "points" => $question->getPoints(),
                             "choices" => $jsonChoices
                         ),
