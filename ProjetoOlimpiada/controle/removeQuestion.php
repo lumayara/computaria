@@ -1,18 +1,17 @@
 <?php
 $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
 include_once "$url_path/dao/TestDAO.php";
-include_once "$url_path/dao/CompetitionDAO.php";
+include_once "$url_path/dao/QuestionDAO.php";
 
     $id = $_GET['id'];
-    $dao = new TestDAO();
-    $competition = $dao->get($id)->getCompetition();
-
+    $dao = new QuestionDAO();
+    $test = $dao->get($id)->getTest();
     if ($dao->remove($id)) {
         // O usuário e a senha digitados foram validados, manda pra página interna
-          header("Location: competition.php?id=".$competition->getId());
+          header("Location: test.php?id=".$test->getId());
           //  echo"$id deu certo";
     }else{
-          header("Location: competition.php?id=".$competition->getId());
+          header("Location: test.php?id=".$test->getId());
         //echo"$id nao deu certo";
     }
 

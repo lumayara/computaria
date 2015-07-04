@@ -130,7 +130,7 @@
                                                         . "<a href='editTestForm.php?id=" . $question->getId() . "'>Editar</a>"
                                                         . "</td>"
                                                         . "<td>"
-                                                        . "<a href='removeProva.php?id=" . $question->getId() . "'>Remover</a>"
+                                                        . "<a href='removeQuestion.php?id=" . $question->getId() . "'>Remover</a>"
                                                         . "</td>"
                                                         . "</tr>";
                                             }
