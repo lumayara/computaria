@@ -170,5 +170,34 @@ class TestParticipantDAO {
         }
         return $ranking;
     }
+    
+    public function getPoints($testId, $participantId) {
+        try {
+            $stmt = $this->conexao->prepare("SELECT DISTINCT IFNULL(SUM(q.points), 0) points
+                                            FROM Participant p, Test_Participant tp
+                                            LEFT OUTER JOIN Answers a ON (
+                                                tp.id = a.test_participant_id
+                                            )
+                                            LEFT OUTER JOIN Choice c ON (
+                                                a.choice_id = c.id AND
+                                                c.its_answer = true 
+                                            )
+                                            LEFT OUTER JOIN Question q ON (
+                                                a.question_id = q.id AND
+                                                c.question_id = q.id
+                                            )
+                                            WHERE 
+                                            tp.participant_id = p.id AND 
+                                            tp.test_id = :testId AND
+                                            p.id = :participantId");
+            $stmt->bindParam(":testId", $testId);
+            $stmt->bindParam(":participantId", $participantId);
+
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $stmt->fetch(PDO::FETCH_COLUMN);
+    }
 
 }

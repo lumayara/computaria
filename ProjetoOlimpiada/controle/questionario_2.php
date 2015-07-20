@@ -18,7 +18,17 @@ if (isset($_SESSION["user"])) {
 
     if (isset($_GET["id"])) {
 
-        $test = $testParticipantDAO->get($_GET["id"])->getTest();
+        $testParticipant = $testParticipantDAO->get($_GET["id"]);
+
+        $test = $testParticipant->getTest();
+
+        date_default_timezone_set('America/New_York');
+
+        $started = (strtotime($testParticipant->getTest()->getStartDate()) <= time());
+
+        $expired = (strtotime($testParticipant->getTest()->getEndDate()) < time());
+
+        $finalized = $testParticipant->getFinalized();
         ?>
         <!DOCTYPE html>
         <html>
@@ -88,7 +98,9 @@ if (isset($_SESSION["user"])) {
                                 <h1>Competição: <?php echo $participant->getCompetition()->getName(); ?></h1>
                                 <div class="questionaire-header">
                                     <h2><i class="fa fa-pencil-square-o fa-fw"></i>Questionário - <?php echo $test->getClassification(); ?></h2>
-                                    <div><p id="qtde-questions"></p></div>
+                                    <?php if (!$expired && !$finalized) { ?>
+                                        <div><p id="qtde-questions"></p></div>
+                                    <?php } ?>
                                 </div>
 
                             </div>
@@ -97,61 +109,120 @@ if (isset($_SESSION["user"])) {
                         <!-- /.row -->
                         <div class="row">
                             <div class="col-lg-8">
-                                <form role="form" method="post" id="form-submit-question" action="questionnaireControl.php">
-                                    <input id="question-id" type="hidden" name="question" value="" />
-                                    <div class="question chat-panel panel panel-default">
-                                        <div class="panel-heading">
-                                            <i class="fa  fa-file-text-o fa-fw"></i>
-                                            <span id="question-title"></span>
-                                        </div>
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <ul id="chat" class="chat">
-                                                <!-- Bloco da mensagem-->
-                                                <li class="left clearfix">
+                                <?php
+                                if (!$started) {
+                                    ?>
 
-                                                    <div class="chat-body clearfix">
-                                                        <div class="header">
-                                                            <strong class="primary-font"><span id="question-topic"></span></strong>
-                                                            <strong class="primary-font"> - <span id="question-points"></span> Pontos</strong>
+                                    <div class="warning chat-panel panel panel-default">
+                                        <h3>Quase lá...</h3>
+                                        <p>Sua prova ainda não começou. Aguarde...</p>
+                                        <p>Início em 
+                                            <?php
+                                            echo 
+                                            date("d/m/Y", strtotime($testParticipant->getTest()->getStartDate())) . " às " .
+                                            date("H:i", strtotime($testParticipant->getTest()->getStartDate()));
+                                            ?>
+                                        </p>
+                                    </div>
+
+                                    <?php
+                                } else if ($started && !$expired && $finalized) { // Teste Iniciado e ja foi finalizado
+                                    ?>
+
+                                    <div class="warning chat-panel panel panel-default">
+                                        <h3>Parabens!</h3>
+                                        <p>Você concluiu o seu teste! Agora é só aguardar o término!</p>
+                                        <p>Sua pontuação foi: <?php echo $testParticipantDAO->getPoints($test->getId(), $participant->getId()); ?></p>
+                                        <p>O ranking completo pode ser visualizado ao lado.</p>
+                                    </div>
+
+                                    <?php
+                                } else if ($expired && !$finalized) { // Condição: Teste expirou, mas não foi respondido
+                                    ?>
+
+                                    <div class="warning chat-panel panel panel-default">
+                                        <h3>O teste foi encerrado!</h3>
+                                        <p>Infelizmente o teste chegou ao fim e você não o completou... :(</p>
+                                        <p>Sua pontuação foi: <?php echo $testParticipantDAO->getPoints($test->getId(), $participant->getId()); ?></p>
+                                        <p>O ranking completo pode ser visualizado ao lado.</p>
+                                    </div>
+
+                                    <?php
+                                } else if ($expired && $finalized) { // Expirou e foi finalizado
+                                    ?>
+
+                                    <div class="warning chat-panel panel panel-default">
+                                        <h3>Parabéns!</h3>
+                                        <p>Esse teste já foi encerrado mas você conseguiu finalizá-lo!</p>
+                                        <p>Sua pontuação foi: <?php echo $testParticipantDAO->getPoints($test->getId(), $participant->getId()); ?></p>
+                                        <p>O ranking completo pode ser visualizado ao lado.</p>
+                                    </div>
+
+                                    <?php
+                                } else if ($started && !$expired && !$finalized) { // Teste Iniciado e ainda não finalizado
+                                    ?>
+                                    <form role="form" method="post" id="form-submit-question" action="questionnaireControl.php">
+                                        <input id="question-id" type="hidden" name="question" value="" />
+                                        <div class="question chat-panel panel panel-default">
+                                            <div class="panel-heading">
+                                                <i class="fa  fa-file-text-o fa-fw"></i>
+                                                <span id="question-title"></span>
+                                            </div>
+                                            <!-- /.panel-heading -->
+                                            <div class="panel-body">
+                                                <ul id="chat" class="chat">
+                                                    <!-- Bloco da mensagem-->
+                                                    <li class="left clearfix">
+
+                                                        <div class="chat-body clearfix">
+                                                            <div class="header">
+                                                                <strong class="primary-font"><span id="question-topic"></span></strong>
+                                                                <strong class="primary-font"> - <span id="question-points"></span> Pontos</strong>
+                                                            </div>
+                                                            <p><span id="question"></span></p>
                                                         </div>
-                                                        <p><span id="question"></span></p>
+                                                    </li>
+                                                    <!-- Fim Bloco da mensagem-->    
+                                                    <li class="right clearfix">
+
+                                                        <div class="chat-body clearfix">
+
+                                                            <p>Alternativas:</p>
+
+                                                            <ul id="question-choices">
+
+                                                            </ul>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <!-- /.panel-body -->
+                                            <div class="panel-footer">
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only"></span>
                                                     </div>
-                                                </li>
-                                                <!-- Fim Bloco da mensagem-->    
-                                                <li class="right clearfix">
+                                                </div>
+                                                <div class="input-group">
 
-                                                    <div class="chat-body clearfix">
+                                                    <button id="btn-submit" class="btn btn-warning btn-sm" type="submit">
+                                                        Submeter
+                                                    </button>
 
-                                                        <p>Alternativas:</p>
-
-                                                        <ul id="question-choices">
-
-                                                        </ul>
-                                                    </div>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                        <!-- /.panel-body -->
-                                        <div class="panel-footer">
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-                                                    <span class="sr-only"></span>
                                                 </div>
                                             </div>
-                                            <div class="input-group">
-
-                                                <button id="btn-submit" class="btn btn-warning btn-sm" type="submit">
-                                                    Submeter
-                                                </button>
-
-                                            </div>
+                                            <!-- /.panel-footer -->
                                         </div>
-                                        <!-- /.panel-footer -->
+                                        <!-- /.panel .chat-panel -->
+                                    </form>
+                                <?php } else { ?>
+
+                                    <div>
+                                        <h3>Teste</h3>
                                     </div>
-                                    <!-- /.panel .chat-panel -->
-                                </form>
+
+                                <?php } ?>
                             </div>
                             <!-- /.col-lg-8 -->
                             <div class="col-lg-4">
@@ -171,7 +242,7 @@ if (isset($_SESSION["user"])) {
                                                 <span>Tempo</span>
                                             </header>
                                             <div class="list-group">
-                                                
+
                                             </div>
                                         </div>
                                         <!-- /.list-group -->
@@ -344,9 +415,12 @@ if (isset($_SESSION["user"])) {
                         // Classificação do Ranking
                         for (var i = 0; i < ranking.length; i++) {
                             $("#ranking-area > div").append(
-                                    '<a href="#" class="list-group-item' + (ranking[i].testParticipant.finalized == 1 ? " finalized" : "") + '">' +
+                                    '<a href="#" class="list-group-item">' +
                                     '<span>' + (i + 1) + '</span>' +
-                                    '<span>' + ranking[i].testParticipant.participant.name + '</span>' +
+                                    '<span class="name">' + 
+                                    (ranking[i].testParticipant.finalized == 1 ? '<i class="fa fa-check"></i>' : '') +
+                                    ranking[i].testParticipant.participant.name + 
+                                    '</span>' +
                                     '<span class="small"><em>' + ranking[i].answered + '</em></span>' +
                                     '<span class="small"><em>' + ranking[i].rights + '</em></span>' +
                                     '<span class="small"><em>' +
@@ -356,8 +430,10 @@ if (isset($_SESSION["user"])) {
                                     '</a>'
                                     );
                         }
-                        
-                        setTimeout(function(){setRanking()}, 5000);
+
+                        setTimeout(function() {
+                            setRanking()
+                        }, 5000);
 
                     }
 

@@ -94,6 +94,7 @@ if (isset($_SESSION['admin'])) {
                                     <div class="panel-body">
                                         <p><h4><i class="fa fa-plus fa-fw"></i><a href="addComp.html">Adicionar nova</a></h4></p>
                                         <p><h4><i class="fa fa-list fa-fw"></i><a href="controle/listComp.php">Ver Competições</a></h4></p>
+                                        <p><h4><i class="fa fa-list fa-fw"></i><a href="controle/VerRanking.php">Ver Ranking</a></h4></p>
                                     </div>
 
                                 </div>
