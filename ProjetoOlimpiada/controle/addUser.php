@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user->getId() != 0) {            
             for ($i = 0; $i < count($test); $i++) {
                 $testParticipant = new TestParticipant(NULL, $user, $testDAO->get($test[$i]), false, '', '');
-                echo var_dump($testParticipant);
+                //echo var_dump($testParticipant);
                 $testParticipantDAO->add($testParticipant);
             }
             header("Location: listUser.php");

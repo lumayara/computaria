@@ -54,8 +54,9 @@
 //                            html += '<option value="">-- Selecione o Teste --</option>';
                             
                             for (i = 0; i < data.tests.length; i++) {
-                                html += '<input type="checkbox" name="prova" value="' + data.tests[i].id + '"/>' + data.tests[i].classification + '</br>';
+                                html += '<input type="checkbox" name="inputTest[]" value="' + data.tests[i].id + '"/>' + data.tests[i].classification + '</br>';
                             }
+                            
                             
                             
                             // Alterar lista de Testes
@@ -141,7 +142,7 @@
     <div class="form-group">
         <label for="inputSenha" class="control-label col-xs-2">Senha</label>
         <div class="col-xs-10">
-            <input type="password" class="form-control" id="inputSenha" name="inputSenha" required>
+            <input type="password" class="form-control" id="inputSenha" name="inputSenha" value="<?php echo $user->getPassword()?>" required>
         </div>
     </div>
     <div class="form-group">

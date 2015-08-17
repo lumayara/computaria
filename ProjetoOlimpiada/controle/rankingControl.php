@@ -20,7 +20,7 @@ if (TRUE) {
     // Verificar se existe 
     if (isset($_GET)) {
 
-        // Verificar se existe id para questionário
+        // Verificar se existe id para questionário --Test Id
         if (isset($_GET["id"])) {
 
             // TestParticipant

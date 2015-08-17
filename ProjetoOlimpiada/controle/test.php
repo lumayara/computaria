@@ -4,14 +4,13 @@
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
     include_once "$url_path/dao/TestDAO.php";
     include_once "$url_path/dao/QuestionDAO.php";
-    
+
     $testDAO = new TestDAO();
     $questionDAO = new QuestionDAO();
-    
+
     $id = $_GET["id"];
-    
+
     $test = $testDAO->get($id);
-    
     ?>
     <head>
 
@@ -19,6 +18,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>WidIF</title>
+        
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
         <!-- Core CSS - Include with every page -->
         <link href="../css/bootstrap.css" rel="stylesheet">
@@ -30,6 +31,8 @@
 
         <!-- SB Admin CSS - Include with every page -->
         <link href="../css/sb-admin.css" rel="stylesheet">
+
+        <link href="../css/ranking.css" rel="stylesheet" type="text/css">
 
     </head>
 
@@ -77,7 +80,7 @@
             <div id="page-wrapper">
 
                 <div class="row">
-                    
+
                     <div>
                         <h1>Prova</h1>
                         <p><b>Classificação: </b><?php echo $test->getClassification(); ?></p>
@@ -85,7 +88,7 @@
                         <p><b>Data de Fim: </b><?php echo $test->getEndDate(); ?></p>
                         <p><b>Competição: </b><?php echo $test->getCompetition()->getName(); ?></p>
                     </div>
-                    
+
                     <div>
                         <h2>Questões para essa prova</h2>
                     </div>
@@ -99,7 +102,7 @@
                     </div>
                     <!-- /.col-lg-4 --> 
                     <div class="col-lg-12">
-                        <div class="panel panel-default">
+                        <div  class="col-lg-8 panel panel-default">
                             <div class="panel-heading">
                                 Lista de Questões
                             </div>
@@ -143,6 +146,33 @@
                             <!-- /.panel-body -->
                         </div>
                         <!-- /.panel -->
+                        <!-- /.col-lg-8 -->
+                        <div class="col-lg-4">
+                            <div class="scroll-panel panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-users fa-fw"></i> Ranking
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="list-group" id="ranking-area">
+                                        <header class="list-group-item">
+                                            <span>Pos</span>
+                                            <span>Participante</span>
+                                            <span>Feitas</span>
+                                            <span>Certas</span>
+                                            <span>Pontos</span>
+                                            <span>Tempo</span>
+                                        </header>
+                                        <div class="list-group">
+
+                                        </div>
+                                    </div>
+                                    <!-- /.list-group -->
+                                </div>
+                                <!-- /.panel-body -->
+                            </div>
+                            <!-- /.panel -->                                        
+                        </div>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div> 
@@ -155,8 +185,69 @@
         </div>
         <!-- /#wrapper -->
 
+        <script type="text/javascript">
+
+            // Initialize
+            $(document).ready(function() {
+                setRanking();
+            });
+
+            // Ranking
+            function setRanking() {
+
+                var requiredData = {
+                    id: <?php echo $test->getId(); ?>
+
+                };
+                var ranking;
+
+                $.ajax({
+                    type: "GET",
+                    url: 'rankingControl.php',
+                    async: false,
+                    data: requiredData,
+                    processData: true,
+                    datatype: 'json',
+                    success: function(data) {
+
+                        ranking = data.ranking;
+
+                    },
+                    error: function(data) {
+                        alert("Um erro ocorreu ao se conectar com o servidor");
+                    }
+                });
+
+                // Limpar área do Ranking
+                $("#ranking-area > div").html("");
+
+                // Classificação do Ranking
+                for (var i = 0; i < ranking.length; i++) {
+                    $("#ranking-area > div").append(
+                            '<a href="#" class="list-group-item">' +
+                            '<span>' + (i + 1) + '</span>' +
+                            '<span class="name">' +
+                            (ranking[i].testParticipant.finalized == 1 ? '<i class="fa fa-check"></i>' : '') +
+                            ranking[i].testParticipant.participant.name +
+                            '</span>' +
+                            '<span class="small"><em>' + ranking[i].answered + '</em></span>' +
+                            '<span class="small"><em>' + ranking[i].rights + '</em></span>' +
+                            '<span class="small"><em>' +
+                            ranking[i].points + "" + (ranking[i].points === 1 ? " ponto" : " pontos") +
+                            '</em></span>' +
+                            '<span class="small"><em>' + ranking[i].completionTime + '</em></span>' +
+                            '</a>'
+                            );
+                }
+
+                setTimeout(function() {
+                    setRanking()
+                }, 5000);
+
+            }
+        </script>
+
         <!-- Core Scripts - Include with every page -->
-        <script src="../js/jquery-1.10.2.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 

@@ -47,36 +47,53 @@ if (isset($_SESSION["user"])) {
                 if ($_POST["type"] == "QUESTION") { // Solicita uma questão
                     // Recuperar Questões do Questionário não respondidas
                     $questions = $questionDAO->listQuestionsNotAnsweredByTestParticipant($testParticipant->getId());
+                    
+                    // Verificar se ainda há questoes para responder
+                    if (count($questions) > 0) {
 
-                    // Embaralhar questões recuperadas
-                    shuffle($questions);
+                        // Embaralhar questões recuperadas
+                        shuffle($questions);
 
-                    // Primeira questão do vetor
-                    $question = $questions[0];
+                        // Primeira questão do vetor
+                        $question = $questions[0];
 
-                    // Vetor de alternativas
-                    $jsonChoices = array();
-                    // Alternativas
-                    $choices = $choiceDAO->listChoicesByQuestion($question->getId());
-                    // Adicionar resultados ao array JSON
-                    foreach ($choices as $key => $value) {
-                        $jsonChoices[$key] = ["id" => $value->getId(), "choice" => mb_convert_encoding($value->getChoice(), "UTF-8", "Windows-1252")];
+                        // Vetor de alternativas
+                        $jsonChoices = array();
+                        // Alternativas
+                        $choices = $choiceDAO->listChoicesByQuestion($question->getId());
+                        // Adicionar resultados ao array JSON
+                        foreach ($choices as $key => $value) {
+                            $jsonChoices[$key] = ["id" => $value->getId(), "choice" => mb_convert_encoding($value->getChoice(), "UTF-8", "Windows-1252")];
+                        }
+
+                        // Adicionar mensagem de retorno
+                        $jsonReturn = array(
+                            "message" => "Questão recuperada com sucesso!",
+                            // Adicionar o vetor de testes
+                            "question" => array(
+                                "id" => $question->getId(),
+                                "registrationDate" => $question->getRegistrationDate(),
+                                "question" => mb_convert_encoding($question->getQuestion(), "UTF-8", "Windows-1252"),
+                                "topic" => mb_convert_encoding($question->getTopic(), "UTF-8", "Windows-1252"),
+                                "points" => $question->getPoints(),
+                                "choices" => $jsonChoices
+                            ),
+                            "qtdeQuestions" => count($questions)
+                        );
+                    } else {
+                        // Finalizar Teste
+                        $testParticipant->setFinalized(true);
+                        // Atualizar TestParticipant
+                        $testParticipantDAO->update($testParticipant);
+                        // Adicionar retorno
+                        $jsonReturn = array(
+                            "message" => "Parabéns! Você terminou o seu teste!",
+                            // Pontuação
+                            "points" => $testParticipantDAO->getPoints($testParticipant->getTest()->getId(), $testParticipant->getParticipant()->getId()),
+                            // Questões
+                            "qtdeQuestions" => count($questions)
+                        );
                     }
-
-                    // Adicionar mensagem de retorno
-                    $jsonReturn = array(
-                        "message" => "Questão recuperada com sucesso!",
-                        // Adicionar o vetor de testes
-                        "question" => array(
-                            "id" => $question->getId(),
-                            "registrationDate" => $question->getRegistrationDate(),
-                            "question" => mb_convert_encoding($question->getQuestion(), "UTF-8", "Windows-1252"),
-                            "topic" => mb_convert_encoding($question->getTopic(), "UTF-8", "Windows-1252"),
-                            "points" => $question->getPoints(),
-                            "choices" => $jsonChoices
-                        ),
-                        "qtdeQuestions" => count($questions)
-                    );
                 } else if ($_POST["type"] == "SUBMIT") { // Submete uma resposta
                     if (isset($_POST["questionId"])) {
                         // Resgatar Questão

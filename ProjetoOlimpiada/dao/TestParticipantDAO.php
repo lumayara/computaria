@@ -153,7 +153,7 @@ class TestParticipantDAO {
                                             )
                                             WHERE 
                                             tp.participant_id = p.id AND 
-                                            tp.test_id = 19 
+                                            tp.test_id = :id
                                             GROUP BY tp.id ORDER BY points DESC, rights DESC, answered DESC, completion_time ASC, p.name ASC");
             $stmt->bindParam(":id", $id);
 
@@ -199,5 +199,39 @@ class TestParticipantDAO {
         }
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
+    
+    public function removeListParticipant($participantId) {
+        $removido = false;
+        try {
+            $stmt = $this->conexao->prepare("DELETE FROM Test_Participant WHERE participant_id = :participantId");
+            $stmt->bindParam(":participantId", $participantId);
+
+            $resultado = $stmt->execute();
+
+            if ($resultado) {
+                $removido = true;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return $removido;
+    }
+    
+     public function markFinalized($id) {
+        $removido = false;
+     try{
+         $stmt = $this->conexao->prepare("UPDATE TEST_PARTICIPANT SET FINALIZED=1 WHERE id = :id");
+         $stmt->bindParam(":id", $id);
+         
+         $resultado = $stmt->execute();
+         if($resultado){
+             $removido = true;
+         }
+     } catch (Exception $ex) {
+         echo $ex->getMessage();
+     }    
+        return $removido;
+    }
+
 
 }

@@ -52,6 +52,7 @@ if (isset($_SESSION["user"])) {
                 <link href="../css/sb-admin.css" rel="stylesheet">
 
                 <link href="../css/questionaire.css" rel="stylesheet" type="text/css">
+                <link href="../css/ranking.css" rel="stylesheet" type="text/css">
 
             </head>
 
@@ -99,7 +100,7 @@ if (isset($_SESSION["user"])) {
                                 <div class="questionaire-header">
                                     <h2><i class="fa fa-pencil-square-o fa-fw"></i>Questionário - <?php echo $test->getClassification(); ?></h2>
                                     <?php if (!$expired && !$finalized) { ?>
-                                        <div><p id="qtde-questions"></p></div>
+                                    <div id="panel-qtde-questions"><p id="qtde-questions"></p></div>
                                     <?php } ?>
                                 </div>
 
@@ -108,7 +109,7 @@ if (isset($_SESSION["user"])) {
                         </div>
                         <!-- /.row -->
                         <div class="row">
-                            <div class="col-lg-8">
+                            <div class="col-lg-8" id="test-content">
                                 <?php
                                 if (!$started) {
                                     ?>
@@ -118,7 +119,7 @@ if (isset($_SESSION["user"])) {
                                         <p>Sua prova ainda não começou. Aguarde...</p>
                                         <p>Início em 
                                             <?php
-                                            echo 
+                                            echo
                                             date("d/m/Y", strtotime($testParticipant->getTest()->getStartDate())) . " às " .
                                             date("H:i", strtotime($testParticipant->getTest()->getStartDate()));
                                             ?>
@@ -325,6 +326,7 @@ if (isset($_SESSION["user"])) {
                         };
                         var question;
                         var qtdeQuestions;
+                        var message;
 
                         $.ajax({
                             type: "POST",
@@ -335,8 +337,14 @@ if (isset($_SESSION["user"])) {
                             datatype: 'json',
                             success: function(data) {
 
-                                question = data.question;
-                                qtdeQuestions = data.qtdeQuestions;
+                                if (data.qtdeQuestions > 0) {
+                                    question = data.question;
+                                    qtdeQuestions = data.qtdeQuestions;
+                                } else {
+                                    message = data.message;
+                                    points = data.points;
+                                }
+
 
                             },
                             error: function(data) {
@@ -351,21 +359,35 @@ if (isset($_SESSION["user"])) {
 
                         // Informações da Questão
                         $("#qtde-questions").html(qtdeQuestions + (qtdeQuestions > 1 ? " questões restantes" : " questão restante"));
-                        $("#question-id").attr("value", question.id);
-                        $("#question-title").html(question.question);
-                        $("#question-topic").html(question.topic);
-                        $("#question-points").html(question.points);
-                        // Alternativas da Questão
-                        for (var i = 0; i < question.choices.length; i++) {
-                            $("#question-choices").append(
-                                    '<li>' +
-                                    '<input type="radio" ' +
-                                    'id="choice-' + question.choices[i].id + '" ' +
-                                    'name="choice"' +
-                                    'value="' + question.choices[i].id + '" />' +
-                                    '<label for="choice-' + question.choices[i].id + '">' + question.choices[i].choice + '</label>' +
-                                    '</li>'
 
+                        // Verificar se ainda há questões para responder
+                        if (qtdeQuestions > 0) {
+                            $("#question-id").attr("value", question.id);
+                            $("#question-title").html(question.question);
+                            $("#question-topic").html(question.topic);
+                            $("#question-points").html(question.points);
+                            // Alternativas da Questão
+                            for (var i = 0; i < question.choices.length; i++) {
+                                $("#question-choices").append(
+                                        '<li>' +
+                                        '<input type="radio" ' +
+                                        'id="choice-' + question.choices[i].id + '" ' +
+                                        'name="choice"' +
+                                        'value="' + question.choices[i].id + '" />' +
+                                        '<label for="choice-' + question.choices[i].id + '">' + question.choices[i].choice + '</label>' +
+                                        '</li>'
+
+                                        );
+                            }
+                        } else {
+                            $("#panel-qtde-questions").hide(0);
+                            $("#test-content").html(
+                                    '<div class="warning chat-panel panel panel-default">' +
+                                    '<h3>Parabens!</h3>' +
+                                    '<p>Você concluiu o seu teste! Agora é só aguardar o término!</p>' +
+                                    '<p>Sua pontuação foi: ' + points + '</p>' +
+                                    '<p>O ranking completo pode ser visualizado ao lado.</p>' +
+                                    '</div>'
                                     );
                         }
 
@@ -389,6 +411,7 @@ if (isset($_SESSION["user"])) {
 
                         var requiredData = {
                             id: <?php echo $test->getId(); ?>
+
                         };
                         var ranking;
 
@@ -417,9 +440,9 @@ if (isset($_SESSION["user"])) {
                             $("#ranking-area > div").append(
                                     '<a href="#" class="list-group-item">' +
                                     '<span>' + (i + 1) + '</span>' +
-                                    '<span class="name">' + 
+                                    '<span class="name">' +
                                     (ranking[i].testParticipant.finalized == 1 ? '<i class="fa fa-check"></i>' : '') +
-                                    ranking[i].testParticipant.participant.name + 
+                                    ranking[i].testParticipant.participant.name +
                                     '</span>' +
                                     '<span class="small"><em>' + ranking[i].answered + '</em></span>' +
                                     '<span class="small"><em>' + ranking[i].rights + '</em></span>' +
