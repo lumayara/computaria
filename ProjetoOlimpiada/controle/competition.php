@@ -36,8 +36,8 @@
 
         <div id="wrapper">
             <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listComp.php">Manter Competição</a>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>
                     -> Competição</div>
             </div>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">

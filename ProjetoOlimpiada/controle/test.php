@@ -40,8 +40,9 @@
 
         <div id="wrapper">
             <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listComp.php">Manter Competição</a>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>->
+                    <a href="competition.php?id=<?php echo $test->getCompetition()->getID()?>">Competição</a>                    
                     -> Prova</div>
             </div>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -130,7 +131,7 @@
                                                         . "<a href='listaChoices.php?id=" . $question->getId() . "'>Visualizar</a>"
                                                         . "</td>"
                                                         . "<td>"
-                                                        . "<a href='editTestForm.php?id=" . $question->getId() . "'>Editar</a>"
+                                                        . "<a href='editQuestionForm.php?id=" . $question->getId() . "'>Editar</a>"
                                                         . "</td>"
                                                         . "<td>"
                                                         . "<a href='removeQuestion.php?id=" . $question->getId() . "'>Remover</a>"

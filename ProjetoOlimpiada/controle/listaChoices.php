@@ -43,10 +43,10 @@
 
         <div id="wrapper">
             <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listComp.php">Manter Competição</a>
-                    -><a href="competition.php?id=<?php echo $competition->getId() ?>">Ver Provas</a>
-                    -><a href="test.php?id=<?php echo $test->getId() ?>">Ver Questões</a>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>
+                    -><a href="competition.php?id=<?php echo $competition->getId() ?>">Competição</a>
+                    -><a href="test.php?id=<?php echo $test->getId() ?>">Prova</a>
                     ->Ver Alternativas</div>
             </div>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">

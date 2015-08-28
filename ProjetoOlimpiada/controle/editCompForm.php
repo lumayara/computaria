@@ -29,8 +29,8 @@
 <body>
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listComp.php">Manter Competição</a>->Editar Competição</div>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>->Editar Competição</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -76,7 +76,7 @@
         <input type="hidden" value="<?php echo $id ?>" name="id" />
         <label for="inputNome" class="control-label col-xs-2">Nome</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" name="inputNome" autofocus value="<?php echo $comp["name"]?>" required>
+            <input type="text" class="form-control" id="inputNome" name="inputNome" autofocus value="<?php echo $comp->getName() ?>" required>
         </div>
 
     

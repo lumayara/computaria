@@ -87,7 +87,7 @@ if (isset($_SESSION['user'])) {
                             <h1 class="page-header"><i class="fa fa-smile-o"></i> Bem vindo(a), <?php echo $participant->getName() ?>!</h1>
                         </div>
 
-                        <div class="col-md-4 col-md-offset-4">
+                        <div class="col-md-10 col-md-offset-2">
                             <h1>Testes</h1>
 
                             <table>
@@ -104,7 +104,7 @@ if (isset($_SESSION['user'])) {
 
                                         date_default_timezone_set('America/New_York');
 
-                                        echo date("Y-m-d H:i:s", time());
+                                      
 
                                         $started = (strtotime($testParticipant->getTest()->getStartDate()) <= time());
 

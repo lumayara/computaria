@@ -2,12 +2,12 @@
 <html>
 <?php 
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/QuestionDAO.php";
+    include_once "$url_path/dao/TestDAO.php";
     
-    $questionDAO = new QuestionDAO();
+    $testDAO = new TestDAO();
     $id = $_GET["id"];
   
-    $question = $questionDAO->get($id);
+    $test = $testDAO->get($id);
     
     ?>
 <head>
@@ -29,9 +29,9 @@
 <body>
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $question->getCompetition()->getId() ?>">Ver Questões</a>-> Editar Questão</div>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>
+                    -><a href="competition.php?id=<?php echo $test->getCompetition()->getId() ?>">Ver Testes</a>-> Editar Teste</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -65,26 +65,36 @@
    <div class="row">
        <br>
        <br>
-       <div class="col-md-4 col-md-offset-4">
+       <div class="col-md-6 col-md-offset-3">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Editar Questão
+                  <i class="fa fa-trophy fa-fw"></i> Editar Prova
               </div>
     <div class="panel-body">
                 
-    <form class="form-horizontal" method="POST" action="editProva.php">
+    <form class="form-horizontal" method="POST" action="editTest.php">
     <div class="form-group">
-        <input type="hidden" value="<?php echo $id ?>" name="id" />
-        <div class="form-group">
-        <label for="inputTopico" class="control-label col-xs-2">Tópico</label>
-        <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputTopico" name="inputTopico" value="<?php echo $question["topico"]?>" required>
+         <input type="hidden" value="<?php echo $id ?>" name="id" />
+    <div class="form-group">
+        <label for="inputClassification" class="control-label col-xs-3">Classificação</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="inputClassification" name="inputClassification" autofocus placeholder="<?php echo $test->getClassification()?>" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="inputQuestion" class="control-label col-xs-2">Question</label>
-        <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" value="<?php echo $question["question"]?>" required>
+        <label for="inputDate" class="control-label col-xs-3">Data da prova</label>
+       <div class="col-xs-9">
+            <input type="date" class="form-control" id="inputDate" name="inputDate" required>
+       </div>
+        
+       <label for="inputTimeStart" class="control-label col-xs-3">Hora de início</label>
+       <div class="col-xs-9">
+            <input type="time" class="form-control" id="inputTimeStart" name="inputTimeStart" required>
+       </div>
+       <label for="inputTimeEnd" class="control-label col-xs-3">Hora de término</label>
+       <div class="col-xs-9">
+            <input type="time" class="form-control" id="inputTimeEnd" name="inputTimeEnd" required>
+       </div>     
         </div>
     </div>
     <div class="form-group">

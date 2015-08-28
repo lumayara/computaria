@@ -30,7 +30,7 @@
 
         <div id="wrapper">
             <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Manter Competição</div>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->Lista Competições</div>
             </div>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
@@ -70,7 +70,7 @@
                 <div class="row">
 
                     <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Manter Competição</h1>
+                        <h1 class="page-header"><i class="fa fa-cog fa-fw"></i>Lista Competições</h1>
                     </div>
                     <!-- /.col-lg-12 -->
 

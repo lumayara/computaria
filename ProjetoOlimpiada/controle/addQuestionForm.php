@@ -2,10 +2,12 @@
 <html>
 <?php
     $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
-    include_once "$url_path/dao/QuestionDAO.php";
-    $questionDAO = new QuestionDAO();
+    include_once "$url_path/dao/TestDAO.php";
+    
+    $testDAO = new TestDAO();
     $id = $_GET["id"];
-
+    
+    $test = $testDAO->get($id);
 ?>
 <head>
 
@@ -26,9 +28,10 @@
 <body>
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $id?>">Ver Questões</a>->Adicionar Questão</div>
+               <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>
+                    -> <a href="competition.php?id=<?php echo $test->getCompetition()->getId() ?>">Competição</a>
+                    -> <a href="test.php?id=<?php echo $test->getId() ?>">Prova</a>-> Adicionar Questão</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

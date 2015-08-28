@@ -26,9 +26,9 @@
 <body>
     <div id="wrapper">
         <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->
-                    <a href="listComp.php">Manter Competição</a>
-                    -><a href="listTest.php?id=<?php echo $id?>">Ver Provas</a>->Adicionar Prova</div>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>
+                    -> <a href="competition.php?id=<?php echo $id?>">Competição</a> ->Adicionar Prova</div>
         </div>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -62,8 +62,8 @@
    <div class="row">
        <br>
        <br>
-       <!--<div class="col-md-5 col-md-offset-4">-->
-       <div class="col-md-5">
+       <div class="col-md-offset-3">
+       <div class="col-md-8">
           <div class="panel panel-success">
               <div class="panel-heading">
                   <i class="fa fa-trophy fa-fw"></i> Adicionar Prova
@@ -103,6 +103,7 @@
    </div>
  </div>
        </div>
+       </div> <!--//close div row-->
    </div>
  </div>
     </div>

@@ -35,7 +35,7 @@
 
         <div id="wrapper">
             <div class="row">
-                <div class="col-lg-12"><a href="../painelControle.html">Painel de Controle</a>->Ver Ranking</div>
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->Ver Ranking</div>
             </div>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">

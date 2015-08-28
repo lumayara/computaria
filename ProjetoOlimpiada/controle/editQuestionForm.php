@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
-
+<?php 
+    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    include_once "$url_path/dao/QuestionDAO.php";
+    
+    $questionDAO = new QuestionDAO();
+    $id = $_GET["id"];
+  
+    $question = $questionDAO->get($id);
+    $test = $question->getTest();
+    
+    ?>
 <head>
 
     <meta charset="utf-8">
@@ -9,23 +19,23 @@
     <title>Olimpif - Questions e Respostas com resultados em tempo real</title>
 
     <!-- Core CSS - Include with every page -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <!-- SB Admin CSS - Include with every page -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="../css/sb-admin.css" rel="stylesheet">
 
 </head>
 
 <body>
     <div id="wrapper">
         <div class="row">
-            <div class="col-lg-12"><a href="javascript:history.go(-1)">Página anterior</a></div>
-                   
+                <div class="col-lg-12"><a href="../painelControle.php">Painel de Controle</a>->
+                    <a href="listComp.php">Lista Competições</a>
+                    -><a href="competition.php?id=<?php echo $test->getCompetition()->getId() ?>">Competição</a>
+                    -><a href="test.php?id=<?php echo $question->getTest()->getId() ?>">Prova</a>
+                        ->Editar Questão </div>
         </div>
-              
-                    
- 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -58,53 +68,57 @@
    <div class="row">
        <br>
        <br>
-       <div class="col-md-4 col-md-offset-4">
+       <div class="col-md-6 col-md-offset-3">
           <div class="panel panel-success">
               <div class="panel-heading">
-                  <i class="fa fa-trophy fa-fw"></i> Criar Nova Competição
+                  <i class="fa fa-trophy fa-fw"></i> Editar Questão
               </div>
     <div class="panel-body">
                 
-    <form class="form-horizontal" method="POST" action="controle/addComp.php">
+    <form class="form-horizontal" method="POST" action="editQuestion.php">
     <div class="form-group">
-        <label for="inputNome" class="control-label col-xs-2">Nome</label>
+        <input type="hidden" value="<?php echo $id ?>" name="inputTest" />
+    <div class="form-group">
+        <label for="inputTopico" class="control-label col-xs-2">Tópico</label>
         <div class="col-xs-10">
-            <input type="text" class="form-control" id="inputNome" name="inputNome" autofocus placeholder="Digite o nome da competição" required>
+            <input type="text" class="form-control" id="inputTopico" name="inputTopico" value="<?php echo $question->getTopic()?>" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="inputData" class="control-label col-xs-2">Data</label>
-        <div class="col-xs-10">
-            <input type="date" class="form-control" id="inputData" name="inputData" required>
+        <label for="inputQuestion" class="control-label col-xs-3">Questão</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" value="<?php echo $question->getQuestion()?>" required>
         </div>
     </div>
-   
+        
+    <div class="form-group">
+        <label for="inputPoints" class="control-label col-xs-3">Pontos</label>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="inputPoints" name="inputPoints" value="<?php echo $question->getPoints()?>">
+        </div>
+    </div>
+        
     <div class="form-group">
         <div class="col-xs-offset-2 col-xs-10">
             <button type="submit" class="btn btn-primary">Salvar</button>
         </div>
     </div>
 </form>
-        <!-- /form -->
-   </div>
-       <!-- /panel-body -->
+   
  </div>
-       <!-- /panel panel-success -->
        </div>
-       <!-- /col-md-4 col-md-offset-4 -->
    </div>
-     <!-- /row -->
  </div>
     </div>
  
 
     <!-- Core Scripts - Include with every page -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/jquery-1.10.2.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
-    <script src="js/sb-admin.js"></script>
+    <script src="../js/sb-admin.js"></script>
 
 </body>
 

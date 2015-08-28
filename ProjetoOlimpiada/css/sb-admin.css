@@ -3,13 +3,19 @@
 /* ------------------------------- */
 
 body {
-    padding-top: 100px;
-    background-color: #f8f8f8;
+    padding-top: 40px;
+/*    background-image: url("../img/telainicial.png");
+    background-repeat: no-repeat;
+    background-size: cover; Css padrão
+    -webkit-background-size: cover; Css safari e chrome
+    -moz-background-size: cover; Css firefox
+    -ms-background-size: cover; Css IE não use mer#^@%#
+    -o-background-size: cover; Css Opera*/
 }
 
 @media(min-width:768px) {
     body {
-        padding-top: 50px;
+        padding-top: 30px;
     }
 }
 
@@ -27,6 +33,19 @@ body {
     background-color: #fff;
 }
 
+#img-logo{
+    margin: auto;
+    padding: 20px 0;
+}
+#formulario{
+     background-color: #4cfe4c;
+     padding: 7% 0 17% 0;
+}
+
+#login-tela{
+  
+   
+}
 
 @media(min-width:768px) {
     #page-wrapper {
