@@ -256,7 +256,7 @@ body {
 }
 
 .chat-panel .panel-body {
-    height: 350px;
+    height: auto;
     
 }
 

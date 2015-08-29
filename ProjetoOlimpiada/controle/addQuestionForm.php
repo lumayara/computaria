@@ -72,7 +72,7 @@
               </div>
     <div class="panel-body">
 
-    <form class="form-horizontal" method="POST" action="addQuestion.php">
+    <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="addQuestion.php">
         <input type="hidden" value="<?php echo $id ?>" name="inputTest" />
     <div class="form-group">
         <label for="inputTopico" class="control-label col-xs-2">Tópico</label>
@@ -84,6 +84,13 @@
         <label for="inputQuestion" class="control-label col-xs-3">Questão</label>
         <div class="col-xs-9">
             <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" placeholder="Digite a questão" required>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="inputImage" class="control-label col-xs-3">Imagem (Opcional)</label>
+        <div class="col-xs-9">
+            <input type="file" class="form-control" id="inputImage" name="inputImage">
         </div>
     </div>
         

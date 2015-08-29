@@ -74,6 +74,7 @@ if (isset($_SESSION["user"])) {
                                 "id" => $question->getId(),
                                 "registrationDate" => $question->getRegistrationDate(),
                                 "question" => mb_convert_encoding($question->getQuestion(), "UTF-8", "Windows-1252"),
+                                "image" => $question->getImagem(),
                                 "topic" => mb_convert_encoding($question->getTopic(), "UTF-8", "Windows-1252"),
                                 "points" => $question->getPoints(),
                                 "choices" => $jsonChoices

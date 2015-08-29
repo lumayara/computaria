@@ -14,7 +14,7 @@ if (isset($_SESSION["user"])) {
 
     $participant = $userDAO->get($_SESSION["user"]);
 
-    $question = new Question(1, NULL, NULL, NULL, NULL, 1);
+    $question = new Question(1, NULL, NULL, NULL, NULL, NULL, 1);
 
     if (isset($_GET["id"])) {
 
@@ -181,6 +181,7 @@ if (isset($_SESSION["user"])) {
                                                                 <strong class="primary-font"> - <span id="question-points"></span> Pontos</strong>
                                                             </div>
                                                             <p><span id="question"></span></p>
+                                                            <p><span id="question-image"></span></p>
                                                         </div>
                                                     </li>
                                                     <!-- Fim Bloco da mensagem-->    
@@ -364,6 +365,7 @@ if (isset($_SESSION["user"])) {
                         if (qtdeQuestions > 0) {
                             $("#question-id").attr("value", question.id);
                             $("#question-title").html(question.question);
+                            if(question.image){$("#question-image").append("<img src='../img/"+question.image+"' alt='imagem da questao'> ");}
                             $("#question-topic").html(question.topic);
                             $("#question-points").html(question.points);
                             // Alternativas da Questão
@@ -400,6 +402,7 @@ if (isset($_SESSION["user"])) {
                         $("#question-id").attr("value", "");
                         $("#question-title").html("");
                         $("#question-topic").html("");
+                        $("#question-image").html("");
                         $("#question-points").html("");
                         // Alternativas da Questão
                         $("#question-choices").html("");

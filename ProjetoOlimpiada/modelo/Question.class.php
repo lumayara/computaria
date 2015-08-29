@@ -15,14 +15,17 @@ class Question{
     private $topic;
     private $test;
     private $points;
+    private $imagem;
     
-    function __construct($id, $registrationDate, $question, $topic, $points, $test) {
+    function __construct($id, $registrationDate, $question, $topic, $points, $imagem, $test) {
         $this->id = $id;
         $this->registrationDate = $registrationDate;
         $this->question = $question;
         $this->topic = $topic;
         $this->points = $points;
+        $this->imagem = $imagem;
         $this->test = $test;
+        
     }
 
     public function getId() {
@@ -47,6 +50,14 @@ class Question{
 
     public function getTest() {
         return $this->test;
+    }
+    
+    public function getImagem() {
+        return $this->imagem;
+    }
+
+    public function setImagem($imagem) {
+        $this->imagem = $imagem;
     }
 
     public function setId($id) {
