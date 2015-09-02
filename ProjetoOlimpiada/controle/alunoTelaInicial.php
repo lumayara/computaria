@@ -28,7 +28,7 @@ if (isset($_SESSION['user'])) {
             <title>WidIF - Bem-vindo, <?php echo $participant->getName(); ?></title>
 
             <!-- Core CSS - Include with every page -->
-            <link href="../css/bootstrap.css" rel="stylesheet">
+            <link href="../css/bootstrap.min.css" rel="stylesheet">
             <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
 
             <!-- Page-Level Plugin CSS - Dashboard -->
@@ -45,9 +45,7 @@ if (isset($_SESSION['user'])) {
         <body> 
 
             <div id="wrapper">
-                <div class="row">
-                    <div class="col-lg-12">Tela Inicial</div>
-                </div>
+                
                 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -56,26 +54,14 @@ if (isset($_SESSION['user'])) {
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.html">Olimpif</a>
+                        <a class="navbar-brand" href="alunoTelaInicial.php"><img src="../img/respondeae_small.png" width="200" height="40"></a>
                     </div>
                     <!-- /.navbar-header -->
 
-                    <ul class="nav navbar-top-links navbar-right">                                
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil</a>
-                                </li>
-                                <li class="divider"></li>
-                                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
-                                </li>
-                            </ul>
-                            <!-- /.dropdown-user -->
-                        </li>
-                        <!-- /.dropdown -->
-                    </ul>
+                      <ul class="nav navbar-top-links navbar-right" >                                
+                            <br>
+                            <a href="logout.php" alt="sair">Sair</a>
+                        </ul>
                     <!-- /.navbar-top-links -->
 
 
@@ -87,16 +73,16 @@ if (isset($_SESSION['user'])) {
                             <h1 class="page-header"><i class="fa fa-smile-o"></i> Bem vindo(a), <?php echo $participant->getName() ?>!</h1>
                         </div>
 
-                        <div class="col-md-10 col-md-offset-2">
+                        <div class="col-md-12">
                             <h1>Testes</h1>
 
-                            <table>
+                            <table id="listaTestes">
                                 <tr>
                                     <th>Classificação</th>
                                     <th>Início</th>
                                     <th>Fim</th>
                                     <th>Status</th>
-                                    <th>Ações</th>
+                                    <th id="ultimo">Ações</th>
                                 </tr>
                                 <?php
                                 if ($testsParticipant) {
@@ -114,7 +100,7 @@ if (isset($_SESSION['user'])) {
 
                                         $linkavel = true;
 
-                                        $link = "<a href='questionario_2.php?id={$testParticipant->getID()}' title='Ir para o Teste'>Ir para o Teste</a>";
+                                        $link = "<a href='questionario_2.php?id={$testParticipant->getID()}' title='Ir para o Teste'>Acessar seu Teste</a>";
                                         ?>
 
                                         <tr>
@@ -169,7 +155,7 @@ if (isset($_SESSION['user'])) {
                                                 }
                                                 ?>
                                             </td>
-                                            <td>
+                                            <td id="ultimo">
                                                 <?php echo ($linkavel ? $link : ""); ?>
                                             </td>
                                         </tr>

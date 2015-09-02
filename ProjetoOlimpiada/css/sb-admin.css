@@ -3,7 +3,7 @@
 /* ------------------------------- */
 
 body {
-    padding-top: 40px;
+    padding-top: 60px;
 /*    background-image: url("../img/telainicial.png");
     background-repeat: no-repeat;
     background-size: cover; Css padrão
@@ -15,7 +15,7 @@ body {
 
 @media(min-width:768px) {
     body {
-        padding-top: 30px;
+        padding-top: 50px;
     }
 }
 
@@ -42,9 +42,31 @@ body {
      padding: 7% 0 17% 0;
 }
 
-#login-tela{
-  
-   
+li{
+    list-style: none;
+}
+
+nav a{
+    font-size: 25px;
+    color:white;
+    padding: 20px;
+}
+
+navbar-top-links navbar-right a:link{
+    text-decoration: none;
+}
+
+#listaTestes th{
+    padding-right: 150px;
+}
+
+#ultimo{
+    padding-left: 50px;
+}
+
+#ultimo a{
+   font-style: bold;
+   font-size: 20px;
 }
 
 @media(min-width:768px) {

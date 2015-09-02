@@ -38,7 +38,7 @@ if (isset($_SESSION["user"])) {
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                <title>WidIF - Questionário</title>
+                <title>Respondeaê - Questionário</title>
 
                 <!-- Core CSS - Include with every page -->
                 <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -68,28 +68,16 @@ if (isset($_SESSION["user"])) {
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="index.html">Olimpif</a>
+                            <a class="navbar-brand" href="alunoTelaInicial.php"><img src="../img/respondeae_small.png" width="200" height="40"></a>
+                            
                         </div>
                         <!-- /.navbar-header -->
 
                         <ul class="nav navbar-top-links navbar-right">                                
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
-                                    </li>
-                                </ul>
-                                <!-- /.dropdown-user -->
-                            </li>
-                            <!-- /.dropdown -->
+                            <br>
+                            <a href="logout.php" alt="sair">Sair</a>
                         </ul>
                         <!-- /.navbar-top-links -->
-
 
                     </nav>
 
@@ -376,7 +364,7 @@ if (isset($_SESSION["user"])) {
                                         'id="choice-' + question.choices[i].id + '" ' +
                                         'name="choice"' +
                                         'value="' + question.choices[i].id + '" />' +
-                                        '<label for="choice-' + question.choices[i].id + '">' + question.choices[i].choice + '</label>' +
+                                        '<label for="choice-' + question.choices[i].id + '">&nbsp;' + question.choices[i].choice + '</label>' +
                                         '</li>'
 
                                         );

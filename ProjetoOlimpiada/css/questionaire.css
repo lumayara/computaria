@@ -43,6 +43,10 @@
     display: none;
 }
 
+#btn-submit{
+    font-size: 20px;
+}
+
 .progress .progress-bar-animate {
     -webkit-animation: spin 2s ease-in-out;
     -moz-animation: spin 2s ease-in-out;

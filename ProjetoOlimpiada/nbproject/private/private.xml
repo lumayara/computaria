@@ -12,40 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/salvaPergunta.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/questionaire.css</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/ranking.css</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/removeAdmin.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/listComp.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/editQuestionForm.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/js/timer.js</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/QuestionDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/competition.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/removeTest.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/listaChoices.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/to%20delete/alunoTelaTestes.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/bootstrap.min.css</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/validar.php</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/sb-admin.css</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/alunoTelaInicial.php</file>
             <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/questionario_2.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addChoiceForm.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/to%20delete/verRanking.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/addComp.html</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Question.class.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/exibePergunta.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/removeUser.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/login.html</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/TestDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addQuestionForm.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/rankingControl.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/editTestForm.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/removeChoice.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/addQuestion.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/dao/TestParticipantDAO.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/test.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/getTestsByCompetition.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/removeQuestion.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/modelo/Test.class.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/editChoiceForm.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/validar.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/loginAdmin.html</file>
+            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/logout.php</file>
         </group>
     </open-files>
 </project-private>
