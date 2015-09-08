@@ -20,7 +20,7 @@ if (isset($_GET)) {
         $jsonTests = array();
 
         // Incluir arquivos necessários para realizar a busca
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/TestDAO.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/dao/TestDAO.php';
 
         // Criar novo DAO de Competition e Test
         $testDAO = new TestDAO();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
-    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/comp/ProjetoOlimpiada";
     include_once "$url_path/dao/TestDAO.php";
     $testDAO = new TestDAO();
     $id = $_GET["id"];

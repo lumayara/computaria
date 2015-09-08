@@ -11,8 +11,8 @@
  *
  * @author Luana
  */
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/conexao/ConnectionFactory.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/modelo/Administrator.class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/conexao/ConnectionFactory.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/modelo/Administrator.class.php';
 
 class AdministratorDAO {
 

@@ -1,5 +1,5 @@
 <?php
-$url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+$url_path = $_SERVER["DOCUMENT_ROOT"] . "/comp/ProjetoOlimpiada";
 include_once "$url_path/dao/ParticipantDAO.php";
 
     $id = $_GET['id'];

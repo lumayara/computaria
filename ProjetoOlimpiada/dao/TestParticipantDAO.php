@@ -11,11 +11,11 @@
  *
  * @author Luana
  */
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/conexao/ConnectionFactory.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/TestDAO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/dao/ParticipantDAO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/modelo/TestParticipant.class.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/computaria/ProjetoOlimpiada/modelo/Classification.class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/conexao/ConnectionFactory.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/dao/TestDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/dao/ParticipantDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/modelo/TestParticipant.class.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/comp/ProjetoOlimpiada/modelo/Classification.class.php';
 
 class TestParticipantDAO {
 

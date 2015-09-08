@@ -3,7 +3,7 @@
 /* ------------------------------- */
 
 body {
-    padding-top: 60px;
+    padding-top: 80px;
 /*    background-image: url("../img/telainicial.png");
     background-repeat: no-repeat;
     background-size: cover; Css padrão
@@ -15,7 +15,7 @@ body {
 
 @media(min-width:768px) {
     body {
-        padding-top: 50px;
+        padding-top: 70px;
     }
 }
 

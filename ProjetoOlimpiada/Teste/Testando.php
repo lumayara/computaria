@@ -46,7 +46,7 @@ class Testando {
      //   $Administrator = new Administrator(0,"Luana", "lu@oi.com", "1234");
       //  $this->AdministratorDAO->addAdministrator($Administrator);
       //  $this->AdministratorDAO->removeAdm(1);
-     // $competition = new Competition(0, "Computaria", "");
+     // $competition = new Competition(0, "comp", "");
      // $this->competitionDAO->addCompetition($competition);
       //  $participant = new Usuario(0, "Lulu", "lua@eu.com", "123","ADS", 1);
         //$this->participantDAO->addUsuario($participant);

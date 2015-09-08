@@ -12,14 +12,17 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/questionaire.css</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/ranking.css</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/bootstrap.min.css</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/validar.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/css/sb-admin.css</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/alunoTelaInicial.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/questionario_2.php</file>
-            <file>file:/C:/xampp/htdocs/computaria/ProjetoOlimpiada/controle/logout.php</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/controle/addQuestionForm.php</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/css/questionaire.css</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/css/ranking.css</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/css/bootstrap.min.css</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/controle/addQuestion.php</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/controle/validar.php</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/controle/questionnaireControl.php</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/css/sb-admin.css</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/controle/alunoTelaInicial.php</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/controle/questionario_2.php</file>
+            <file>file:/C:/xampp/htdocs/comp/ProjetoOlimpiada/controle/logout.php</file>
         </group>
     </open-files>
 </project-private>

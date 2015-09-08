@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php 
-    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+    $url_path = $_SERVER["DOCUMENT_ROOT"] . "/comp/ProjetoOlimpiada";
     include_once "$url_path/dao/QuestionDAO.php";
     
     $questionDAO = new QuestionDAO();
@@ -77,7 +77,7 @@
                 
     <form class="form-horizontal" method="POST" action="editQuestion.php">
     <div class="form-group">
-        <input type="hidden" value="<?php echo $id ?>" name="inputTest" />
+         <input type="hidden" value="<?php echo $id ?>" name="id" />
     <div class="form-group">
         <label for="inputTopico" class="control-label col-xs-2">Tópico</label>
         <div class="col-xs-10">
@@ -88,6 +88,13 @@
         <label for="inputQuestion" class="control-label col-xs-3">Questão</label>
         <div class="col-xs-9">
             <input type="text" class="form-control" id="inputQuestion" name="inputQuestion" value="<?php echo $question->getQuestion()?>" required>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label for="inputImage" class="control-label col-xs-3">Imagem (Opcional)</label>
+        <div class="col-xs-9">
+            <input type="file" class="form-control" id="inputImage" name="inputImage" value="<?php echo $question->getImagem()?>">
         </div>
     </div>
         

@@ -3,7 +3,7 @@
 // Definindo o tipo de documento como JSON
 header('Content-Type: application/json; charset=utf-8');
 
-$url_path = $_SERVER["DOCUMENT_ROOT"] . "/computaria/ProjetoOlimpiada";
+$url_path = $_SERVER["DOCUMENT_ROOT"] . "/comp/ProjetoOlimpiada";
 
 include_once "$url_path/dao/ParticipantDAO.php";
 include_once "$url_path/dao/TestParticipantDAO.php";
