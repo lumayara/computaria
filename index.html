@@ -12,16 +12,30 @@
     
     <style type="text/css">
     nav { color: black; text-size: 20px; padding: 2px; }
-    nav a { color: black; text-decoration: bold; }
+    a:link {
+    color: gray;
+    }
+
+    a:visited {
+    color: gray;
+    }
+
+    a:hover {
+    color: blue;
+    }
+
+    a:active {
+    color: green;
+    }
     </style>
   </head>
   
   <body>
     <nav>
-        <a href="diagramas.html" class="btn">Diagramas</a>
-        <a href="ferramenta.html" class="btn">A ferramenta</a>
-        <a href="info.html" class="btn">Mais informações</a>
-        <a href="resultados" class="btn">Resultados</a>
+        <a href="diagramas.html" class="active">Diagramas</a>
+        <a href="ferramenta.html">A ferramenta</a>
+        <a href="info.html">Mais informações</a>
+        <a href="resultados">Resultados</a>
       </nav>
     <section class="page-header">
       <h1 class="project-name">A tecnologia como ferramenta de auxílio na educação</h1>
