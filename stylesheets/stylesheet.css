@@ -13,7 +13,23 @@ a {
   color: #1e6bb8;
   text-decoration: none; }
   a:hover {
-    text-decoration: underline; }
+    text-decoration: none; }
+    
+ <style type="text/css">
+    nav {text-size: 20px; font-weight: bold; }
+    nav a { padding: 4px;}
+
+    nav a:visited {
+    color: #1e6bb8;
+    }
+
+    a:hover {
+    color: blue;
+    }
+
+    nav a:active {
+    color: green;
+    }
 
 .btn {
   display: inline-block;
